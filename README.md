@@ -1,2 +1,3 @@
-# webgui
-Web Technologies based Crossplatform GUI
+# WebGui
+
+- Web Technologies based Crossplatform GUI, modified wrapper for modified `webview.h`.
