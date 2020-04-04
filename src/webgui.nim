@@ -10,8 +10,8 @@ elif defined(macosx):
 
 type
   ExternalInvokeCb* = proc (w: Webview; arg: string)
-  WebviewPrivObj {.importc: "struct webview_priv", header: "webview.h", bycopy.} = object
-  WebviewObj* {.importc: "struct webview", header: "webview.h", bycopy.} = object
+  WebviewPrivObj {.importc: "struct webview_priv", bycopy.} = object
+  WebviewObj* {.importc: "struct webview", bycopy.} = object
     url* {.importc: "url".}: cstring
     title* {.importc: "title".}: cstring
     width* {.importc: "width".}: cint
@@ -83,22 +83,22 @@ var
   cbs = newTable[Webview, ExternalInvokeCb]() # easy callbacks
   dispatchTable = newTable[int, DispatchFn]() # for dispatch
 
-func init(w: Webview): cint {.importc: "webview_init", header: "webview.h".}
-func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop", header: "webview.h".}
-func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: "webview.h".}  ## Evaluate a JavaScript cstring, runs the javascript string on the window
-func css*(w: Webview; css: cstring): cint {.importc: "webview_inject_css", header: "webview.h".} ## Set a CSS cstring
-func setTitle*(w: Webview; title: cstring) {.importc: "webview_set_title", header: "webview.h".}     ## Set Title of window
-func setColor*(w: Webview; red, green, blue, alpha: uint8) {.importc: "webview_set_color", header: "webview.h".}  ## Set background color
-func setFullscreen*(w: Webview; fullscreen: bool) {.importc: "webview_set_fullscreen", header: "webview.h".} ## Set fullscreen
-func dialog(w: Webview; dlgtype: DialogType; flags: cint; title: cstring; arg: cstring; result: cstring; resultsz: system.csize_t) {.importc: "webview_dialog", header: "webview.h".}
-func dispatch(w: Webview; fn: pointer; arg: pointer) {.importc: "webview_dispatch", header: "webview.h".}
-func webview_terminate(w: Webview) {.importc: "webview_terminate", header: "webview.h".}
-func webview_exit(w: Webview) {.importc: "webview_exit", header: "webview.h".}   ## Exit and quit
-func jsDebug*(format: cstring) {.varargs, importc: "webview_debug", header: "webview.h".}  ##  `console.debug()` directly inside the JavaScript context.
-func jsLog*(s: cstring) {.importc: "webview_print_log", header: "webview.h".} ## `console.log()` directly inside the JavaScript context.
-func webview(title: cstring; url: cstring; w: cint; h: cint; resizable: cint): cint {.importc: "webview", header: "webview.h", used.}
-func setUrl*(w: Webview; url: cstring) {.importc: "webview_launch_external_URL", header: "webview.h".} ## Set the URL
-func setIconify*(w: Webview; mustBeIconified: bool) {.importc: "webview_set_iconify", header: "webview.h".}  ## Set window to be Minimized Iconified
+func init(w: Webview): cint {.importc: "webview_init".}
+func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop".}
+func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval".}  ## Evaluate a JavaScript cstring, runs the javascript string on the window
+func css*(w: Webview; css: cstring): cint {.importc: "webview_inject_css".} ## Set a CSS cstring
+func setTitle*(w: Webview; title: cstring) {.importc: "webview_set_title".}     ## Set Title of window
+func setColor*(w: Webview; red, green, blue, alpha: uint8) {.importc: "webview_set_color".}  ## Set background color
+func setFullscreen*(w: Webview; fullscreen: bool) {.importc: "webview_set_fullscreen".} ## Set fullscreen
+func dialog(w: Webview; dlgtype: DialogType; flags: cint; title: cstring; arg: cstring; result: cstring; resultsz: system.csize_t) {.importc: "webview_dialog".}
+func dispatch(w: Webview; fn: pointer; arg: pointer) {.importc: "webview_dispatch".}
+func webview_terminate(w: Webview) {.importc: "webview_terminate".}
+func webview_exit(w: Webview) {.importc: "webview_exit".}   ## Exit and quit
+func jsDebug*(format: cstring) {.varargs, importc: "webview_debug".}  ##  `console.debug()` directly inside the JavaScript context.
+func jsLog*(s: cstring) {.importc: "webview_print_log".} ## `console.log()` directly inside the JavaScript context.
+func webview(title: cstring; url: cstring; w: cint; h: cint; resizable: cint): cint {.importc: "webview", used.}
+func setUrl*(w: Webview; url: cstring) {.importc: "webview_launch_external_URL".} ## Set the URL
+func setIconify*(w: Webview; mustBeIconified: bool) {.importc: "webview_set_iconify".}  ## Set window to be Minimized Iconified
 
 func setBorderless*(w: Webview, decorated: bool) {.inline.} =
   ## Use a window without borders, no close nor minimize buttons.
