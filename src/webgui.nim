@@ -10,16 +10,16 @@ elif defined(macosx):
   {.passC: "-DWEBVIEW_COCOA=1 -x objective-c", passL: "-framework Cocoa -framework WebKit".}
 
 type
-  ExternalInvokeCb* = proc (w: Webview; arg: string)
+  ExternalInvokeCb* = proc (w: Webview; arg: string)  ## External CallBack Proc
   WebviewPrivObj {.importc: "struct webview_priv", header: headerC, bycopy.} = object
-  WebviewObj* {.importc: "struct webview", header: headerC, bycopy.} = object
-    url* {.importc: "url".}: cstring
-    title* {.importc: "title".}: cstring
-    width* {.importc: "width".}: cint
-    height* {.importc: "height".}: cint
-    resizable* {.importc: "resizable".}: cint
-    debug* {.importc: "debug".}: cint
-    invokeCb {.importc: "external_invoke_cb".}: pointer
+  WebviewObj* {.importc: "struct webview", header: headerC, bycopy.} = object ## WebView Type
+    url* {.importc: "url".}: cstring                    ## Current URL
+    title* {.importc: "title".}: cstring                ## Window Title
+    width* {.importc: "width".}: cint                   ## Window Width 
+    height* {.importc: "height".}: cint                 ## Window Height
+    resizable* {.importc: "resizable".}: cint           ## `true` to Resize the Window, `false` for Fixed size Window
+    debug* {.importc: "debug".}: cint                   ## Debug is `true` when not build for Release
+    invokeCb {.importc: "external_invoke_cb".}: pointer ## Callback proc
     priv {.importc: "priv".}: WebviewPrivObj
     userdata {.importc: "userdata".}: pointer
   Webview* = ptr WebviewObj
@@ -31,7 +31,7 @@ type
     scope, name, args: string
 
 const
-  dataUriHtmlHeader* = "data:text/html;charset=utf-8,"
+  dataUriHtmlHeader* = "data:text/html;charset=utf-8,"  ## Data URI for HTML UTF-8 header string
   cssDark = staticRead"dark.css".strip.cstring
   cssLight = staticRead"light.css".strip.cstring
   imageLazy = """
@@ -86,19 +86,19 @@ var
 
 func init(w: Webview): cint {.importc: "webview_init", header: headerC.}
 func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop", header: headerC.}
-func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: headerC.}  ## Evaluate a JavaScript cstring, runs the javascript string on the window
-func css*(w: Webview; css: cstring): cint {.importc: "webview_inject_css", header: headerC.} ## Set a CSS cstring
-func setTitle*(w: Webview; title: cstring) {.importc: "webview_set_title", header: headerC.}     ## Set Title of window
-func setColor*(w: Webview; red, green, blue, alpha: uint8) {.importc: "webview_set_color", header: headerC.}  ## Set background color
-func setFullscreen*(w: Webview; fullscreen: bool) {.importc: "webview_set_fullscreen", header: headerC.} ## Set fullscreen
+func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: headerC.} ## Evaluate a JavaScript cstring, runs the javascript string on the window
+func css*(w: Webview; css: cstring): cint {.importc: "webview_inject_css", header: headerC.} ## Set a CSS cstring, inject the CSS on the Window
+func setTitle*(w: Webview; title: cstring) {.importc: "webview_set_title", header: headerC.} ## Set Title of window
+func setColor*(w: Webview; red, green, blue, alpha: uint8) {.importc: "webview_set_color", header: headerC.} ## Set background color of the Window
+func setFullscreen*(w: Webview; fullscreen: bool) {.importc: "webview_set_fullscreen", header: headerC.}     ## Set fullscreen
 func dialog(w: Webview; dlgtype: DialogType; flags: cint; title: cstring; arg: cstring; result: cstring; resultsz: system.csize_t) {.importc: "webview_dialog", header: headerC.}
 func dispatch(w: Webview; fn: pointer; arg: pointer) {.importc: "webview_dispatch", header: headerC.}
 func webview_terminate(w: Webview) {.importc: "webview_terminate", header: headerC.}
-func webview_exit(w: Webview) {.importc: "webview_exit", header: headerC.}   ## Exit and quit
+func webview_exit(w: Webview) {.importc: "webview_exit", header: headerC.}
 func jsDebug*(format: cstring) {.varargs, importc: "webview_debug", header: headerC.}  ##  `console.debug()` directly inside the JavaScript context.
 func jsLog*(s: cstring) {.importc: "webview_print_log", header: headerC.} ## `console.log()` directly inside the JavaScript context.
 func webview(title: cstring; url: cstring; w: cint; h: cint; resizable: cint): cint {.importc: "webview", header: headerC, used.}
-func setUrl*(w: Webview; url: cstring) {.importc: "webview_launch_external_URL", header: headerC.} ## Set the URL
+func setUrl*(w: Webview; url: cstring) {.importc: "webview_launch_external_URL", header: headerC.} ## Set the current URL
 func setIconify*(w: Webview; mustBeIconified: bool) {.importc: "webview_set_iconify", header: headerC.}  ## Set window to be Minimized Iconified
 
 func setBorderless*(w: Webview, decorated: bool) {.inline.} =
@@ -110,7 +110,7 @@ func setSkipTaskbar*(w: Webview, hint: bool) {.inline.} =
   when defined(linux): {.emit: "gtk_window_set_skip_taskbar_hint(GTK_WINDOW(`w`->priv.window), `hint`); gtk_window_set_skip_pager_hint(GTK_WINDOW(`w`->priv.window), `hint`);".}
 
 func setSize*(w: Webview, width: Positive, height: Positive) {.inline.} =
-  ## Resize the window
+  ## Resize the window to given size
   when defined(linux): {.emit: "gtk_widget_set_size_request(GTK_WINDOW(`w`->priv.window), `width`, `height`);".}
 
 func setFocus*(w: Webview) {.inline.} =
@@ -122,12 +122,12 @@ func setOnTop*(w: Webview, mustBeOnTop: bool) {.inline.} =
   when defined(linux): {.emit: "gtk_window_set_keep_above(GTK_WINDOW(`w`->priv.window), `mustBeOnTop`);".}
 
 func setClipboard*(w: Webview, text: cstring) {.inline.} =
-  ## Set a text cstring on the Clipboard
+  ## Set a text cstring on the Clipboard, text must not be empty string
   assert text.len > 0, "text for clipboard must not be empty string"
   when defined(linux): {.emit: "gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD), `text`, -1);".}
 
 func setTrayIcon*(w: Webview, path: cstring, visible = true) {.inline.} =
-  ## Set a TrayIcon on the corner of the desktop. ``path`` is full path to a PNG image icon. Only shows an icon.
+  ## Set a TrayIcon on the corner of the desktop. `path` is full path to a PNG image icon. Only shows an icon.
   assert path.len > 0, "icon path must not be empty string"
   when defined(linux): {.emit: "GtkStatusIcon* webview_icon_nim = gtk_status_icon_new_from_file(`path`); gtk_status_icon_set_visible(webview_icon_nim, `visible`);".}
 
@@ -148,7 +148,7 @@ proc generalExternalInvokeCallback(w: Webview; arg: cstring) {.exportc.} =
     if unlikely(handled == false): echo "Error on External invoke: ", arg
 
 proc `externalInvokeCB=`*(w: Webview; callback: ExternalInvokeCb) {.inline.} =
-  ## Set the external invoke callback for webview
+  ## Set the external invoke callback for webview, for Advanced users only
   cbs[w] = callback
 
 proc generalDispatchProc(w: Webview; arg: pointer) {.exportc.} =
@@ -157,6 +157,7 @@ proc generalDispatchProc(w: Webview; arg: pointer) {.exportc.} =
   fn()
 
 proc dispatch*(w: Webview; fn: DispatchFn) {.inline.} =
+  ## Explicitly force dispatch a function, for advanced users only
   let idx = dispatchTable.len() + 1
   dispatchTable[idx] = fn
   dispatch(w, generalDispatchProc, cast[pointer](idx))
@@ -202,20 +203,20 @@ template dialogOpenDir*(w: Webview; title = ""): string =
   w.dialog(dtOpen, flag = 1, title, "")
 
 func run*(w: Webview) {.inline.} =
-  ## ``run`` starts the main UI loop until the user closes the webview window or `exit()` is called.
+  ## `run` starts the main UI loop until the user closes the webview window or `exit()` is called.
   while w.loop(1) == 0: discard
 
 func exit*(w: Webview) {.inline.} =
-  ## Terminate and Exit.
+  ## Terminate, close, exit, quit.
   w.webview_terminate()
   w.webview_exit()
 
 template setTheme*(w: Webview; dark: bool) =
-  ## Set Dark Theme or Light Theme on-the-fly.
+  ## Set Dark Theme or Light Theme on-the-fly, `dark = true` for Dark, `dark = false` for Light.
   discard w.css(if dark: cssDark else: cssLight)
 
 template imgLazyLoadHtml*(src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
-  ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have ID!)
+  ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
   imageLazy.format(src, id, width, heigth, class,  alt)
 
 proc bindProc[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
@@ -309,6 +310,21 @@ proc webView(title = ""; url = ""; width: Positive = 640; height: Positive = 480
 proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; height: Positive = 480; resizable: static[bool] = true; debug: static[bool] = not defined(release); callback: ExternalInvokeCb = nil,
     skipTaskbar: static[bool] = false, windowBorders: static[bool] = true, focus: static[bool] = false, keepOnTop: static[bool] = false,
     minimized: static[bool] = false, cssPath: static[string] = "", trayIcon: static[cstring] = "", fullscreen: static[bool] = false): Webview =
+  ## Create a new Window with given attributes, all arguments are optional.
+  ## * `path` is the URL or Full Path to 1 HTML file, index of the Web GUI App.
+  ## * `title` is the Title of the Window.
+  ## * `width` is the Width of the Window.
+  ## * `height` is the Height of the Window.
+  ## * `resizable` set to `true` to allow Resize of the Window, defaults to `true`.
+  ## * `debug` Debug mode, Debug is `true` when not built for Release.
+  ## * `skipTaskbar` if set to `true` the Window will not be visible on the desktop Taskbar.
+  ## * `windowBorders` if set to `false` the Window will have no Borders, no Close button, no Minimize button.
+  ## * `focus` if set to `true` the Window will force Focus.
+  ## * `keepOnTop` if set to `true` the Window will keep on top of all other windows on the desktop.
+  ## * `minimized` if set the `true` the Window will be Minimized, Iconified.
+  ## * `cssPath` Full Path or URL of a CSS file to use as Style, defaults to `"dark.css"` for Dark theme, can be `"light.css"` for Light theme.
+  ## * `trayIcon` Path to a local PNG Image Icon file.
+  ## * `fullscreen` if set to `true` the Window will be forced Fullscreen.
   const url =
     when path.endsWith".html": "file:///" & path
     elif path.endsWith".js" or path.endsWith".nim":
