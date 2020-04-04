@@ -1,6 +1,6 @@
 # WebGui
 
-- Web Technologies based Crossplatform GUI, modified wrapper for modified `webview.h` with extras.
+- Web Technologies based Crossplatform GUI.
 
 
 # Buit-in Dark Mode
