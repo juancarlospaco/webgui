@@ -228,7 +228,12 @@ function main() {
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc"></p>
+  <p class="module-desc"><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">webgui</span>
+<span class="Keyword">let</span> <span class="Identifier">app</span> <span class="Operator">=</span> <span class="Identifier">newWebView</span><span class="Punctuation">(</span><span class="Punctuation">)</span> <span class="Comment">## newWebView(dataUriHtmlHeader &amp; &quot;&lt;p&gt;Hello World&lt;/p&gt;&quot;)</span>
+<span class="Identifier">app</span><span class="Operator">.</span><span class="Identifier">run</span><span class="Punctuation">(</span><span class="Punctuation">)</span>              <span class="Comment">## newWebView(&quot;http://localhost/index.html&quot;)</span>
+<span class="Identifier">app</span><span class="Operator">.</span><span class="Identifier">exit</span><span class="Punctuation">(</span><span class="Punctuation">)</span>             <span class="Comment">## newWebView(&quot;index.html&quot;)</span>
+                       <span class="Comment">## newWebView(&quot;Karax_Compiled_App.js&quot;)</span>
+                       <span class="Comment">## newWebView(&quot;Will_be_Compiled_to_JavaScript.nim&quot;)</span></pre></p>
   <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
@@ -564,7 +569,7 @@ HTML Image LazyLoad. <a class="reference external" href="https://codepen.io/Fili
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-04 07:09:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-04 07:25:11 UTC</small>
       </div>
     </div>
   </div>

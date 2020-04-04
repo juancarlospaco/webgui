@@ -1,3 +1,10 @@
+## .. code-block:: nim
+##   import webgui
+##   let app = newWebView() ## newWebView(dataUriHtmlHeader & "<p>Hello World</p>")
+##   app.run()              ## newWebView("http://localhost/index.html")
+##   app.exit()             ## newWebView("index.html")
+##                          ## newWebView("Karax_Compiled_App.js")
+##                          ## newWebView("Will_be_Compiled_to_JavaScript.nim")
 import tables, strutils, macros, json
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
