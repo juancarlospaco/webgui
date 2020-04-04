@@ -5,6 +5,17 @@
 ##   app.exit()             ## newWebView("index.html")
 ##                          ## newWebView("Karax_Compiled_App.js")
 ##                          ## newWebView("Will_be_Compiled_to_JavaScript.nim")
+##
+## Buit-in Dark Mode
+## =================
+##
+## .. image:: https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/darkui.png
+##
+## Buit-in Light Mode
+## ==================
+##
+## .. image:: https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/lightui.png
+
 import tables, strutils, macros, json
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
