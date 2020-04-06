@@ -109,7 +109,7 @@ function main() {
             header: &quot;/home/juan/code/webgui/src/webview.h&quot;, bycopy.} = object
   url* {.importc: &quot;url&quot;.}: cstring ## Current URL
   title* {.importc: &quot;title&quot;.}: cstring ## Window Title
-  width* {.importc: &quot;width&quot;.}: cint ## Window Width 
+  width* {.importc: &quot;width&quot;.}: cint ## Window Width
   height* {.importc: &quot;height&quot;.}: cint ## Window Height
   resizable* {.importc: &quot;resizable&quot;.}: cint ## `true` to Resize the Window, `false` for Fixed size Window
   debug* {.importc: &quot;debug&quot;.}: cint ## Debug is `true` when not build for Release
@@ -128,6 +128,8 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#dataUriHtmlHeader"
     title="dataUriHtmlHeader = &quot;data:text/html;charset=utf-8,&quot;"><wbr />data<wbr />Uri<wbr />Html<wbr />Header<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#fileLocalHeader"
+    title="fileLocalHeader = &quot;file:///&quot;"><wbr />file<wbr />Local<wbr />Header<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -152,7 +154,15 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#13" id="63">Funcs</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#js%2CWebview%2Ccstring"
+      <li><a class="reference" href="#beep%2CWebview"
+    title="beep(_: Webview): void"><wbr />beep<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#notifySend%2CWebview%2Ccstring%2Ccstring%2Ccstring%2Ccstring%2Crange%5B%5D"
+    title="notifySend(_: Webview; aTitle: cstring; aMessage: cstring; aDialogType: cstring;
+           aIconType: cstring; aDefaultButton: range[0 .. 2]): cint"><wbr />notify<wbr />Send<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#dialogInput%2CWebview%2Ccstring%2Ccstring%2Ccstring"
+    title="dialogInput(_: Webview; aTitle: cstring; aMessage: cstring;
+            aDefaultInput: cstring = nil): cstring"><wbr />dialog<wbr />Input<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#js%2CWebview%2Ccstring"
     title="js(w: Webview; javascript: cstring): cint"><wbr />js<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#css%2CWebview%2Ccstring"
     title="css(w: Webview; css: cstring): cint"><wbr />css<span class="attachedType">Webview</span></a></li>
@@ -182,8 +192,8 @@ function main() {
     title="setOnTop(w: Webview; mustBeOnTop: bool)"><wbr />set<wbr />On<wbr />Top<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#setClipboard%2CWebview%2Ccstring"
     title="setClipboard(w: Webview; text: cstring)"><wbr />set<wbr />Clipboard<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#setTrayIcon%2CWebview%2Ccstring"
-    title="setTrayIcon(w: Webview; path: cstring; visible = true)"><wbr />set<wbr />Tray<wbr />Icon<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#setTrayIcon%2CWebview%2Ccstring%2Ccstring"
+    title="setTrayIcon(w: Webview; path, tooltip: cstring; visible = true)"><wbr />set<wbr />Tray<wbr />Icon<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#run%2CWebview"
     title="run(w: Webview)"><wbr />run<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#exit%2CWebview"
@@ -253,7 +263,7 @@ External CallBack Proc
             <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;/home/juan/code/webgui/src/webview.h&quot;</span><span class="Other">,</span> <span class="Identifier">bycopy</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">url</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;url&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Comment">## Current URL</span>
   <span class="Identifier">title</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;title&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Comment">## Window Title</span>
-  <span class="Identifier">width</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;width&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Comment">## Window Width </span>
+  <span class="Identifier">width</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;width&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Comment">## Window Width</span>
   <span class="Identifier">height</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;height&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Comment">## Window Height</span>
   <span class="Identifier">resizable</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;resizable&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Comment">## `true` to Resize the Window, `false` for Fixed size Window</span>
   <span class="Identifier">debug</span><span class="Operator">*</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;debug&quot;</span></span><span class="Other">.}</span></span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Comment">## Debug is `true` when not build for Release</span>
@@ -290,6 +300,13 @@ WebView Type
 <dd>
 
 Data URI for HTML UTF-8 header string
+
+</dd>
+<a id="fileLocalHeader"></a>
+<dt><pre><a href="webgui.html#fileLocalHeader"><span class="Identifier">fileLocalHeader</span></a> <span class="Other">=</span> <span class="StringLit">&quot;file:///&quot;</span></pre></dt>
+<dd>
+
+Use Local File as URL.
 
 </dd>
 
@@ -347,6 +364,36 @@ Create a new Window with given attributes, all arguments are optional.<ul class=
 <div class="section" id="13">
 <h1><a class="toc-backref" href="#13">Funcs</a></h1>
 <dl class="item">
+<a id="beep,Webview"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#beep%2CWebview"><span class="Identifier">beep</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">void</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_beep&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Beep Sound, PC-Speaker Beep.
+
+</dd>
+<a id="notifySend,Webview,cstring,cstring,cstring,cstring,range[]"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#notifySend%2CWebview%2Ccstring%2Ccstring%2Ccstring%2Ccstring%2Crange%5B%5D"><span class="Identifier">notifySend</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">aTitle</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aMessage</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aDialogType</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span>
+               <span class="Identifier">aIconType</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aDefaultButton</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">2</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_notifyPopup&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+<ul class="simple"><li><tt class="docutils literal"><span class="pre">aDialogType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;ok&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;okcancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesno&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesnocancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
+<li><tt class="docutils literal"><span class="pre">aIconType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;info&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;warning&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;error&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;question&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
+<li><tt class="docutils literal"><span class="pre">aDefaultButton</span></tt> must be one of <tt class="docutils literal"><span class="pre">0</span></tt> (for Cancel), <tt class="docutils literal"><span class="pre">1</span></tt> (for Ok), <tt class="docutils literal"><span class="pre">2</span></tt> (for No), <tt class="docutils literal"><span class="pre">range[0..2]</span></tt> type.</li>
+</ul>
+
+
+</dd>
+<a id="dialogInput,Webview,cstring,cstring,cstring"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#dialogInput%2CWebview%2Ccstring%2Ccstring%2Ccstring"><span class="Identifier">dialogInput</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">aTitle</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aMessage</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span>
+                <span class="Identifier">aDefaultInput</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_inputBox&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Native dialogs for Windows, Mac, OSX, etc.<ul class="simple"><li><tt class="docutils literal"><span class="pre">aDefaultInput</span></tt> must be <tt class="docutils literal"><span class="pre">nil</span></tt> (for Password entry field) or any string for plain text entry field with a default value, <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">nil</span></tt> type.</li>
+</ul>
+
+
+</dd>
 <a id="js,Webview,cstring"></a>
 <dt><pre><span class="Keyword">func</span> <a href="#js%2CWebview%2Ccstring"><span class="Identifier">js</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">javascript</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;webview_eval&quot;</span><span class="Other">,</span>
     <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;/home/juan/code/webgui/src/webview.h&quot;</span></span><span class="Other">.}</span></span></pre></dt>
@@ -458,8 +505,9 @@ Force window to be on top of all other windows
 Set a text cstring on the Clipboard, text must not be empty string
 
 </dd>
-<a id="setTrayIcon,Webview,cstring"></a>
-<dt><pre><span class="Keyword">func</span> <a href="#setTrayIcon%2CWebview%2Ccstring"><span class="Identifier">setTrayIcon</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">path</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">visible</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="setTrayIcon,Webview,cstring,cstring"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#setTrayIcon%2CWebview%2Ccstring%2Ccstring"><span class="Identifier">setTrayIcon</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">path</span><span class="Other">,</span> <span class="Identifier">tooltip</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">visible</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 Set a TrayIcon on the corner of the desktop. <tt class="docutils literal"><span class="pre">path</span></tt> is full path to a PNG image icon. Only shows an icon.
@@ -573,7 +621,7 @@ HTML Image LazyLoad. <a class="reference external" href="https://codepen.io/Fili
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-04 07:36:54 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-06 13:04:24 UTC</small>
       </div>
     </div>
   </div>
