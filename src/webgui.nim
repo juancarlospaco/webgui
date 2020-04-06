@@ -254,7 +254,8 @@ template imgLazyLoadHtml*(src, id: string, width = "", heigth = "", class = "", 
   ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
   imageLazy.format(src, id, width, heigth, class,  alt)
 
-proc bindProc[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
+proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
+  ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
   proc hook(hookParam: string): string =
     var paramVal: P
@@ -272,7 +273,8 @@ proc bindProc[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.u
   eps[w][scope][name] = hook
   w.dispatch(proc() = discard w.js(jsTemplate % [name, scope]))
 
-proc bindProcNoArg(w: Webview; scope, name: string; p: proc()) {.used.} =
+proc bindProcNoArg*(w: Webview; scope, name: string; p: proc()) {.used.} =
+  ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
   proc hook(hookParam: string): string =
     p()
@@ -282,7 +284,8 @@ proc bindProcNoArg(w: Webview; scope, name: string; p: proc()) {.used.} =
   eps[w][scope][name] = hook
   w.dispatch(proc() = discard w.js(jsTemplateNoArg % [name, scope]))
 
-proc bindProc[P](w: Webview; scope, name: string; p: proc(arg: P)) {.used.} =
+proc bindProc*[P](w: Webview; scope, name: string; p: proc(arg: P)) {.used.} =
+  ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
   proc hook(hookParam: string): string =
     var paramVal: P
