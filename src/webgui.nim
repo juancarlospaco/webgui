@@ -33,7 +33,7 @@ type
   WebviewObj* {.importc: "struct webview", header: headerC, bycopy.} = object ## WebView Type
     url* {.importc: "url".}: cstring                    ## Current URL
     title* {.importc: "title".}: cstring                ## Window Title
-    width* {.importc: "width".}: cint                   ## Window Width 
+    width* {.importc: "width".}: cint                   ## Window Width
     height* {.importc: "height".}: cint                 ## Window Height
     resizable* {.importc: "resizable".}: cint           ## `true` to Resize the Window, `false` for Fixed size Window
     debug* {.importc: "debug".}: cint                   ## Debug is `true` when not build for Release
@@ -50,6 +50,7 @@ type
 
 const
   dataUriHtmlHeader* = "data:text/html;charset=utf-8,"  ## Data URI for HTML UTF-8 header string
+  fileLocalHeader* = "file:///"  ## Use Local File as URL.
   cssDark = staticRead"dark.css".strip.cstring
   cssLight = staticRead"light.css".strip.cstring
   imageLazy = """
@@ -102,6 +103,17 @@ var
   cbs = newTable[Webview, ExternalInvokeCb]() # easy callbacks
   dispatchTable = newTable[int, DispatchFn]() # for dispatch
 
+{.compile: "tinyfiledialogs.c".}
+func beep*(_: Webview): void {.importc: "tinyfd_beep".} ## Beep Sound, PC-Speaker Beep.
+func notifySend*(_: Webview; aTitle: cstring, aMessage: cstring, aDialogType: cstring, aIconType: cstring, aDefaultButton: range[0..2]): cint {.importc: "tinyfd_notifyPopup".}
+  ## - ``aDialogType`` must be one of ``"ok"``, ``"okcancel"``, ``"yesno"``, ``"yesnocancel"``, ``string`` type.
+  ## - ``aIconType`` must be one of ``"info"``, ``"warning"``, ``"error"``, ``"question"``, ``string`` type.
+  ## - ``aDefaultButton`` must be one of ``0`` (for Cancel), ``1`` (for Ok), ``2`` (for No), ``range[0..2]`` type.
+
+func dialogInput*(_: Webview; aTitle: cstring, aMessage: cstring, aDefaultInput: cstring = nil): cstring {.importc: "tinyfd_inputBox".}
+  ## Native dialogs for Windows, Mac, OSX, etc.
+  ## - ``aDefaultInput`` must be ``nil`` (for Password entry field) or any string for plain text entry field with a default value, ``string`` or ``nil`` type.
+
 func init(w: Webview): cint {.importc: "webview_init", header: headerC.}
 func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop", header: headerC.}
 func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: headerC.} ## Evaluate a JavaScript cstring, runs the javascript string on the window
@@ -144,10 +156,15 @@ func setClipboard*(w: Webview, text: cstring) {.inline.} =
   assert text.len > 0, "text for clipboard must not be empty string"
   when defined(linux): {.emit: "gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD), `text`, -1);".}
 
-func setTrayIcon*(w: Webview, path: cstring, visible = true) {.inline.} =
+func setTrayIcon*(w: Webview, path, tooltip: cstring, visible = true) {.inline.} =
   ## Set a TrayIcon on the corner of the desktop. `path` is full path to a PNG image icon. Only shows an icon.
   assert path.len > 0, "icon path must not be empty string"
-  when defined(linux): {.emit: "GtkStatusIcon* webview_icon_nim = gtk_status_icon_new_from_file(`path`); gtk_status_icon_set_visible(webview_icon_nim, `visible`);".}
+  when defined(linux): {.emit: """
+    GtkStatusIcon* webview_icon_nim = gtk_status_icon_new_from_file(`path`);
+    gtk_status_icon_set_visible(webview_icon_nim, `visible`);
+    gtk_status_icon_set_title(webview_icon_nim, `tooltip`);
+    gtk_status_icon_set_name(webview_icon_nim, `tooltip`);
+  """.}
 
 proc generalExternalInvokeCallback(w: Webview; arg: cstring) {.exportc.} =
   var handled = false
@@ -344,7 +361,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   ## * `trayIcon` Path to a local PNG Image Icon file.
   ## * `fullscreen` if set to `true` the Window will be forced Fullscreen.
   const url =
-    when path.endsWith".html": "file:///" & path
+    when path.endsWith".html": fileLocalHeader & path
     elif path.endsWith".js" or path.endsWith".nim":
       dataUriHtmlHeader & "<!DOCTYPE html><html><head><meta content='width=device-width,initial-scale=1' name=viewport></head><body id=body ><div id=ROOT ><div></body></html>"  # Copied from Karax
     elif path.len == 0: dataUriHtmlHeader & staticRead"demo.html"
@@ -355,7 +372,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   when focus: result.setFocus()
   when keepOnTop: result.setOnTop(keepOnTop)
   when minimized: webviewindow.setIconify(minimized)
-  when trayIcon.len > 0: result.setTrayIcon(trayIcon, visible = true)
+  when trayIcon.len > 0: result.setTrayIcon(trayIcon, title.cstring, visible = true)
   when fullscreen: result.setFullscreen(fullscreen)
   discard result.css(when cssPath.len > 0: static(staticRead(cssPath).cstring) else: cssDark)
   when path.endsWith".js": result.js(readFile(path))
