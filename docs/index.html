@@ -121,6 +121,9 @@ function main() {
     title="Webview = ptr WebviewObj"><wbr />Webview<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#DispatchFn"
     title="DispatchFn = proc ()"><wbr />Dispatch<wbr />Fn<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#TinyDefaultButton"
+    title="TinyDefaultButton = enum
+  tdbCancel = 0, tdbOk = 1, tdbNo = 2"><wbr />Tiny<wbr />Default<wbr />Button<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -163,12 +166,11 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#beep%2CWebview"
     title="beep(_: Webview): void"><wbr />beep<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#notifySend%2CWebview%2Ccstring%2Ccstring%2Ccstring%2Ccstring%2Crange%5B%5D"
-    title="notifySend(_: Webview; aTitle: cstring; aMessage: cstring; aDialogType: cstring;
-           aIconType: cstring; aDefaultButton: range[0 .. 2]): cint"><wbr />notify<wbr />Send<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#dialogInput%2CWebview%2Ccstring%2Ccstring%2Ccstring"
-    title="dialogInput(_: Webview; aTitle: cstring; aMessage: cstring;
-            aDefaultInput: cstring = nil): cstring"><wbr />dialog<wbr />Input<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#notifySend%2Ccstring%2Ccstring"
+    title="notifySend(aTitle: cstring; aMessage: cstring; aDialogType = &quot;yesnocancel&quot;.cstring;
+           aIconType = &quot;info&quot;.cstring; aDefaultButton = tdbOk): cint"><wbr />notify<wbr />Send<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#dialogInput%2Ccstring%2Ccstring%2Ccstring"
+    title="dialogInput(aTitle: cstring; aMessage: cstring; aDefaultInput: cstring = nil): cstring"><wbr />dialog<wbr />Input<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#js%2CWebview%2Ccstring"
     title="js(w: Webview; javascript: cstring): cint"><wbr />js<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#css%2CWebview%2Ccstring"
@@ -300,6 +302,14 @@ WebView Type
 
 
 </dd>
+<a id="TinyDefaultButton"></a>
+<dt><pre><a href="webgui.html#TinyDefaultButton"><span class="Identifier">TinyDefaultButton</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">tdbCancel</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="Identifier">tdbOk</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">,</span> <span class="Identifier">tdbNo</span> <span class="Other">=</span> <span class="DecNumber">2</span></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
 <div class="section" id="10">
@@ -403,25 +413,24 @@ Create a new Window with given attributes, all arguments are optional.<ul class=
 Beep Sound to alert the user.
 
 </dd>
-<a id="notifySend,Webview,cstring,cstring,cstring,cstring,range[]"></a>
-<dt><pre><span class="Keyword">func</span> <a href="#notifySend%2CWebview%2Ccstring%2Ccstring%2Ccstring%2Ccstring%2Crange%5B%5D"><span class="Identifier">notifySend</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">aTitle</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aMessage</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aDialogType</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span>
-               <span class="Identifier">aIconType</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aDefaultButton</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">2</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_notifyPopup&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="notifySend,cstring,cstring"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#notifySend%2Ccstring%2Ccstring"><span class="Identifier">notifySend</span></a><span class="Other">(</span><span class="Identifier">aTitle</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aMessage</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span>
+               <span class="Identifier">aDialogType</span> <span class="Other">=</span> <span class="StringLit">&quot;yesnocancel&quot;</span><span class="Other">.</span><span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aIconType</span> <span class="Other">=</span> <span class="StringLit">&quot;info&quot;</span><span class="Other">.</span><span class="Identifier">cstring</span><span class="Other">;</span>
+               <span class="Identifier">aDefaultButton</span> <span class="Other">=</span> <span class="Identifier">tdbOk</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_notifyPopup&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 <ul class="simple"><li><tt class="docutils literal"><span class="pre">aDialogType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;ok&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;okcancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesno&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesnocancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
 <li><tt class="docutils literal"><span class="pre">aIconType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;info&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;warning&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;error&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;question&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
-<li><tt class="docutils literal"><span class="pre">aDefaultButton</span></tt> must be one of <tt class="docutils literal"><span class="pre">0</span></tt> (for Cancel), <tt class="docutils literal"><span class="pre">1</span></tt> (for Ok), <tt class="docutils literal"><span class="pre">2</span></tt> (for No), <tt class="docutils literal"><span class="pre">range[0..2]</span></tt> type.</li>
 </ul>
 
 
 </dd>
-<a id="dialogInput,Webview,cstring,cstring,cstring"></a>
-<dt><pre><span class="Keyword">func</span> <a href="#dialogInput%2CWebview%2Ccstring%2Ccstring%2Ccstring"><span class="Identifier">dialogInput</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">aTitle</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aMessage</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span>
-                <span class="Identifier">aDefaultInput</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_inputBox&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="dialogInput,cstring,cstring,cstring"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#dialogInput%2Ccstring%2Ccstring%2Ccstring"><span class="Identifier">dialogInput</span></a><span class="Other">(</span><span class="Identifier">aTitle</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aMessage</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">aDefaultInput</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_inputBox&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-Native dialogs for Windows, Mac, OSX, etc.<ul class="simple"><li><tt class="docutils literal"><span class="pre">aDefaultInput</span></tt> must be <tt class="docutils literal"><span class="pre">nil</span></tt> (for Password entry field) or any string for plain text entry field with a default value, <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">nil</span></tt> type.</li>
+Native Input dialog for Windows, Mac, OSX, etc.<ul class="simple"><li><tt class="docutils literal"><span class="pre">aDefaultInput</span></tt> must be <tt class="docutils literal"><span class="pre">nil</span></tt> (for Password entry field) or any string for plain text entry field with a default value, <tt class="docutils literal"><span class="pre">string</span></tt> or <tt class="docutils literal"><span class="pre">nil</span></tt> type.</li>
 </ul>
 
 
@@ -667,7 +676,7 @@ Sanitize all non-printable and weird characters from a string.
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-07 05:47:32 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-07 06:18:29 UTC</small>
       </div>
     </div>
   </div>
