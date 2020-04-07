@@ -232,16 +232,16 @@ template error*(w: Webview; title, msg: string) =
 template dialogOpen*(w: Webview; title = ""): string =
   ## Opens a dialog that requests filenames from the user. Returns ""
   ## if the user closed the dialog without selecting a file.
-  w.dialog(dtOpen, 0.cint, title.cstring, "".cstring)
+  w.dialog(dtOpen, 0.cint, title, "")
 
 template dialogSave*(w: Webview; title = ""): string =
   ## Opens a dialog that requests a filename to save to from the user.
   ## Returns "" if the user closed the dialog without selecting a file.
-  w.dialog(dtSave, 0.cint, title.cstring, "".cstring)
+  w.dialog(dtSave, 0.cint, title, "")
 
 template dialogOpenDir*(w: Webview; title = ""): string =
   ## Opens a dialog that requests a Directory from the user.
-  w.dialog(dtOpen, 1.cint, title.cstring, "".cstring)
+  w.dialog(dtOpen, 1.cint, title, "")
 
 func run*(w: Webview) {.inline.} =
   ## `run` starts the main UI loop until the user closes the webview window or `exit()` is called.
