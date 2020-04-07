@@ -52,6 +52,8 @@ type
   CallHook = proc (params: string): string # json -> proc -> json
   MethodInfo = object
     scope, name, args: string
+  TinyDefaultButton* = enum
+    tdbCancel = 0, tdbOk = 1, tdbNo = 2
 
 const
   dataUriHtmlHeader* = "data:text/html;charset=utf-8,"  ## Data URI for HTML UTF-8 header string
@@ -110,13 +112,12 @@ var
 
 {.compile: "tinyfiledialogs.c".}
 func beep*(_: Webview): void {.importc: "tinyfd_beep".} ## Beep Sound to alert the user.
-func notifySend*(_: Webview; aTitle: cstring, aMessage: cstring, aDialogType: cstring, aIconType: cstring, aDefaultButton: range[0..2]): cint {.importc: "tinyfd_notifyPopup".}
+func notifySend*(aTitle: cstring, aMessage: cstring, aDialogType = "yesnocancel".cstring, aIconType = "info".cstring, aDefaultButton = tdbOk): cint {.importc: "tinyfd_notifyPopup".}
   ## - ``aDialogType`` must be one of ``"ok"``, ``"okcancel"``, ``"yesno"``, ``"yesnocancel"``, ``string`` type.
   ## - ``aIconType`` must be one of ``"info"``, ``"warning"``, ``"error"``, ``"question"``, ``string`` type.
-  ## - ``aDefaultButton`` must be one of ``0`` (for Cancel), ``1`` (for Ok), ``2`` (for No), ``range[0..2]`` type.
 
-func dialogInput*(_: Webview; aTitle: cstring, aMessage: cstring, aDefaultInput: cstring = nil): cstring {.importc: "tinyfd_inputBox".}
-  ## Native dialogs for Windows, Mac, OSX, etc.
+func dialogInput*(aTitle: cstring, aMessage: cstring, aDefaultInput: cstring = nil): cstring {.importc: "tinyfd_inputBox".}
+  ## Native Input dialog for Windows, Mac, OSX, etc.
   ## - ``aDefaultInput`` must be ``nil`` (for Password entry field) or any string for plain text entry field with a default value, ``string`` or ``nil`` type.
 
 func init(w: Webview): cint {.importc: "webview_init", header: headerC.}
@@ -316,21 +317,29 @@ macro bindProcs*(w: Webview; scope: string; n: untyped): untyped =
   ## * To pass return data to the Frontend use the JavaScript API and WebGui API.
   ## * Functions do NOT need the `*` Star to work. Functions must NOT have Pragmas.
   ##
-  ## bind procs like:
+  ## You can bind functions with the signature like:
   ##
   ## .. code-block:: nim
+  ##    proc functionName[T, U](argumentString: T): U
+  ##    proc functionName[T](argumentString: T)
+  ##    proc functionName()
   ##
-  ##    proc fn[T, U](arg: T): U
-  ##    proc fn[T](arg: T)
-  ##    proc fn()
-  ##
-  ## to webview ``w``, in scope ``scope``
-  ## then you can invode in js side, like this:
+  ## Then you can call the function in JavaScript side, like this:
   ##
   ## .. code-block:: js
+  ##    scope.functionName(argumentString)
   ##
-  ##    scope.fn(arg)
+  ## Example:
   ##
+  ## .. code-block:: js
+  ##    let app = newWebView()
+  ##    app.bindProcs("api"):
+  ##      proc changeTitle(title: string) = app.setTitle(title) ## You can call code on the right-side,
+  ##      proc changeCss(stylesh: string) = app.css(stylesh)    ## from JavaScript Web Frontend GUI,
+  ##      proc injectJs(jsScript: string) = app.js(jsScript)    ## by the function name on the left-side.
+  ##      ## (JS) JavaScript Frontend <-- = --> Nim Backend (Native Code, C Speed)
+  ##
+  ## The only limitation is `1` string argument only, but you can just use JSON.
   expectKind(n, nnkStmtList)
   let body = n
   for def in n:
