@@ -116,8 +116,8 @@ func dialogInput*(_: Webview; aTitle: cstring, aMessage: cstring, aDefaultInput:
 
 func init(w: Webview): cint {.importc: "webview_init", header: headerC.}
 func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop", header: headerC.}
-func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: headerC.} ## Evaluate a JavaScript cstring, runs the javascript string on the window
-func css*(w: Webview; css: cstring): cint {.importc: "webview_inject_css", header: headerC.} ## Set a CSS cstring, inject the CSS on the Window
+func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: headerC, discardable.} ## Evaluate a JavaScript cstring, runs the javascript string on the window
+func css*(w: Webview; css: cstring): cint {.importc: "webview_inject_css", header: headerC, discardable.} ## Set a CSS cstring, inject the CSS on the Window
 func setTitle*(w: Webview; title: cstring) {.importc: "webview_set_title", header: headerC.} ## Set Title of window
 func setColor*(w: Webview; red, green, blue, alpha: uint8) {.importc: "webview_set_color", header: headerC.} ## Set background color of the Window
 func setFullscreen*(w: Webview; fullscreen: bool) {.importc: "webview_set_fullscreen", header: headerC.}     ## Set fullscreen
@@ -302,7 +302,7 @@ proc bindProc*[P](w: Webview; scope, name: string; p: proc(arg: P)) {.used.} =
   w.dispatch(proc() = discard w.js(jsTemplateOnlyArg % [name, scope]))
 
 macro bindProcs*(w: Webview; scope: string; n: untyped): untyped =
-  ## * Functions must be `proc`, not `func`, not `template`, not `macro`, etc.
+  ## * Functions must be `proc` or `func`; No `template` nor `macro`.
   ## * Functions must NOT have return Type, must NOT return anything, use the API.
   ## * To pass return data to the Frontend use the JavaScript API and WebGui API.
   ## * Functions do NOT need the `*` Star to work. Functions must NOT have Pragmas.
@@ -322,11 +322,10 @@ macro bindProcs*(w: Webview; scope: string; n: untyped): untyped =
   ##
   ##    scope.fn(arg)
   ##
-  # assert scope.len > 0, "Scope must not be empty string" # FIXME: ???
   expectKind(n, nnkStmtList)
   let body = n
   for def in n:
-    expectKind(def, nnkProcDef)
+    expectKind(def, {nnkProcDef, nnkFuncDef, nnkLambda})
     let params = def.params()
     let fname = $def[0]
     # expectKind(params[0], nnkSym)
