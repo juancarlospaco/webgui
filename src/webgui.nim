@@ -125,8 +125,8 @@ func dialog(w: Webview; dlgtype: DialogType; flags: cint; title: cstring; arg: c
 func dispatch(w: Webview; fn: pointer; arg: pointer) {.importc: "webview_dispatch", header: headerC.}
 func webview_terminate(w: Webview) {.importc: "webview_terminate", header: headerC.}
 func webview_exit(w: Webview) {.importc: "webview_exit", header: headerC.}
-func jsDebug*(format: cstring) {.varargs, importc: "webview_debug", header: headerC.}  ##  `console.debug()` directly inside the JavaScript context.
-func jsLog*(s: cstring) {.importc: "webview_print_log", header: headerC.} ## `console.log()` directly inside the JavaScript context.
+func jsDebug*(_: Webview; format: cstring) {.varargs, importc: "webview_debug", header: headerC.}  ##  `console.debug()` directly inside the JavaScript context.
+func jsLog*(_: Webview; s: cstring) {.importc: "webview_print_log", header: headerC.} ## `console.log()` directly inside the JavaScript context.
 func webview(title: cstring; url: cstring; w: cint; h: cint; resizable: cint): cint {.importc: "webview", header: headerC, used.}
 func setUrl*(w: Webview; url: cstring) {.importc: "webview_launch_external_URL", header: headerC.} ## Set the current URL
 func setIconify*(w: Webview; mustBeIconified: bool) {.importc: "webview_set_iconify", header: headerC.}  ## Set window to be Minimized Iconified
@@ -302,6 +302,11 @@ proc bindProc*[P](w: Webview; scope, name: string; p: proc(arg: P)) {.used.} =
   w.dispatch(proc() = discard w.js(jsTemplateOnlyArg % [name, scope]))
 
 macro bindProcs*(w: Webview; scope: string; n: untyped): untyped =
+  ## * Functions must be `proc`, not `func`, not `template`, not `macro`, etc.
+  ## * Functions must NOT have return Type, must NOT return anything, use the API.
+  ## * To pass return data to the Frontend use the JavaScript API and WebGui API.
+  ## * Functions do NOT need the `*` Star to work. Functions must NOT have Pragmas.
+  ##
   ## bind procs like:
   ##
   ## .. code-block:: nim
