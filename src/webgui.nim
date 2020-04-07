@@ -16,7 +16,7 @@
 ##
 ## .. image:: https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/lightui.png
 
-import tables, strutils, macros, json
+import tables, strutils, macros, json, re
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
 {.passC: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
@@ -253,6 +253,10 @@ template setTheme*(w: Webview; dark: bool) =
 template imgLazyLoadHtml*(src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
   ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
   imageLazy.format(src, id, width, heigth, class,  alt)
+
+template sanitizer*(s: string): string =
+  ## Sanitize all non-printable and weird characters from a string.
+  re.replace(s, re(r"[^\x00-\x7F]+", flags = {reStudy, reIgnoreCase}))
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
