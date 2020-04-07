@@ -261,7 +261,7 @@ template imgLazyLoadHtml*(src, id: string, width = "", heigth = "", class = "", 
   imageLazy.format(src, id, width, heigth, class,  alt)
 
 template sanitizer*(s: string): string =
-  ## Sanitize all non-printable and weird characters from a string.
+  ## Sanitize all non-printable and weird characters from a string. `import re` to use it.
   re.replace(s, re(r"[^\x00-\x7F]+", flags = {reStudy, reIgnoreCase}))
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
