@@ -593,7 +593,8 @@ app.bindProcs(&quot;api&quot;):
   proc changeTitle(title: string) = app.setTitle(title) ## You can call code on the right-side,
   proc changeCss(stylesh: string) = app.css(stylesh)    ## from JavaScript Web Frontend GUI,
   proc injectJs(jsScript: string) = app.js(jsScript)    ## by the function name on the left-side.
-  ## (JS) JavaScript Frontend &lt;-- = --&gt; Nim Backend (Native Code, C Speed)</pre>
+  ## (JS) JavaScript Frontend &lt;-- = --&gt; Nim Backend (Native Code, C Speed)</pre><p>The only limitation is <tt class="docutils literal"><span class="pre">1</span></tt> string argument only, but you can just use JSON.</p>
+
 
 </dd>
 
@@ -681,7 +682,7 @@ Sanitize all non-printable and weird characters from a string.
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-07 06:39:17 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-07 06:42:41 UTC</small>
       </div>
     </div>
   </div>
