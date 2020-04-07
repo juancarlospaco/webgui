@@ -15,6 +15,11 @@
 ## ==================
 ##
 ## .. image:: https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/lightui.png
+##
+## Real-Life Examples
+## ==================
+##
+## .. image:: https://raw.githubusercontent.com/juancarlospaco/nim-smnar/master/0.png
 
 import tables, strutils, macros, json, re
 
@@ -104,7 +109,7 @@ var
   dispatchTable = newTable[int, DispatchFn]() # for dispatch
 
 {.compile: "tinyfiledialogs.c".}
-func beep*(_: Webview): void {.importc: "tinyfd_beep".} ## Beep Sound, PC-Speaker Beep.
+func beep*(_: Webview): void {.importc: "tinyfd_beep".} ## Beep Sound to alert the user.
 func notifySend*(_: Webview; aTitle: cstring, aMessage: cstring, aDialogType: cstring, aIconType: cstring, aDefaultButton: range[0..2]): cint {.importc: "tinyfd_notifyPopup".}
   ## - ``aDialogType`` must be one of ``"ok"``, ``"okcancel"``, ``"yesno"``, ``"yesnocancel"``, ``string`` type.
   ## - ``aIconType`` must be one of ``"info"``, ``"warning"``, ``"error"``, ``"question"``, ``string`` type.
