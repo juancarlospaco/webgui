@@ -583,12 +583,17 @@ Terminate, close, exit, quit.
 <li>To pass return data to the Frontend use the JavaScript API and WebGui API.</li>
 <li>Functions do NOT need the <tt class="docutils literal"><span class="pre">*</span></tt> Star to work. Functions must NOT have Pragmas.</li>
 </ul>
-<p>bind procs like:</p>
-<pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">fn</span><span class="Punctuation">[</span><span class="Identifier">T</span><span class="Punctuation">,</span> <span class="Identifier">U</span><span class="Punctuation">]</span><span class="Punctuation">(</span><span class="Identifier">arg</span><span class="Punctuation">:</span> <span class="Identifier">T</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">U</span>
-<span class="Keyword">proc</span> <span class="Identifier">fn</span><span class="Punctuation">[</span><span class="Identifier">T</span><span class="Punctuation">]</span><span class="Punctuation">(</span><span class="Identifier">arg</span><span class="Punctuation">:</span> <span class="Identifier">T</span><span class="Punctuation">)</span>
-<span class="Keyword">proc</span> <span class="Identifier">fn</span><span class="Punctuation">(</span><span class="Punctuation">)</span></pre><p>to webview <tt class="docutils literal"><span class="pre">w</span></tt>, in scope <tt class="docutils literal"><span class="pre">scope</span></tt> then you can invode in js side, like this:</p>
-<pre class="listing">
-scope.fn(arg)</pre>
+<p>You can bind functions with the signature like:</p>
+<pre class="listing"><span class="Keyword">proc</span> <span class="Identifier">functionName</span><span class="Punctuation">[</span><span class="Identifier">T</span><span class="Punctuation">,</span> <span class="Identifier">U</span><span class="Punctuation">]</span><span class="Punctuation">(</span><span class="Identifier">argumentString</span><span class="Punctuation">:</span> <span class="Identifier">T</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">U</span>
+<span class="Keyword">proc</span> <span class="Identifier">functionName</span><span class="Punctuation">[</span><span class="Identifier">T</span><span class="Punctuation">]</span><span class="Punctuation">(</span><span class="Identifier">argumentString</span><span class="Punctuation">:</span> <span class="Identifier">T</span><span class="Punctuation">)</span>
+<span class="Keyword">proc</span> <span class="Identifier">functionName</span><span class="Punctuation">(</span><span class="Punctuation">)</span></pre><p>Then you can call the function in JavaScript side, like this:</p>
+<pre class="listing">scope.functionName(argumentString)</pre><p>Example:</p>
+<pre class="listing">let app = newWebView()
+app.bindProcs(&quot;api&quot;):
+  proc changeTitle(title: string) = app.setTitle(title) ## You can call code on the right-side,
+  proc changeCss(stylesh: string) = app.css(stylesh)    ## from JavaScript Web Frontend GUI,
+  proc injectJs(jsScript: string) = app.js(jsScript)    ## by the function name on the left-side.
+  ## (JS) JavaScript Frontend &lt;-- = --&gt; Nim Backend (Native Code, C Speed)</pre>
 
 </dd>
 
@@ -676,7 +681,7 @@ Sanitize all non-printable and weird characters from a string.
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-07 06:18:29 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-07 06:39:17 UTC</small>
       </div>
     </div>
   </div>
