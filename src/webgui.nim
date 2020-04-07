@@ -322,7 +322,7 @@ macro bindProcs*(w: Webview; scope: string; n: untyped): untyped =
   ##
   ##    scope.fn(arg)
   ##
-  assert scope.len > 0, "Scope must not be empty string"
+  # assert scope.len > 0, "Scope must not be empty string" # FIXME: ???
   expectKind(n, nnkStmtList)
   let body = n
   for def in n:
