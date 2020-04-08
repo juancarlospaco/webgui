@@ -26,8 +26,8 @@
 ## Real-Life Projects
 ## ==================
 ##
-## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher
-## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui
+## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher (~42 lines of Nim at the time of writting)
+## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui (~32 lines of Nim at the time of writting)
 
 import tables, strutils, macros, json, re
 
