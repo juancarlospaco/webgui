@@ -6,6 +6,8 @@
 ##                          ## newWebView("Karax_Compiled_App.js")
 ##                          ## newWebView("Will_be_Compiled_to_JavaScript.nim")
 ##
+## - **Design with CSS3, mockup with HTML5, powered by Nim.**
+##
 ## Buit-in Dark Mode
 ## =================
 ##
