@@ -19,7 +19,15 @@
 ## Real-Life Examples
 ## ==================
 ##
+## .. image:: https://raw.githubusercontent.com/juancarlospaco/ballena-itcher/master/0.png
+##
 ## .. image:: https://raw.githubusercontent.com/juancarlospaco/nim-smnar/master/0.png
+##
+## Real-Life Projects
+## ==================
+##
+## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher
+## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui
 
 import tables, strutils, macros, json, re
 
@@ -127,6 +135,24 @@ func dialogMessage*(aTitle: cstring, aMessage: cstring, aDialogType = "yesno".cs
   ## - ``aDialogType`` must be one of ``"ok"``, ``"okcancel"``, ``"yesno"``, ``"yesnocancel"``, ``string`` type.
   ## - ``aIconType`` must be one of ``"info"``, ``"warning"``, ``"error"``, ``"question"``, ``string`` type.
   ## - ``aDefaultButton`` must be one of ``0`` (for Cancel), ``1`` (for Ok), ``2`` (for No), ``range[0..2]`` type.
+
+func dialogOpen*(aTitle: cstring, aDefaultPathAndFile: cstring, aNumOfFilterPatterns = 0.cint, aFilterPattern = "*.*".cstring, aSingleFilterDescription = "".cstring, aAllowMultipleSelects: range[0..1] = 0): cstring {.importc: "tinyfd_openFileDialog".}
+  ## * ``aAllowMultipleSelects`` must be ``0`` (false) or ``1`` (true), multiple selection returns 1 ``string`` with paths divided by ``|``, ``int`` type.
+  ## * ``aDefaultPathAndFile`` is 1 default full path.
+  ## * ``aFilterPatterns`` is 1 Posix Glob pattern string. ``"*.*"``, ``"*.jpg"``, etc.
+  ## * ``aSingleFilterDescription`` is a string with descriptions for ``aFilterPatterns``.
+  ## Similar to the other file dialog but with more extra options.
+
+proc dialogSave*(aTitle: cstring, aDefaultPathAndFile: cstring, aNumOfFilterPatterns = 0.cint, aFilterPatterns = "*.*".cstring, aSingleFilterDescription = "".cstring, aAllowMultipleSelects: range[0..1] = 0): cstring {.importc: "tinyfd_saveFileDialog".}
+  ## * ``aDefaultPathAndFile`` is 1 default full path.
+  ## * ``aFilterPatterns`` is 1 Posix Glob pattern string. ``"*.*"``, ``"*.jpg"``, etc.
+  ## * ``aSingleFilterDescription` is a string with descriptions for ``aFilterPatterns``.
+  ## * ``aAllowMultipleSelects`` must be ``0`` (false) or ``1`` (true), multiple selection returns 1 ``string`` with paths divided by ``|``, ``int`` type.
+  ## Similar to the other file dialog but with more extra options.
+
+proc dialogOpenDir*(aTitle: cstring, aDefaultPath: cstring): cstring {.importc: "tinyfd_selectFolderDialog".}
+  ## * ``aDefaultPath`` is a Default Folder Path.
+  ## Similar to the other file dialog but with more extra options.
 
 func init(w: Webview): cint {.importc: "webview_init", header: headerC.}
 func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop", header: headerC.}
