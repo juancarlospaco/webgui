@@ -64,6 +64,11 @@ type
     scope, name, args: string
   TinyDefaultButton* = enum
     tdbCancel = 0, tdbOk = 1, tdbNo = 2
+  InsertAdjacent* = enum ## Positions for insertAdjacentElement, insertAdjacentHTML, insertAdjacentText
+    beforeBegin = "beforebegin" ## Before the targetElement itself.
+    afterBegin = "afterbegin"   ## Just inside the targetElement, before its first child.
+    beforeEnd = "beforeend"     ## Just inside the targetElement, after its last child.
+    afterEnd = "afterend"       ## After the targetElement itself.
 
 const
   dataUriHtmlHeader* = "data:text/html;charset=utf-8,"  ## Data URI for HTML UTF-8 header string
@@ -313,6 +318,24 @@ template duckDns*(domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose:
   else:
     ((when ssl: "https" else: "http") & "://www.duckdns.org/update?domains=" & domains & "&token=" & token &
       "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
+
+template addText*(id, text: string, position = beforeEnd): string =
+  ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text & "`);"
+
+template addHtml*(id, html: string, position = beforeEnd): string =
+  ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html & "`);"
+
+template addElement*(id, htmlTag: string, position = beforeEnd): string =
+  ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
