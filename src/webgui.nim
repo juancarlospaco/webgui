@@ -297,20 +297,19 @@ template setTheme*(w: Webview; dark: bool) =
   ## Set Dark Theme or Light Theme on-the-fly, `dark = true` for Dark, `dark = false` for Light.
   discard w.css(if dark: cssDark else: cssLight)
 
-template imgLazyLoad*(src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
+template imgLazyLoad*(w: Webview; src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
   ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
   assert id.len > 0, "ID must not be empty string, must have an ID"
   assert src.len > 0, "src must not be empty string"
   imageLazy.format(src, id, width, heigth, class,  alt)
 
-template sanitizer*(s: string): string =
+template sanitizer*(w: Webview; s: string): string =
   ## Sanitize all non-printable and weird characters from a string. `import re` to use it.
   re.replace(s, re(r"[^\x00-\x7F]+", flags = {reStudy, reIgnoreCase}))
 
-template duckDns*(domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
+template duckDns*(w: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
   clear: static[bool] = false;  noParameters: static[bool] = false; ssl: static[bool] = true): string =
   ## Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting https://www.duckdns.org/why.jsp
-  runnableExamples: assert duckDns("OwO.io", "Token", "1.0.0.1", noParameters = true) == "https://www.duckdns.org/update/OwO.io/Token/1.0.0.1"
   assert token.len > 0 and domains.len > 0, "Token and Domains must not be empty string"
   when noParameters:
     assert ',' notin domains, "noParameters only allows 1 single subdomain"
@@ -319,19 +318,19 @@ template duckDns*(domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose:
     ((when ssl: "https" else: "http") & "://www.duckdns.org/update?domains=" & domains & "&token=" & token &
       "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
 
-template addText*(id, text: string, position = beforeEnd): string =
+template addText*(w: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text & "`);"
 
-template addHtml*(id, html: string, position = beforeEnd): string =
+template addHtml*(w: Webview; id, html: string, position = beforeEnd): string =
   ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html & "`);"
 
-template addElement*(id, htmlTag: string, position = beforeEnd): string =
+template addElement*(w: Webview; id, htmlTag: string, position = beforeEnd): string =
   ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
   assert id.len > 0, "ID must not be empty string, must have an ID"
