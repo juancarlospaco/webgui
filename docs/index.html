@@ -273,8 +273,8 @@ function main() {
     title="addHtml(w: Webview; id, html: string; position = beforeEnd): string"><wbr />add<wbr />Html<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addElement.t%2CWebview%2Cstring%2Cstring"
     title="addElement(w: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#currentHtmlPath.t%2CWebview%2Cstatic%5Bstring%5D"
-    title="currentHtmlPath(w: Webview; filename: static[string] = &quot;index.html&quot;): static[string]"><wbr />current<wbr />Html<wbr />Path<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#currentHtmlPath.t%2Cstatic%5Bstring%5D"
+    title="currentHtmlPath(filename: static[string] = &quot;index.html&quot;): static[string]"><wbr />current<wbr />Html<wbr />Path<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -815,9 +815,8 @@ Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><spa
 Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentElement()</span></tt>. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement</a>
 
 </dd>
-<a id="currentHtmlPath.t,Webview,static[string]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#currentHtmlPath.t%2CWebview%2Cstatic%5Bstring%5D"><span class="Identifier">currentHtmlPath</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="StringLit">&quot;index.html&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span>
-    <span class="Identifier">string</span><span class="Other">]</span></pre></dt>
+<a id="currentHtmlPath.t,static[string]"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#currentHtmlPath.t%2Cstatic%5Bstring%5D"><span class="Identifier">currentHtmlPath</span></a><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="StringLit">&quot;index.html&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span></pre></dt>
 <dd>
 
 Alias for <tt class="docutils literal"><span class="pre">static( currentSourcePath().splitPath.head / &quot;index.html&quot; )</span></tt>
@@ -833,7 +832,7 @@ Alias for <tt class="docutils literal"><span class="pre">static( currentSourcePa
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-09 23:55:49 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-09 23:57:36 UTC</small>
       </div>
     </div>
   </div>
