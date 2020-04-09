@@ -294,11 +294,25 @@ template setTheme*(w: Webview; dark: bool) =
 
 template imgLazyLoadHtml*(src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
   ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  assert src.len > 0, "src must not be empty string"
   imageLazy.format(src, id, width, heigth, class,  alt)
 
 template sanitizer*(s: string): string =
   ## Sanitize all non-printable and weird characters from a string. `import re` to use it.
   re.replace(s, re(r"[^\x00-\x7F]+", flags = {reStudy, reIgnoreCase}))
+
+template duckDns*(domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
+  clear: static[bool] = false;  noParameters: static[bool] = false; ssl: static[bool] = true): string =
+  ## Duck DNS, Free Dynamic DNS Service, use your PC as $0 Web Hosting https://www.duckdns.org/why.jsp
+  runnableExamples: assert duckDns("OwO.io", "Token", "1.0.0.1", noParameters = true) == "https://www.duckdns.org/update/OwO.io/Token/1.0.0.1"
+  assert token.len > 0 and domains.len > 0, "Token and Domains must not be empty string"
+  when noParameters:
+    assert ',' notin domains, "noParameters only allows 1 single subdomain"
+    ((when ssl: "https" else: "http") & "://www.duckdns.org/update/" & domains & "/" & token & "/" & ipv4)
+  else:
+    ((when ssl: "https" else: "http") & "://www.duckdns.org/update?domains=" & domains & "&token=" & token &
+      "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.

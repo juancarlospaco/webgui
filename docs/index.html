@@ -257,6 +257,10 @@ function main() {
     title="imgLazyLoadHtml(src, id: string; width = &quot;&quot;; heigth = &quot;&quot;; class = &quot;&quot;; alt = &quot;&quot;): string"><wbr />img<wbr />Lazy<wbr />Load<wbr />Html<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#sanitizer.t%2Cstring"
     title="sanitizer(s: string): string"><wbr />sanitizer<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#duckDns.t%2Cstring%2Cstring%2Cstring%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"
+    title="duckDns(domains: string; token: string; ipv4 = &quot;&quot;; ipv6 = &quot;&quot;;
+        verbose: static[bool] = false; clear: static[bool] = false;
+        noParameters: static[bool] = false; ssl: static[bool] = true): string"><wbr />duck<wbr />Dns<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -756,6 +760,18 @@ HTML Image LazyLoad. <a class="reference external" href="https://codepen.io/Fili
 Sanitize all non-printable and weird characters from a string. <tt class="docutils literal"><span class="pre">import re</span></tt> to use it.
 
 </dd>
+<a id="duckDns.t,string,string,string,string,static[bool],static[bool],static[bool],static[bool]"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#duckDns.t%2Cstring%2Cstring%2Cstring%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"><span class="Identifier">duckDns</span></a><span class="Other">(</span><span class="Identifier">domains</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">token</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">ipv4</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">ipv6</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span>
+                <span class="Identifier">verbose</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">clear</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span>
+                <span class="Identifier">noParameters</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">ssl</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Duck DNS, Free Dynamic DNS Service, use your PC as $0 Web Hosting <a class="reference external" href="https://www.duckdns.org/why.jsp">https://www.duckdns.org/why.jsp</a>
+<p><strong class="examples_text">Examples:</strong></p>
+<pre class="listing"><span class="Identifier">assert</span> <span class="Identifier">duckDns</span><span class="Other">(</span><span class="StringLit">&quot;OwO.io&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;Token&quot;</span><span class="Other">,</span> <span class="StringLit">&quot;1.0.0.1&quot;</span><span class="Other">,</span> <span class="Identifier">noParameters</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> <span class="Operator">==</span>
+    <span class="StringLit">&quot;https://www.duckdns.org/update/OwO.io/Token/1.0.0.1&quot;</span></pre>
+
+</dd>
 
 </dl></div>
 
@@ -766,7 +782,7 @@ Sanitize all non-printable and weird characters from a string. <tt class="docuti
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-09 00:10:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-09 01:05:27 UTC</small>
       </div>
     </div>
   </div>
