@@ -148,7 +148,7 @@ func dialogOpen*(aTitle: cstring, aDefaultPathAndFile: cstring, aNumOfFilterPatt
 proc dialogSave*(aTitle: cstring, aDefaultPathAndFile: cstring, aNumOfFilterPatterns = 0.cint, aFilterPatterns = "*.*".cstring, aSingleFilterDescription = "".cstring, aAllowMultipleSelects: range[0..1] = 0): cstring {.importc: "tinyfd_saveFileDialog".}
   ## * ``aDefaultPathAndFile`` is 1 default full path.
   ## * ``aFilterPatterns`` is 1 Posix Glob pattern string. ``"*.*"``, ``"*.jpg"``, etc.
-  ## * ``aSingleFilterDescription` is a string with descriptions for ``aFilterPatterns``.
+  ## * ``aSingleFilterDescription`` is a string with descriptions for ``aFilterPatterns``.
   ## * ``aAllowMultipleSelects`` must be ``0`` (false) or ``1`` (true), multiple selection returns 1 ``string`` with paths divided by ``|``, ``int`` type.
   ## Similar to the other file dialog but with more extra options.
 
