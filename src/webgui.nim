@@ -304,7 +304,7 @@ template sanitizer*(s: string): string =
 
 template duckDns*(domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
   clear: static[bool] = false;  noParameters: static[bool] = false; ssl: static[bool] = true): string =
-  ## Duck DNS, Free Dynamic DNS Service, use your PC as $0 Web Hosting https://www.duckdns.org/why.jsp
+  ## Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting https://www.duckdns.org/why.jsp
   runnableExamples: assert duckDns("OwO.io", "Token", "1.0.0.1", noParameters = true) == "https://www.duckdns.org/update/OwO.io/Token/1.0.0.1"
   assert token.len > 0 and domains.len > 0, "Token and Domains must not be empty string"
   when noParameters:
