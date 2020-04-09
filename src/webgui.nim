@@ -322,13 +322,13 @@ template addText*(w: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
   assert id.len > 0, "ID must not be empty string, must have an ID"
-  "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text & "`);"
+  "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text.replace('`', ' ') & "`);"
 
 template addHtml*(w: Webview; id, html: string, position = beforeEnd): string =
   ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
   assert id.len > 0, "ID must not be empty string, must have an ID"
-  "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html & "`);"
+  "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html.replace('`', ' ') & "`);"
 
 template addElement*(w: Webview; id, htmlTag: string, position = beforeEnd): string =
   ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`.
