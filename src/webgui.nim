@@ -292,7 +292,7 @@ template setTheme*(w: Webview; dark: bool) =
   ## Set Dark Theme or Light Theme on-the-fly, `dark = true` for Dark, `dark = false` for Light.
   discard w.css(if dark: cssDark else: cssLight)
 
-template imgLazyLoadHtml*(src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
+template imgLazyLoad*(src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
   ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
   assert id.len > 0, "ID must not be empty string, must have an ID"
   assert src.len > 0, "src must not be empty string"
