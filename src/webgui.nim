@@ -337,8 +337,8 @@ template addElement*(w: Webview; id, htmlTag: string, position = beforeEnd): str
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
 template currentHtmlPath*(filename: static[string] = "index.html"): static[string] =
-  ## Alias for `static( currentSourcePath().splitPath.head / "index.html" )`
-  static: currentSourcePath().splitPath.head / "index.html"
+  ## Alias for `static( currentSourcePath().splitPath.head / "index.html" )` for URL of `index.html`
+  $static(currentSourcePath().splitPath.head / "index.html")
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
