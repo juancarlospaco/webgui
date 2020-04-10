@@ -128,6 +128,9 @@ var
 {.compile: "tinyfiledialogs.c".}
 func beep*(_: Webview): void {.importc: "tinyfd_beep".} ## Beep Sound to alert the user.
 func notifySend*(aTitle: cstring, aMessage: cstring, aDialogType = "yesno".cstring, aIconType = "info".cstring, aDefaultButton = tdbOk): cint {.importc: "tinyfd_notifyPopup".}
+  ## This is similar to `nofity-send` from Linux, but implemented in C.
+  ## This will send 1 native notification, but will fallback from best to worse,
+  ## on Linux without a full desktop or without notification system, it may use `zenity` or similar.
   ## - ``aDialogType`` must be one of ``"ok"``, ``"okcancel"``, ``"yesno"``, ``"yesnocancel"``, ``string`` type.
   ## - ``aIconType`` must be one of ``"info"``, ``"warning"``, ``"error"``, ``"question"``, ``string`` type.
   ## - ``aDefaultButton`` must be one of ``0`` (for Cancel), ``1`` (for Ok), ``2`` (for No), ``range[0..2]`` type.

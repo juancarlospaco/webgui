@@ -498,7 +498,7 @@ Beep Sound to alert the user.
     <span class="Identifier">importc</span><span class="Other">:</span> <span class="StringLit">&quot;tinyfd_notifyPopup&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-<ul class="simple"><li><tt class="docutils literal"><span class="pre">aDialogType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;ok&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;okcancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesno&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesnocancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
+This is similar to <tt class="docutils literal"><span class="pre">nofity-send</span></tt> from Linux, but implemented in C. This will send 1 native notification, but will fallback from best to worse, on Linux without a full desktop or without notification system, it may use <tt class="docutils literal"><span class="pre">zenity</span></tt> or similar.<ul class="simple"><li><tt class="docutils literal"><span class="pre">aDialogType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;ok&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;okcancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesno&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;yesnocancel&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
 <li><tt class="docutils literal"><span class="pre">aIconType</span></tt> must be one of <tt class="docutils literal"><span class="pre">&quot;info&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;warning&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;error&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;question&quot;</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> type.</li>
 <li><tt class="docutils literal"><span class="pre">aDefaultButton</span></tt> must be one of <tt class="docutils literal"><span class="pre">0</span></tt> (for Cancel), <tt class="docutils literal"><span class="pre">1</span></tt> (for Ok), <tt class="docutils literal"><span class="pre">2</span></tt> (for No), <tt class="docutils literal"><span class="pre">range[0..2]</span></tt> type.</li>
 </ul>
@@ -832,7 +832,7 @@ Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-10 00:18:26 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-10 01:42:03 UTC</small>
       </div>
     </div>
   </div>
