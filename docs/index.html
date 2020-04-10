@@ -229,6 +229,8 @@ function main() {
     title="run(w: Webview)"><wbr />run<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#exit%2CWebview"
     title="exit(w: Webview)"><wbr />exit<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#currentHtmlPath%2Cstatic%5Bstring%5D"
+    title="currentHtmlPath(filename: static[string] = &quot;index.html&quot;): string"><wbr />current<wbr />Html<wbr />Path<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -273,8 +275,6 @@ function main() {
     title="addHtml(w: Webview; id, html: string; position = beforeEnd): string"><wbr />add<wbr />Html<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addElement.t%2CWebview%2Cstring%2Cstring"
     title="addElement(w: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#currentHtmlPath.t%2Cstatic%5Bstring%5D"
-    title="currentHtmlPath(filename: static[string] = &quot;index.html&quot;): static[string]"><wbr />current<wbr />Html<wbr />Path<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -682,6 +682,13 @@ Set a TrayIcon on the corner of the desktop. <tt class="docutils literal"><span 
 Terminate, close, exit, quit.
 
 </dd>
+<a id="currentHtmlPath,static[string]"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#currentHtmlPath%2Cstatic%5Bstring%5D"><span class="Identifier">currentHtmlPath</span></a><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="StringLit">&quot;index.html&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Alias for <tt class="docutils literal"><span class="pre">currentSourcePath().splitPath.head / &quot;index.html&quot;</span></tt> for URL of <tt class="docutils literal"><span class="pre">index.html</span></tt>
+
+</dd>
 
 </dl></div>
 <div class="section" id="17">
@@ -815,13 +822,6 @@ Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><spa
 Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentElement()</span></tt>. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement</a>
 
 </dd>
-<a id="currentHtmlPath.t,static[string]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#currentHtmlPath.t%2Cstatic%5Bstring%5D"><span class="Identifier">currentHtmlPath</span></a><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="StringLit">&quot;index.html&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span></pre></dt>
-<dd>
-
-Alias for <tt class="docutils literal"><span class="pre">static( currentSourcePath().splitPath.head / &quot;index.html&quot; )</span></tt>
-
-</dd>
 
 </dl></div>
 
@@ -832,7 +832,7 @@ Alias for <tt class="docutils literal"><span class="pre">static( currentSourcePa
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-09 23:57:36 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-10 00:18:26 UTC</small>
       </div>
     </div>
   </div>
