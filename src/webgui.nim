@@ -387,7 +387,7 @@ proc bindProc*[P](w: Webview; scope, name: string; p: proc(arg: P)) {.used.} =
   eps[w][scope][name] = hook
   w.dispatch(proc() = discard w.js(jsTemplateOnlyArg % [name, scope]))
 
-macro bindProcs*(w: Webview; scope: string; n: untyped): untyped =
+macro bindProcs*(w: Webview; scope = "api"; n: untyped): untyped =
   ## * Functions must be `proc` or `func`; No `template` nor `macro`.
   ## * Functions must NOT have return Type, must NOT return anything, use the API.
   ## * To pass return data to the Frontend use the JavaScript API and WebGui API.
