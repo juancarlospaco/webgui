@@ -336,9 +336,9 @@ template addElement*(w: Webview; id, htmlTag: string, position = beforeEnd): str
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
-template currentHtmlPath*(filename: static[string] = "index.html"): string =
+func currentHtmlPath*(filename: static[string] = "index.html"): string {.inline.} =
   ## Alias for `currentSourcePath().splitPath.head / "index.html"` for URL of `index.html`
-  currentSourcePath().splitPath.head / "index.html"
+  result = currentSourcePath().splitPath.head / filename
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
