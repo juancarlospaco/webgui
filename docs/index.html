@@ -227,6 +227,9 @@ function main() {
     title="setTrayIcon(w: Webview; path, tooltip: cstring; visible = true)"><wbr />set<wbr />Tray<wbr />Icon<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#run%2CWebview"
     title="run(w: Webview)"><wbr />run<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"
+    title="run(w: Webview; quitProc: proc () {.noconv.}; controlCProc: proc () {.noconv.};
+    autoClose: static[bool] = true)"><wbr />run<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#exit%2CWebview"
     title="exit(w: Webview)"><wbr />exit<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#currentHtmlPath%2Cstatic%5Bstring%5D"
@@ -672,14 +675,26 @@ Set a TrayIcon on the corner of the desktop. <tt class="docutils literal"><span 
 <dt><pre><span class="Keyword">func</span> <a href="#run%2CWebview"><span class="Identifier">run</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-<tt class="docutils literal"><span class="pre">run</span></tt> starts the main UI loop until the user closes the webview window or <tt class="docutils literal"><span class="pre">exit()</span></tt> is called.
+<tt class="docutils literal"><span class="pre">run</span></tt> starts the main UI loop until the user closes the window or <tt class="docutils literal"><span class="pre">exit()</span></tt> is called.
+
+</dd>
+<a id="run,Webview,proc),proc),static[bool]"></a>
+<dt><pre><span class="Keyword">func</span> <a href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"><span class="Identifier">run</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">quitProc</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span></span><span class="Other">.}</span></span><span class="Other">;</span> <span class="Identifier">controlCProc</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span></span><span class="Other">.}</span></span><span class="Other">;</span>
+        <span class="Identifier">autoClose</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+<tt class="docutils literal"><span class="pre">run</span></tt> starts the main UI loop until the user closes the window.<ul class="simple"><li><tt class="docutils literal"><span class="pre">quitProc</span></tt> is a function to run at exit, needs <tt class="docutils literal"><span class="pre">{.noconv.}</span></tt> pragma.</li>
+<li><tt class="docutils literal"><span class="pre">controlCProc</span></tt> is a function to run at CTRL+C, needs <tt class="docutils literal"><span class="pre">{.noconv.}</span></tt> pragma.</li>
+<li><tt class="docutils literal"><span class="pre">autoClose</span></tt> set to <tt class="docutils literal"><span class="pre">true</span></tt> to automatically run <tt class="docutils literal"><span class="pre">exit()</span></tt> at exit.</li>
+</ul>
+
 
 </dd>
 <a id="exit,Webview"></a>
 <dt><pre><span class="Keyword">func</span> <a href="#exit%2CWebview"><span class="Identifier">exit</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-Terminate, close, exit, quit.
+Explicitly Terminate, close, exit, quit.
 
 </dd>
 <a id="currentHtmlPath,static[string]"></a>
@@ -832,7 +847,7 @@ Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-10 01:42:03 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-10 03:56:26 UTC</small>
       </div>
     </div>
   </div>

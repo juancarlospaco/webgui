@@ -288,11 +288,23 @@ template dialogOpenDir*(w: Webview; title = ""): string =
   w.dialog(dtOpen, 1.cint, title, "")
 
 func run*(w: Webview) {.inline.} =
-  ## `run` starts the main UI loop until the user closes the webview window or `exit()` is called.
+  ## `run` starts the main UI loop until the user closes the window or `exit()` is called.
   while w.loop(1) == 0: discard
 
+func run*(w: Webview, quitProc: proc () {.noconv.}, controlCProc: proc () {.noconv.}, autoClose: static[bool] = true) {.inline.} =
+  ## `run` starts the main UI loop until the user closes the window.
+  ## * `quitProc` is a function to run at exit, needs `{.noconv.}` pragma.
+  ## * `controlCProc` is a function to run at CTRL+C, needs `{.noconv.}` pragma.
+  ## * `autoClose` set to `true` to automatically run `exit()` at exit.
+  system.addQuitProc(quitProc)
+  system.setControlCHook(controlCProc)
+  while w.loop(1) == 0: discard
+  when autoClose:
+    w.webview_terminate()
+    w.webview_exit()
+
 func exit*(w: Webview) {.inline.} =
-  ## Terminate, close, exit, quit.
+  ## Explicitly Terminate, close, exit, quit.
   w.webview_terminate()
   w.webview_exit()
 
