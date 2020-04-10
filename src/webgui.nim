@@ -322,6 +322,10 @@ template sanitizer*(w: Webview; s: string): string =
   ## Sanitize all non-printable and weird characters from a string. `import re` to use it.
   re.replace(s, re(r"[^\x00-\x7F]+", flags = {reStudy, reIgnoreCase}))
 
+template getLang*(w: Webview): string =
+  ## Detect the Language of the user, returns a string like `"en-US"`, JavaScript side.
+  "((navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language);"
+
 template duckDns*(w: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
   clear: static[bool] = false;  noParameters: static[bool] = false; ssl: static[bool] = true): string =
   ## Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting https://www.duckdns.org/why.jsp
@@ -334,19 +338,19 @@ template duckDns*(w: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = 
       "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
 
 template addText*(w: Webview; id, text: string, position = beforeEnd): string =
-  ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`.
+  ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text.replace('`', ' ') & "`);"
 
 template addHtml*(w: Webview; id, html: string, position = beforeEnd): string =
-  ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`.
+  ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html.replace('`', ' ') & "`);"
 
 template addElement*(w: Webview; id, htmlTag: string, position = beforeEnd): string =
-  ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`.
+  ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
