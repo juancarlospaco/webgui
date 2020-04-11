@@ -32,8 +32,8 @@
 ## Real-Life Projects
 ## ==================
 ##
-## * https://github.com/ThomasTJdev/nim_nimble_gui#gui-for-nimble (**~20 lines of Nim at** the time of writing)
-## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher (**~42 lines of Nim at** the time of writing)
+## * https://github.com/ThomasTJdev/nim_nimble_gui#gui-for-nimble (**~20 lines of Nim** at the time of writing)
+## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher (**~42 lines of Nim** at the time of writing)
 ## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui (**~32 lines of Nim** at the time of writing)
 
 import tables, strutils, macros, json, re
@@ -133,7 +133,7 @@ var
 {.compile: "tinyfiledialogs.c".}
 func beep*(_: Webview): void {.importc: "tinyfd_beep".} ## Beep Sound to alert the user.
 func notifySend*(aTitle: cstring, aMessage: cstring, aDialogType = "yesno".cstring, aIconType = "info".cstring, aDefaultButton = tdbOk): cint {.importc: "tinyfd_notifyPopup".}
-  ## This is similar to `nofity-send` from Linux, but implemented in C.
+  ## This is similar to `notify-send` from Linux, but implemented in C.
   ## This will send 1 native notification, but will fallback from best to worse,
   ## on Linux without a full desktop or without notification system, it may use `zenity` or similar.
   ## - ``aDialogType`` must be one of ``"ok"``, ``"okcancel"``, ``"yesno"``, ``"yesnocancel"``, ``string`` type.
