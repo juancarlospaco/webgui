@@ -39,7 +39,7 @@
 ## * https://github.com/juancarlospaco/nim-smnar      (**~32 lines of Nim** at the time of writing)
 ## * https://github.com/ThomasTJdev/choosenim_gui     (**~80 lines of Nim** at the time of writing)
 
-import tables, strutils, macros, json, re
+import tables, strutils, macros, json
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
 {.passC: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
@@ -363,13 +363,22 @@ template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): str
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
-template textareaScroll*(_: Webview; id: string): string =
-  ## Auto-Scroll a textarea to the bottom, returns the string for JavaScript.
+template textareaScroll*(_: Webview; id: string, scrollIntoView: static[bool] = false, selectAll: static[bool] = false): string =
+  ## **Scroll a textarea to the bottom**, alias for `textarea.scrollTop = textarea.scrollHeight;`.
+  ## * `scrollIntoView` if `true` runs `textarea.scrollIntoView();`.
+  ## * `selectAll` if `true` runs `textarea.select();`.
   assert id.len > 0, "ID must not be empty string, must have an ID"
-  "document.querySelector('" & id & "').scrollTop = document.querySelector('" & id & "').scrollHeight;"
+  ((when scrollIntoView: "document.querySelector('" & id & "').scrollIntoView();" else: "") &
+    (when selectAll: "document.querySelector('" & id & "').select();" else: "") &
+    "document.querySelector('" & id & "').scrollTop = document.querySelector('" & id & "').scrollHeight;")
 
 template jsWithDisable*(w: Webview; id: string; body: untyped) =
   ## Disable 1 element, run some code, Enable same element back again. Disables at the start, Enables at the end.
+  ##
+  ## .. code-block:: nim
+  ##   app.jsWithHide("#myButton"): ## "#myButton" becomes Disabled.
+  ##     slowFunction()             ## Code block that takes a while to finish.
+  ##                                ## "#myButton" becomes Enabled.
   assert id.len > 0, "ID and jsScript must not be empty string"
   w.js("document.querySelector('" & id & "').disabled = true;document.querySelector('#" & id & "').style.cursor = 'wait';")
   try:
@@ -379,6 +388,11 @@ template jsWithDisable*(w: Webview; id: string; body: untyped) =
 
 template jsWithHide*(w: Webview; id: string; body: untyped) =
   ## Hide 1 element, run some code, Show same element back again. Hides at the start, Visible at the end.
+  ##
+  ## .. code-block:: nim
+  ##   app.jsWithHide("#myButton"): ## "#myButton" becomes Hidden.
+  ##     slowFunction()             ## Code block that takes a while to finish.
+  ##                                ## "#myButton" becomes Visible.
   assert id.len > 0, "ID and jsScript must not be empty string"
   w.js("document.querySelector('" & id & "').style.visibility = 'hidden';document.querySelector('#" & id & "').style.cursor = 'wait';")
   try:
@@ -387,7 +401,12 @@ template jsWithHide*(w: Webview; id: string; body: untyped) =
     w.js("document.querySelector('" & id & "').style.visibility = 'visible';document.querySelector('#" & id & "').style.cursor = 'default';")
 
 template jsWithOpacity*(w: Webview; id: string; body: untyped) =
-  ## Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 25% Transparent at the start, Visible at the end.
+  ## Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 25% Transparent at the start, Opaque at the end.
+  ##
+  ## .. code-block:: nim
+  ##   app.jsWithOpacity("#myButton"): ## "#myButton" becomes transparent.
+  ##     slowFunction()                ## Code block that takes a while to finish.
+  ##                                   ## "#myButton" becomes Opaque.
   assert id.len > 0, "ID and jsScript must not be empty string"
   w.js("document.querySelector('" & id & "').style.opacity = 0.25;document.querySelector('#" & id & "').style.cursor = 'wait';")
   try:
