@@ -25,11 +25,16 @@
 ##
 ## .. image:: https://raw.githubusercontent.com/juancarlospaco/nim-smnar/master/0.png
 ##
+## .. image:: https://user-images.githubusercontent.com/1189414/78953126-2f055c00-7aae-11ea-9570-4a5fcd5813bc.png
+##
+## .. image:: https://user-images.githubusercontent.com/1189414/78956916-36cafd80-7aba-11ea-97eb-75af94c99c80.png
+##
 ## Real-Life Projects
 ## ==================
 ##
-## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher (~42 lines of Nim at the time of writing)
-## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui (~32 lines of Nim at the time of writing)
+## * https://github.com/ThomasTJdev/nim_nimble_gui#gui-for-nimble (**~20 lines of Nim at** the time of writing)
+## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher (**~42 lines of Nim at** the time of writing)
+## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui (**~32 lines of Nim** at the time of writing)
 
 import tables, strutils, macros, json, re
 
