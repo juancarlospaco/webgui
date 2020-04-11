@@ -29,12 +29,15 @@
 ##
 ## .. image:: https://user-images.githubusercontent.com/1189414/78956916-36cafd80-7aba-11ea-97eb-75af94c99c80.png
 ##
+## .. image:: https://raw.githubusercontent.com/ThomasTJdev/choosenim_gui/master/private/screenshot1.png
+##
 ## Real-Life Projects
 ## ==================
 ##
-## * https://github.com/ThomasTJdev/nim_nimble_gui#gui-for-nimble (**~20 lines of Nim** at the time of writing)
-## * https://github.com/juancarlospaco/ballena-itcher#ballena-itcher (**~42 lines of Nim** at the time of writing)
-## * https://github.com/juancarlospaco/nim-smnar/tree/master/gui (**~32 lines of Nim** at the time of writing)
+## * https://github.com/ThomasTJdev/nim_nimble_gui    (**~20 lines of Nim** at the time of writing)
+## * https://github.com/juancarlospaco/ballena-itcher (**~42 lines of Nim** at the time of writing)
+## * https://github.com/juancarlospaco/nim-smnar      (**~32 lines of Nim** at the time of writing)
+## * https://github.com/ThomasTJdev/choosenim_gui     (**~80 lines of Nim** at the time of writing)
 
 import tables, strutils, macros, json, re
 
@@ -296,8 +299,8 @@ func run*(w: Webview) {.inline.} =
   ## `run` starts the main UI loop until the user closes the window or `exit()` is called.
   while w.loop(1) == 0: discard
 
-func run*(w: Webview, quitProc: proc () {.noconv.}, controlCProc: proc () {.noconv.}, autoClose: static[bool] = true) {.inline.} =
-  ## `run` starts the main UI loop until the user closes the window.
+proc run*(w: Webview, quitProc: proc () {.noconv.}, controlCProc: proc () {.noconv.}, autoClose: static[bool] = true) {.inline.} =
+  ## `run` starts the main UI loop until the user closes the window. Same as `run` but with extras.
   ## * `quitProc` is a function to run at exit, needs `{.noconv.}` pragma.
   ## * `controlCProc` is a function to run at CTRL+C, needs `{.noconv.}` pragma.
   ## * `autoClose` set to `true` to automatically run `exit()` at exit.
@@ -317,21 +320,21 @@ template setTheme*(w: Webview; dark: bool) =
   ## Set Dark Theme or Light Theme on-the-fly, `dark = true` for Dark, `dark = false` for Light.
   discard w.css(if dark: cssDark else: cssLight)
 
-template imgLazyLoad*(w: Webview; src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
+template imgLazyLoad*(_: Webview; src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
   ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
   assert id.len > 0, "ID must not be empty string, must have an ID"
   assert src.len > 0, "src must not be empty string"
   imageLazy.format(src, id, width, heigth, class,  alt)
 
-template sanitizer*(w: Webview; s: string): string =
+template sanitizer*(_: Webview; s: string): string =
   ## Sanitize all non-printable and weird characters from a string. `import re` to use it.
   re.replace(s, re(r"[^\x00-\x7F]+", flags = {reStudy, reIgnoreCase}))
 
-template getLang*(w: Webview): string =
+template getLang*(_: Webview): string =
   ## Detect the Language of the user, returns a string like `"en-US"`, JavaScript side.
   "((navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language);"
 
-template duckDns*(w: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
+template duckDns*(_: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
   clear: static[bool] = false;  noParameters: static[bool] = false; ssl: static[bool] = true): string =
   ## Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting https://www.duckdns.org/why.jsp
   assert token.len > 0 and domains.len > 0, "Token and Domains must not be empty string"
@@ -342,23 +345,55 @@ template duckDns*(w: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = 
     ((when ssl: "https" else: "http") & "://www.duckdns.org/update?domains=" & domains & "&token=" & token &
       "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
 
-template addText*(w: Webview; id, text: string, position = beforeEnd): string =
+template addText*(_: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text.replace('`', ' ') & "`);"
 
-template addHtml*(w: Webview; id, html: string, position = beforeEnd): string =
+template addHtml*(_: Webview; id, html: string, position = beforeEnd): string =
   ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html.replace('`', ' ') & "`);"
 
-template addElement*(w: Webview; id, htmlTag: string, position = beforeEnd): string =
+template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): string =
   ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
+
+template textareaScroll*(_: Webview; id: string): string =
+  ## Auto-Scroll a textarea to the bottom, returns the string for JavaScript.
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').scrollTop = document.querySelector('" & id & "').scrollHeight;"
+
+template jsWithDisable*(w: Webview; id: string; body: untyped) =
+  ## Disable 1 element, run some code, Enable same element back again. Disables at the start, Enables at the end.
+  assert id.len > 0, "ID and jsScript must not be empty string"
+  w.js("document.querySelector('" & id & "').disabled = true;document.querySelector('#" & id & "').style.cursor = 'wait';")
+  try:
+    body
+  finally:
+    w.js("document.querySelector('" & id & "').disabled = false;document.querySelector('#" & id & "').style.cursor = 'default';")
+
+template jsWithHide*(w: Webview; id: string; body: untyped) =
+  ## Hide 1 element, run some code, Show same element back again. Hides at the start, Visible at the end.
+  assert id.len > 0, "ID and jsScript must not be empty string"
+  w.js("document.querySelector('" & id & "').style.visibility = 'hidden';document.querySelector('#" & id & "').style.cursor = 'wait';")
+  try:
+    body
+  finally:
+    w.js("document.querySelector('" & id & "').style.visibility = 'visible';document.querySelector('#" & id & "').style.cursor = 'default';")
+
+template jsWithOpacity*(w: Webview; id: string; body: untyped) =
+  ## Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 25% Transparent at the start, Visible at the end.
+  assert id.len > 0, "ID and jsScript must not be empty string"
+  w.js("document.querySelector('" & id & "').style.opacity = 0.25;document.querySelector('#" & id & "').style.cursor = 'wait';")
+  try:
+    body
+  finally:
+    w.js("document.querySelector('" & id & "').style.opacity = 1;document.querySelector('#" & id & "').style.cursor = 'default';")
 
 func currentHtmlPath*(filename: static[string] = "index.html"): string {.inline.} =
   ## Alias for `currentSourcePath().splitPath.head / "index.html"` for URL of `index.html`

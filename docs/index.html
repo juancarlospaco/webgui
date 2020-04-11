@@ -158,6 +158,9 @@ function main() {
     title="externalInvokeCB=(w: Webview; callback: ExternalInvokeCb)"><wbr />external<wbr />Invoke<wbr />CB=<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#dispatch%2CWebview%2CDispatchFn"
     title="dispatch(w: Webview; fn: DispatchFn)"><wbr />dispatch<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"
+    title="run(w: Webview; quitProc: proc () {.noconv.}; controlCProc: proc () {.noconv.};
+    autoClose: static[bool] = true)"><wbr />run<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#bindProc%2CWebview%2Cstring%2Cstring%2C"
     title="bindProc[P, R](w: Webview; scope, name: string; p: (proc (param: P): R))"><wbr />bind<wbr />Proc<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#bindProcNoArg%2CWebview%2Cstring%2Cstring%2Cproc%29"
@@ -227,9 +230,6 @@ function main() {
     title="setTrayIcon(w: Webview; path, tooltip: cstring; visible = true)"><wbr />set<wbr />Tray<wbr />Icon<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#run%2CWebview"
     title="run(w: Webview)"><wbr />run<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"
-    title="run(w: Webview; quitProc: proc () {.noconv.}; controlCProc: proc () {.noconv.};
-    autoClose: static[bool] = true)"><wbr />run<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#exit%2CWebview"
     title="exit(w: Webview)"><wbr />exit<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#currentHtmlPath%2Cstatic%5Bstring%5D"
@@ -265,21 +265,29 @@ function main() {
   <li><a class="reference" href="#setTheme.t%2CWebview%2Cbool"
     title="setTheme(w: Webview; dark: bool)"><wbr />set<wbr />Theme<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#imgLazyLoad.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring"
-    title="imgLazyLoad(w: Webview; src, id: string; width = &quot;&quot;; heigth = &quot;&quot;; class = &quot;&quot;; alt = &quot;&quot;): string"><wbr />img<wbr />Lazy<wbr />Load<span class="attachedType">Webview</span></a></li>
+    title="imgLazyLoad(_: Webview; src, id: string; width = &quot;&quot;; heigth = &quot;&quot;; class = &quot;&quot;; alt = &quot;&quot;): string"><wbr />img<wbr />Lazy<wbr />Load<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#sanitizer.t%2CWebview%2Cstring"
-    title="sanitizer(w: Webview; s: string): string"><wbr />sanitizer<span class="attachedType">Webview</span></a></li>
+    title="sanitizer(_: Webview; s: string): string"><wbr />sanitizer<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#getLang.t%2CWebview"
-    title="getLang(w: Webview): string"><wbr />get<wbr />Lang<span class="attachedType">Webview</span></a></li>
+    title="getLang(_: Webview): string"><wbr />get<wbr />Lang<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#duckDns.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"
-    title="duckDns(w: Webview; domains: string; token: string; ipv4 = &quot;&quot;; ipv6 = &quot;&quot;;
+    title="duckDns(_: Webview; domains: string; token: string; ipv4 = &quot;&quot;; ipv6 = &quot;&quot;;
         verbose: static[bool] = false; clear: static[bool] = false;
         noParameters: static[bool] = false; ssl: static[bool] = true): string"><wbr />duck<wbr />Dns<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addText.t%2CWebview%2Cstring%2Cstring"
-    title="addText(w: Webview; id, text: string; position = beforeEnd): string"><wbr />add<wbr />Text<span class="attachedType">Webview</span></a></li>
+    title="addText(_: Webview; id, text: string; position = beforeEnd): string"><wbr />add<wbr />Text<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addHtml.t%2CWebview%2Cstring%2Cstring"
-    title="addHtml(w: Webview; id, html: string; position = beforeEnd): string"><wbr />add<wbr />Html<span class="attachedType">Webview</span></a></li>
+    title="addHtml(_: Webview; id, html: string; position = beforeEnd): string"><wbr />add<wbr />Html<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addElement.t%2CWebview%2Cstring%2Cstring"
-    title="addElement(w: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
+    title="addElement(_: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#textareaScroll.t%2CWebview%2Cstring"
+    title="textareaScroll(_: Webview; id: string): string"><wbr />textarea<wbr />Scroll<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#jsWithDisable.t%2CWebview%2Cstring%2Cuntyped"
+    title="jsWithDisable(w: Webview; id: string; body: untyped)"><wbr />js<wbr />With<wbr />Disable<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#jsWithHide.t%2CWebview%2Cstring%2Cuntyped"
+    title="jsWithHide(w: Webview; id: string; body: untyped)"><wbr />js<wbr />With<wbr />Hide<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#jsWithOpacity.t%2CWebview%2Cstring%2Cuntyped"
+    title="jsWithOpacity(w: Webview; id: string; body: untyped)"><wbr />js<wbr />With<wbr />Opacity<span class="attachedType">Webview</span></a></li>
 
   </ul>
 </li>
@@ -300,10 +308,11 @@ function main() {
 
 <h1><a class="toc-backref" id="buitminusin-dark-mode" href="#buitminusin-dark-mode">Buit-in Dark Mode</a></h1><img src="https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/darkui.png"/>
 <h1><a class="toc-backref" id="buitminusin-light-mode" href="#buitminusin-light-mode">Buit-in Light Mode</a></h1><img src="https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/lightui.png"/>
-<h1><a class="toc-backref" id="realminuslife-examples" href="#realminuslife-examples">Real-Life Examples</a></h1><img src="https://raw.githubusercontent.com/juancarlospaco/ballena-itcher/master/0.png"/><img src="https://raw.githubusercontent.com/juancarlospaco/nim-smnar/master/0.png"/><img src="https://user-images.githubusercontent.com/1189414/78953126-2f055c00-7aae-11ea-9570-4a5fcd5813bc.png"/><img src="https://user-images.githubusercontent.com/1189414/78956916-36cafd80-7aba-11ea-97eb-75af94c99c80.png"/>
-<h1><a class="toc-backref" id="realminuslife-projects" href="#realminuslife-projects">Real-Life Projects</a></h1><ul class="simple"><li><a class="reference external" href="https://github.com/ThomasTJdev/nim_nimble_gui#gui-for-nimble">https://github.com/ThomasTJdev/nim_nimble_gui#gui-for-nimble</a> (<strong>~20 lines of Nim</strong> at the time of writing)</li>
-<li><a class="reference external" href="https://github.com/juancarlospaco/ballena-itcher#ballena-itcher">https://github.com/juancarlospaco/ballena-itcher#ballena-itcher</a> (<strong>~42 lines of Nim</strong> at the time of writing)</li>
-<li><a class="reference external" href="https://github.com/juancarlospaco/nim-smnar/tree/master/gui">https://github.com/juancarlospaco/nim-smnar/tree/master/gui</a> (<strong>~32 lines of Nim</strong> at the time of writing)</li>
+<h1><a class="toc-backref" id="realminuslife-examples" href="#realminuslife-examples">Real-Life Examples</a></h1><img src="https://raw.githubusercontent.com/juancarlospaco/ballena-itcher/master/0.png"/><img src="https://raw.githubusercontent.com/juancarlospaco/nim-smnar/master/0.png"/><img src="https://user-images.githubusercontent.com/1189414/78953126-2f055c00-7aae-11ea-9570-4a5fcd5813bc.png"/><img src="https://user-images.githubusercontent.com/1189414/78956916-36cafd80-7aba-11ea-97eb-75af94c99c80.png"/><img src="https://raw.githubusercontent.com/ThomasTJdev/choosenim_gui/master/private/screenshot1.png"/>
+<h1><a class="toc-backref" id="realminuslife-projects" href="#realminuslife-projects">Real-Life Projects</a></h1><ul class="simple"><li><a class="reference external" href="https://github.com/ThomasTJdev/nim_nimble_gui">https://github.com/ThomasTJdev/nim_nimble_gui</a>    (<strong>~20 lines of Nim</strong> at the time of writing)</li>
+<li><a class="reference external" href="https://github.com/juancarlospaco/ballena-itcher">https://github.com/juancarlospaco/ballena-itcher</a> (<strong>~42 lines of Nim</strong> at the time of writing)</li>
+<li><a class="reference external" href="https://github.com/juancarlospaco/nim-smnar">https://github.com/juancarlospaco/nim-smnar</a>      (<strong>~32 lines of Nim</strong> at the time of writing)</li>
+<li><a class="reference external" href="https://github.com/ThomasTJdev/choosenim_gui">https://github.com/ThomasTJdev/choosenim_gui</a>     (<strong>~80 lines of Nim</strong> at the time of writing)</li>
 </ul>
 </p>
   <div class="section" id="7">
@@ -433,6 +442,18 @@ Set the external invoke callback for webview, for Advanced users only
 <dd>
 
 Explicitly force dispatch a function, for advanced users only
+
+</dd>
+<a id="run,Webview,proc),proc),static[bool]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"><span class="Identifier">run</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">quitProc</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span></span><span class="Other">.}</span></span><span class="Other">;</span> <span class="Identifier">controlCProc</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span></span><span class="Other">.}</span></span><span class="Other">;</span>
+        <span class="Identifier">autoClose</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+<tt class="docutils literal"><span class="pre">run</span></tt> starts the main UI loop until the user closes the window. Same as <tt class="docutils literal"><span class="pre">run</span></tt> but with extras.<ul class="simple"><li><tt class="docutils literal"><span class="pre">quitProc</span></tt> is a function to run at exit, needs <tt class="docutils literal"><span class="pre">{.noconv.}</span></tt> pragma.</li>
+<li><tt class="docutils literal"><span class="pre">controlCProc</span></tt> is a function to run at CTRL+C, needs <tt class="docutils literal"><span class="pre">{.noconv.}</span></tt> pragma.</li>
+<li><tt class="docutils literal"><span class="pre">autoClose</span></tt> set to <tt class="docutils literal"><span class="pre">true</span></tt> to automatically run <tt class="docutils literal"><span class="pre">exit()</span></tt> at exit.</li>
+</ul>
+
 
 </dd>
 <a id="bindProc,Webview,string,string,"></a>
@@ -681,18 +702,6 @@ Set a TrayIcon on the corner of the desktop. <tt class="docutils literal"><span 
 <tt class="docutils literal"><span class="pre">run</span></tt> starts the main UI loop until the user closes the window or <tt class="docutils literal"><span class="pre">exit()</span></tt> is called.
 
 </dd>
-<a id="run,Webview,proc),proc),static[bool]"></a>
-<dt><pre><span class="Keyword">func</span> <a href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"><span class="Identifier">run</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">quitProc</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span></span><span class="Other">.}</span></span><span class="Other">;</span> <span class="Identifier">controlCProc</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">noconv</span></span><span class="Other">.}</span></span><span class="Other">;</span>
-        <span class="Identifier">autoClose</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-<tt class="docutils literal"><span class="pre">run</span></tt> starts the main UI loop until the user closes the window.<ul class="simple"><li><tt class="docutils literal"><span class="pre">quitProc</span></tt> is a function to run at exit, needs <tt class="docutils literal"><span class="pre">{.noconv.}</span></tt> pragma.</li>
-<li><tt class="docutils literal"><span class="pre">controlCProc</span></tt> is a function to run at CTRL+C, needs <tt class="docutils literal"><span class="pre">{.noconv.}</span></tt> pragma.</li>
-<li><tt class="docutils literal"><span class="pre">autoClose</span></tt> set to <tt class="docutils literal"><span class="pre">true</span></tt> to automatically run <tt class="docutils literal"><span class="pre">exit()</span></tt> at exit.</li>
-</ul>
-
-
-</dd>
 <a id="exit,Webview"></a>
 <dt><pre><span class="Keyword">func</span> <a href="#exit%2CWebview"><span class="Identifier">exit</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
@@ -797,28 +806,28 @@ Set Dark Theme or Light Theme on-the-fly, <tt class="docutils literal"><span cla
 
 </dd>
 <a id="imgLazyLoad.t,Webview,string,string,string,string,string,string"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#imgLazyLoad.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring"><span class="Identifier">imgLazyLoad</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">src</span><span class="Other">,</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">width</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">heigth</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">class</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">alt</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#imgLazyLoad.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring"><span class="Identifier">imgLazyLoad</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">src</span><span class="Other">,</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">width</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">heigth</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">class</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">alt</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 HTML Image LazyLoad. <a class="reference external" href="https://codepen.io/FilipVitas/pen/pQBYQd">https://codepen.io/FilipVitas/pen/pQBYQd</a> (Must have an ID!)
 
 </dd>
 <a id="sanitizer.t,Webview,string"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#sanitizer.t%2CWebview%2Cstring"><span class="Identifier">sanitizer</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#sanitizer.t%2CWebview%2Cstring"><span class="Identifier">sanitizer</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 Sanitize all non-printable and weird characters from a string. <tt class="docutils literal"><span class="pre">import re</span></tt> to use it.
 
 </dd>
 <a id="getLang.t,Webview"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#getLang.t%2CWebview"><span class="Identifier">getLang</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#getLang.t%2CWebview"><span class="Identifier">getLang</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 Detect the Language of the user, returns a string like <tt class="docutils literal"><span class="pre">&quot;en-US&quot;</span></tt>, JavaScript side.
 
 </dd>
 <a id="duckDns.t,Webview,string,string,string,string,static[bool],static[bool],static[bool],static[bool]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#duckDns.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"><span class="Identifier">duckDns</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">domains</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">token</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">ipv4</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">ipv6</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span>
+<dt><pre><span class="Keyword">template</span> <a href="#duckDns.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"><span class="Identifier">duckDns</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">domains</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">token</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">ipv4</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">ipv6</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span>
                 <span class="Identifier">verbose</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">clear</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span>
                 <span class="Identifier">noParameters</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">ssl</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
@@ -827,24 +836,52 @@ Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting
 
 </dd>
 <a id="addText.t,Webview,string,string"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#addText.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addText</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#addText.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addText</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 Appends <strong>Plain-Text</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentText()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText</a>
 
 </dd>
 <a id="addHtml.t,Webview,string,string"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#addHtml.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addHtml</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#addHtml.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addHtml</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentHTML()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml</a>
 
 </dd>
 <a id="addElement.t,Webview,string,string"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#addElement.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addElement</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">htmlTag</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#addElement.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addElement</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">htmlTag</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentElement()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement</a>
+
+</dd>
+<a id="textareaScroll.t,Webview,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#textareaScroll.t%2CWebview%2Cstring"><span class="Identifier">textareaScroll</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Auto-Scroll a textarea to the bottom, returns the string for JavaScript.
+
+</dd>
+<a id="jsWithDisable.t,Webview,string,untyped"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#jsWithDisable.t%2CWebview%2Cstring%2Cuntyped"><span class="Identifier">jsWithDisable</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Disable 1 element, run some code, Enable same element back again. Disables at the start, Enables at the end.
+
+</dd>
+<a id="jsWithHide.t,Webview,string,untyped"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#jsWithHide.t%2CWebview%2Cstring%2Cuntyped"><span class="Identifier">jsWithHide</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Hide 1 element, run some code, Show same element back again. Hides at the start, Visible at the end.
+
+</dd>
+<a id="jsWithOpacity.t,Webview,string,untyped"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#jsWithOpacity.t%2CWebview%2Cstring%2Cuntyped"><span class="Identifier">jsWithOpacity</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 25% Transparent at the start, Visible at the end.
 
 </dd>
 
@@ -857,7 +894,7 @@ Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-11 05:10:11 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-11 08:37:03 UTC</small>
       </div>
     </div>
   </div>
