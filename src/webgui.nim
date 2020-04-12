@@ -318,6 +318,7 @@ func exit*(w: Webview) {.inline.} =
 
 template setTheme*(w: Webview; dark: bool) =
   ## Set Dark Theme or Light Theme on-the-fly, `dark = true` for Dark, `dark = false` for Light.
+  ## * If `--light-theme` on `commandLineParams()` then it will use Light Theme automatically.
   discard w.css(if dark: cssDark else: cssLight)
 
 template imgLazyLoad*(_: Webview; src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
@@ -549,6 +550,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   ## * `cssPath` Full Path or URL of a CSS file to use as Style, defaults to `"dark.css"` for Dark theme, can be `"light.css"` for Light theme.
   ## * `trayIcon` Path to a local PNG Image Icon file.
   ## * `fullscreen` if set to `true` the Window will be forced Fullscreen.
+  ## * If `--light-theme` on `commandLineParams()` then it will use Light Theme automatically.
   const url =
     when path.endsWith".html": fileLocalHeader & path
     elif path.endsWith".js" or path.endsWith".nim":
