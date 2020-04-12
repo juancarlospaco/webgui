@@ -506,6 +506,7 @@ Create a new Window with given attributes, all arguments are optional.<ul class=
 <li><tt class="docutils literal"><span class="pre">cssPath</span></tt> Full Path or URL of a CSS file to use as Style, defaults to <tt class="docutils literal"><span class="pre">&quot;dark.css&quot;</span></tt> for Dark theme, can be <tt class="docutils literal"><span class="pre">&quot;light.css&quot;</span></tt> for Light theme.</li>
 <li><tt class="docutils literal"><span class="pre">trayIcon</span></tt> Path to a local PNG Image Icon file.</li>
 <li><tt class="docutils literal"><span class="pre">fullscreen</span></tt> if set to <tt class="docutils literal"><span class="pre">true</span></tt> the Window will be forced Fullscreen.</li>
+<li>If <tt class="docutils literal"><span class="pre">--light-theme</span></tt> on <tt class="docutils literal"><span class="pre">commandLineParams()</span></tt> then it will use Light Theme automatically.</li>
 </ul>
 
 
@@ -805,7 +806,9 @@ Opens a dialog that requests a Directory from the user.
 <dt><pre><span class="Keyword">template</span> <a href="#setTheme.t%2CWebview%2Cbool"><span class="Identifier">setTheme</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">dark</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span></pre></dt>
 <dd>
 
-Set Dark Theme or Light Theme on-the-fly, <tt class="docutils literal"><span class="pre">dark = true</span></tt> for Dark, <tt class="docutils literal"><span class="pre">dark = false</span></tt> for Light.
+Set Dark Theme or Light Theme on-the-fly, <tt class="docutils literal"><span class="pre">dark = true</span></tt> for Dark, <tt class="docutils literal"><span class="pre">dark = false</span></tt> for Light.<ul class="simple"><li>If <tt class="docutils literal"><span class="pre">--light-theme</span></tt> on <tt class="docutils literal"><span class="pre">commandLineParams()</span></tt> then it will use Light Theme automatically.</li>
+</ul>
+
 
 </dd>
 <a id="imgLazyLoad.t,Webview,string,string,string,string,string,string"></a>
@@ -917,7 +920,7 @@ Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 2
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 02:55:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 03:02:05 UTC</small>
       </div>
     </div>
   </div>
