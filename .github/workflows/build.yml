@@ -43,7 +43,9 @@ jobs:
         nimble -y refresh
 
     - name: Install dependencies
-      run: sudo apt-get -y --quiet install webkit2gtk-4.0
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install webkit2gtk-4.0
 
     - name: Compile DEBUG Mode
       run: |
