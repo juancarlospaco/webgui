@@ -42,6 +42,9 @@ jobs:
         export PATH=$HOME/.nimble/bin:$PATH
         nimble -y refresh
 
+    - name: Install dependencies
+      run: apt-get -y --quiet install webkit2gtk-4.0
+
     - name: Compile DEBUG Mode
       run: |
         export PATH=$HOME/.nimble/bin:$PATH
