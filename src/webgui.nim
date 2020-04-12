@@ -364,22 +364,24 @@ template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): str
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
-template textareaScroll*(_: Webview; id: string, scrollIntoView: static[bool] = false, selectAll: static[bool] = false): string =
+template textareaScroll*(_: Webview; id: string, scrollIntoView: static[bool] = false, selectAll: static[bool] = false, copyToClipboard: static[bool] = false): string =
   ## **Scroll a textarea to the bottom**, alias for `textarea.scrollTop = textarea.scrollHeight;`.
   ## * `scrollIntoView` if `true` runs `textarea.scrollIntoView();`.
   ## * `selectAll` if `true` runs `textarea.select();`.
+  ## * `copyToClipboard` if `true` runs `document.execCommand('copy');`, requires `selectAll = true`.
   assert id.len > 0, "ID must not be empty string, must have an ID"
   ((when scrollIntoView: "document.querySelector('" & id & "').scrollIntoView();" else: "") &
     (when selectAll: "document.querySelector('" & id & "').select();" else: "") &
+    (when selectAll and copyToClipboard: "document.execCommand('copy');" else: "") &
     "document.querySelector('" & id & "').scrollTop = document.querySelector('" & id & "').scrollHeight;")
 
 template jsWithDisable*(w: Webview; id: string; body: untyped) =
   ## Disable 1 element, run some code, Enable same element back again. Disables at the start, Enables at the end.
   ##
   ## .. code-block:: nim
-  ##   app.jsWithHide("#myButton"): ## "#myButton" becomes Disabled.
-  ##     slowFunction()             ## Code block that takes a while to finish.
-  ##                                ## "#myButton" becomes Enabled.
+  ##   app.jsWithDisable("#myButton"): ## "#myButton" becomes Disabled.
+  ##     slowFunction()                ## Code block that takes a while to finish.
+  ##                                   ## "#myButton" becomes Enabled.
   assert id.len > 0, "ID and jsScript must not be empty string"
   w.js("document.querySelector('" & id & "').disabled = true;document.querySelector('#" & id & "').style.cursor = 'wait';")
   try:

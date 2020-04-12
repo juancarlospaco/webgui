@@ -280,9 +280,10 @@ function main() {
     title="addHtml(_: Webview; id, html: string; position = beforeEnd): string"><wbr />add<wbr />Html<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addElement.t%2CWebview%2Cstring%2Cstring"
     title="addElement(_: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
-  <li><a class="reference" href="#textareaScroll.t%2CWebview%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"
+  <li><a class="reference" href="#textareaScroll.t%2CWebview%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"
     title="textareaScroll(_: Webview; id: string; scrollIntoView: static[bool] = false;
-               selectAll: static[bool] = false): string"><wbr />textarea<wbr />Scroll<span class="attachedType">Webview</span></a></li>
+               selectAll: static[bool] = false;
+               copyToClipboard: static[bool] = false): string"><wbr />textarea<wbr />Scroll<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#jsWithDisable.t%2CWebview%2Cstring%2Cuntyped"
     title="jsWithDisable(w: Webview; id: string; body: untyped)"><wbr />js<wbr />With<wbr />Disable<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#jsWithHide.t%2CWebview%2Cstring%2Cuntyped"
@@ -867,13 +868,15 @@ Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><spa
 Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentElement()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement</a>
 
 </dd>
-<a id="textareaScroll.t,Webview,string,static[bool],static[bool]"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#textareaScroll.t%2CWebview%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"><span class="Identifier">textareaScroll</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">scrollIntoView</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span>
-                       <span class="Identifier">selectAll</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<a id="textareaScroll.t,Webview,string,static[bool],static[bool],static[bool]"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#textareaScroll.t%2CWebview%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"><span class="Identifier">textareaScroll</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">scrollIntoView</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span>
+                       <span class="Identifier">selectAll</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span>
+                       <span class="Identifier">copyToClipboard</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
 <strong>Scroll a textarea to the bottom</strong>, alias for <tt class="docutils literal"><span class="pre">textarea.scrollTop = textarea.scrollHeight;</span></tt>.<ul class="simple"><li><tt class="docutils literal"><span class="pre">scrollIntoView</span></tt> if <tt class="docutils literal"><span class="pre">true</span></tt> runs <tt class="docutils literal"><span class="pre">textarea.scrollIntoView();</span></tt>.</li>
 <li><tt class="docutils literal"><span class="pre">selectAll</span></tt> if <tt class="docutils literal"><span class="pre">true</span></tt> runs <tt class="docutils literal"><span class="pre">textarea.select();</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">copyToClipboard</span></tt> if <tt class="docutils literal"><span class="pre">true</span></tt> runs <tt class="docutils literal"><span class="pre">document.execCommand('copy');</span></tt>, requires <tt class="docutils literal"><span class="pre">selectAll = true</span></tt>.</li>
 </ul>
 
 
@@ -882,9 +885,9 @@ Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils
 <dt><pre><span class="Keyword">template</span> <a href="#jsWithDisable.t%2CWebview%2Cstring%2Cuntyped"><span class="Identifier">jsWithDisable</span></a><span class="Other">(</span><span class="Identifier">w</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span></pre></dt>
 <dd>
 
-Disable 1 element, run some code, Enable same element back again. Disables at the start, Enables at the end.<pre class="listing"><span class="Identifier">app</span><span class="Operator">.</span><span class="Identifier">jsWithHide</span><span class="Punctuation">(</span><span class="StringLit">&quot;#myButton&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Comment">## &quot;#myButton&quot; becomes Disabled.</span>
-  <span class="Identifier">slowFunction</span><span class="Punctuation">(</span><span class="Punctuation">)</span>             <span class="Comment">## Code block that takes a while to finish.</span>
-                             <span class="Comment">## &quot;#myButton&quot; becomes Enabled.</span></pre>
+Disable 1 element, run some code, Enable same element back again. Disables at the start, Enables at the end.<pre class="listing"><span class="Identifier">app</span><span class="Operator">.</span><span class="Identifier">jsWithDisable</span><span class="Punctuation">(</span><span class="StringLit">&quot;#myButton&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Comment">## &quot;#myButton&quot; becomes Disabled.</span>
+  <span class="Identifier">slowFunction</span><span class="Punctuation">(</span><span class="Punctuation">)</span>                <span class="Comment">## Code block that takes a while to finish.</span>
+                                <span class="Comment">## &quot;#myButton&quot; becomes Enabled.</span></pre>
 
 </dd>
 <a id="jsWithHide.t,Webview,string,untyped"></a>
@@ -939,7 +942,7 @@ Use a Font from Google Fonts and set it directly on HTML <tt class="docutils lit
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 10:02:45 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 10:14:57 UTC</small>
       </div>
     </div>
   </div>
