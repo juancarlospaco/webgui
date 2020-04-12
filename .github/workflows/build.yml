@@ -1,4 +1,4 @@
-name: PYTHON
+name: Basic
 
 on: [push]
 
