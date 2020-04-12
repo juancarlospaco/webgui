@@ -421,12 +421,12 @@ func currentHtmlPath*(filename: static[string] = "index.html"): string {.inline.
 template getConfig*(filename: string; configObject; compileTime: static[bool] = false): auto =
   ## **Config Helper, JSON to Type.** Read from `config.json`, serialize to `configObject`, return `configObject`,
   ## if `compileTime` is `true` all is done compile-time, `import json` to use it.
-  ## You must provide 1 `configObject` that match the `config.json` structure.
+  ## You must provide 1 `configObject` that match the `config.json` structure. Works with ARC.
   ## * https://github.com/juancarlospaco/webgui/blob/master/examples/config/configuration.nim
   ## * https://nim-lang.github.io/Nim/json.html#to%2CJsonNode%2Ctypedesc%5BT%5D
   assert filename.len > 5 and filename[^5..^1] == ".json"
   when compileTime: {.hint: filename & " --> " & configObject.repr.}
-  to((when compileTime: parseJson(static(staticRead(filename))) else: parseFile(filename)), configObject)
+  to((when compileTime: static(parseJson(staticRead(filename))) else: parseFile(filename)), configObject)
 
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
