@@ -2,6 +2,15 @@
 
 - Web Technologies based Crossplatform GUI. https://juancarlospaco.github.io/webgui
 
+![](https://img.shields.io/github/languages/top/juancarlospaco/webgui?style=for-the-badge)
+![](https://img.shields.io/github/stars/juancarlospaco/webgui?style=for-the-badge "Star webgui on GitHub!")
+![](https://img.shields.io/maintenance/yes/2020?style=for-the-badge "2020")
+![](https://img.shields.io/github/languages/code-size/juancarlospaco/webgui?style=for-the-badge)
+![](https://img.shields.io/github/issues-raw/juancarlospaco/webgui?style=for-the-badge "Bugs")
+![](https://img.shields.io/github/issues-pr-raw/juancarlospaco/webgui?style=for-the-badge "PRs")
+![](https://img.shields.io/github/last-commit/juancarlospaco/webgui?style=for-the-badge "Commits")
+
+
 ## Install
 
 Install webgui using the nimble tool.
@@ -14,15 +23,15 @@ webgui also requires that your OS have the GTK+ 3.0 and webkit2gtk 4.0 packages 
 
 Generic instructions can be found at:
 
-* https://www.gtk.org/docs/installations/
-* https://webkitgtk.org/
+* https://www.gtk.org/docs/installations
+* https://webkitgtk.org
 
 In Ubuntu (or Ubuntu-based distributions), these packages can be installed as follows:
 
-```bash
-$ sudo apt-get install gtk+-3.0
-$ sudo apt-get install webkit2gtk-4.0
+```console
+$ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 ```
+
 
 ## Buit-in Dark Mode
 
@@ -49,3 +58,25 @@ $ sudo apt-get install webkit2gtk-4.0
 
 
 [![Choosenim GUI](https://raw.githubusercontent.com/ThomasTJdev/choosenim_gui/master/private/screenshot1.png)](https://github.com/ThomasTJdev/choosenim_gui)
+
+
+# Stars
+
+![](https://starchart.cc/juancarlospaco/webgui.svg "Star WebGUI on GitHub!")
+
+
+## Uninstall
+
+```bash
+$ nimble uninstall webgui
+```
+
+
+## Hello World
+
+```nim
+import webgui
+let app = newWebView()
+app.run()
+app.exit()
+```

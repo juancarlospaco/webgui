@@ -6,3 +6,18 @@ srcDir        = "src"
 skipDirs      = @["examples", "docs"]
 
 requires "nim >= 1.2.0"
+
+
+import distros
+
+task setup, "Setup":
+  if not defined(ssl):
+    echo "SSL is required for HTTPS."
+
+  if detectOs(Ubuntu):
+    foreignDep "build-essential"
+    foreignDep "gtk+-3.0"
+    foreignDep "webkit2gtk-4.0"
+
+before install:
+  setupTask()
