@@ -39,7 +39,7 @@
 ## * https://github.com/juancarlospaco/nim-smnar      (**~32 lines of Nim** at the time of writing)
 ## * https://github.com/ThomasTJdev/choosenim_gui     (**~80 lines of Nim** at the time of writing)
 
-import tables, strutils, macros, json
+import tables, strutils, macros, json, os
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
 {.passC: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
