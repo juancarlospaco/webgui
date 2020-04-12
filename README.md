@@ -1,6 +1,6 @@
 # WebGui
 
-- Web Technologies based Crossplatform GUI. https://juancarlospaco.github.io/webgui
+- Web Technologies based Crossplatform GUI.
 
 ![](https://img.shields.io/github/languages/top/juancarlospaco/webgui?style=for-the-badge)
 ![](https://img.shields.io/github/stars/juancarlospaco/webgui?style=for-the-badge "Star webgui on GitHub!")
@@ -32,6 +32,11 @@ In Ubuntu (or Ubuntu-based distributions), these packages can be installed as fo
 ```console
 $ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 ```
+
+
+## Documentation
+
+- https://juancarlospaco.github.io/webgui
 
 
 ## Buit-in Dark Mode
