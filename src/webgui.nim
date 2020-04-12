@@ -418,6 +418,16 @@ func currentHtmlPath*(filename: static[string] = "index.html"): string {.inline.
   ## Alias for `currentSourcePath().splitPath.head / "index.html"` for URL of `index.html`
   result = currentSourcePath().splitPath.head / filename
 
+template getConfig*(filename: string; configObject; compileTime: static[bool] = false): auto =
+  ## **Config Helper, JSON to Type.** Read from `config.json`, serialize to `configObject`, return `configObject`,
+  ## if `compileTime` is `true` all is done compile-time, `import json` to use it.
+  ## You must provide 1 `configObject` that match the `config.json` structure.
+  ## * https://github.com/juancarlospaco/webgui/blob/master/examples/config/configuration.nim
+  ## * https://nim-lang.github.io/Nim/json.html#to%2CJsonNode%2Ctypedesc%5BT%5D
+  assert filename.len > 5 and filename[^5..^1] == ".json"
+  when compileTime: {.hint: filename & " --> " & configObject.repr.}
+  to((when compileTime: parseJson(static(staticRead(filename))) else: parseFile(filename)), configObject)
+
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
@@ -553,7 +563,8 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   when minimized: webviewindow.setIconify(minimized)
   when trayIcon.len > 0: result.setTrayIcon(trayIcon, title.cstring, visible = true)
   when fullscreen: result.setFullscreen(fullscreen)
-  discard result.css(when cssPath.len > 0: static(staticRead(cssPath).cstring) else: cssDark)
+  discard result.css(when cssPath.len > 0: static(staticRead(cssPath).cstring) else:
+    if "--light-theme" in commandLineParams(): cssLight else: cssDark)
   when path.endsWith".js": result.js(readFile(path))
   when path.endsWith".nim":
     const compi = gorgeEx("nim js --out:" & path & ".js " & path & (when defined(release): " -d:release" else: "") & (when defined(danger): " -d:danger" else: ""))

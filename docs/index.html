@@ -289,6 +289,8 @@ function main() {
     title="jsWithHide(w: Webview; id: string; body: untyped)"><wbr />js<wbr />With<wbr />Hide<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#jsWithOpacity.t%2CWebview%2Cstring%2Cuntyped"
     title="jsWithOpacity(w: Webview; id: string; body: untyped)"><wbr />js<wbr />With<wbr />Opacity<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#getConfig.t%2Cstring%2C%2Cstatic%5Bbool%5D"
+    title="getConfig(filename: string; configObject; compileTime: static[bool] = false): auto"><wbr />get<wbr />Config<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -895,6 +897,16 @@ Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 2
                                 <span class="Comment">## &quot;#myButton&quot; becomes Opaque.</span></pre>
 
 </dd>
+<a id="getConfig.t,string,,static[bool]"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#getConfig.t%2Cstring%2C%2Cstatic%5Bbool%5D"><span class="Identifier">getConfig</span></a><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">configObject</span><span class="Other">;</span> <span class="Identifier">compileTime</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span></pre></dt>
+<dd>
+
+<strong>Config Helper, JSON to Type.</strong> Read from <tt class="docutils literal"><span class="pre">config.json</span></tt>, serialize to <tt class="docutils literal"><span class="pre">configObject</span></tt>, return <tt class="docutils literal"><span class="pre">configObject</span></tt>, if <tt class="docutils literal"><span class="pre">compileTime</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> all is done compile-time, <tt class="docutils literal"><span class="pre">import json</span></tt> to use it. You must provide 1 <tt class="docutils literal"><span class="pre">configObject</span></tt> that match the <tt class="docutils literal"><span class="pre">config.json</span></tt> structure.<ul class="simple"><li><a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/config/configuration.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/config/configuration.nim</a></li>
+<li><a class="reference external" href="https://nim-lang.github.io/Nim/json.html#to%2CJsonNode%2Ctypedesc%5BT%5D">https://nim-lang.github.io/Nim/json.html#to%2CJsonNode%2Ctypedesc%5BT%5D</a></li>
+</ul>
+
+
+</dd>
 
 </dl></div>
 
@@ -905,7 +917,7 @@ Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 2
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-11 09:03:17 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 02:44:32 UTC</small>
       </div>
     </div>
   </div>
