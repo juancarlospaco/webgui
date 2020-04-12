@@ -429,6 +429,11 @@ template getConfig*(filename: string; configObject; compileTime: static[bool] = 
   when compileTime: {.hint: filename & " --> " & configObject.repr.}
   to((when compileTime: static(parseJson(staticRead(filename))) else: parseFile(filename)), configObject)
 
+template setFont*(_: Webview; fontName: string): string =
+  ## Use a Font from Google Fonts, returns `string` for `app.css()`, `import uri` to use. https://fonts.google.com
+  assert fontName.len > 0, "fontName must not be empty string"
+  "@import url('https://fonts.googleapis.com/css?family=" & uri.encodeUrl(fontName, true) & "&display=swap');"
+
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
@@ -551,6 +556,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   ## * `trayIcon` Path to a local PNG Image Icon file.
   ## * `fullscreen` if set to `true` the Window will be forced Fullscreen.
   ## * If `--light-theme` on `commandLineParams()` then it will use Light Theme automatically.
+  ## * CSS is embedded, if your app is used Offline, it will display Ok.
   const url =
     when path.endsWith".html": fileLocalHeader & path
     elif path.endsWith".js" or path.endsWith".nim":
