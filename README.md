@@ -19,7 +19,8 @@ Install webgui using the nimble tool.
 $ nimble install webgui
 ```
 
-webgui also requires that your OS have the GTK+ 3.0 and webkit2gtk 4.0 packages installed.
+WebGUI also requires that your OS have the GTK+ 3.0 and webkit2gtk 4.0 packages installed
+(Nimble should ask for these system dependencies on Ubuntu).
 
 Generic instructions can be found at:
 
