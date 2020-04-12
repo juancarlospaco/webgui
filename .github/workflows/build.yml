@@ -45,9 +45,9 @@ jobs:
     - name: Compile DEBUG Mode
       run: |
         export PATH=$HOME/.nimble/bin:$PATH
-        nim c -d:ssl --panics:on --styleCheck:hints src/webgui.nim
+        nim c -d:ssl --panics:on --styleCheck:hint src/webgui.nim
 
     - name: Compile RELEASE Mode
       run: |
         export PATH=$HOME/.nimble/bin:$PATH
-        nim c -d:release -d:danger -d:ssl --panics:on --styleCheck:hints src/webgui.nim
+        nim c -d:release -d:danger -d:ssl --panics:on --styleCheck:hint src/webgui.nim
