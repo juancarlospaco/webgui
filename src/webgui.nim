@@ -434,6 +434,12 @@ template setFont*(_: Webview; fontName: string): string =
   assert fontName.len > 0, "fontName must not be empty string"
   "@import url('https://fonts.googleapis.com/css?family=" & uri.encodeUrl(fontName, true) & "&display=swap');"
 
+template setFont*(_: Webview; fontName, element: string): string =
+  ## Use a Font from Google Fonts and set it directly on HTML `element`,
+  ## returns `string` for `app.css()`, `import uri` to use. https://fonts.google.com
+  assert fontName.len > 0, "fontName must not be empty string"
+  "@import url('https://fonts.googleapis.com/css?family=" & uri.encodeUrl(fontName, true) & "&display=swap');\n" & element & "{font-family:'" & fontName & "' !important;text-rendering:optimizeLegibility};"
+
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"

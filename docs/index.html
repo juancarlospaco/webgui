@@ -293,6 +293,8 @@ function main() {
     title="getConfig(filename: string; configObject; compileTime: static[bool] = false): auto"><wbr />get<wbr />Config<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#setFont.t%2CWebview%2Cstring"
     title="setFont(_: Webview; fontName: string): string"><wbr />set<wbr />Font<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#setFont.t%2CWebview%2Cstring%2Cstring"
+    title="setFont(_: Webview; fontName, element: string): string"><wbr />set<wbr />Font<span class="attachedType">Webview</span></a></li>
 
   </ul>
 </li>
@@ -920,6 +922,13 @@ Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 2
 Use a Font from Google Fonts, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import uri</span></tt> to use. <a class="reference external" href="https://fonts.google.com">https://fonts.google.com</a>
 
 </dd>
+<a id="setFont.t,Webview,string,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#setFont.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">setFont</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">fontName</span><span class="Other">,</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Use a Font from Google Fonts and set it directly on HTML <tt class="docutils literal"><span class="pre">element</span></tt>, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import uri</span></tt> to use. <a class="reference external" href="https://fonts.google.com">https://fonts.google.com</a>
+
+</dd>
 
 </dl></div>
 
@@ -930,7 +939,7 @@ Use a Font from Google Fonts, returns <tt class="docutils literal"><span class="
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 09:37:21 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-12 10:02:45 UTC</small>
       </div>
     </div>
   </div>
