@@ -565,6 +565,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   ## * `fullscreen` if set to `true` the Window will be forced Fullscreen.
   ## * If `--light-theme` on `commandLineParams()` then it will use Light Theme automatically.
   ## * CSS is embedded, if your app is used Offline, it will display Ok.
+  ## * Is up to the developer to guarantee access to the HTML URL or File of the GUI.
   const url =
     when path.endsWith".html": fileLocalHeader & path
     elif path.endsWith".js" or path.endsWith".nim":
