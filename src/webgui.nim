@@ -6,7 +6,9 @@
 ##                          ## newWebView("Karax_Compiled_App.js")
 ##                          ## newWebView("Will_be_Compiled_to_JavaScript.nim")
 ##
-## - **Design with CSS3, mockup with HTML5, native performance, powered by Nim.**
+## - **Design with CSS3, mockup with HTML5, Fast as Rust, Simple as Python, No-GC, powered by Nim.**
+## - Dark-Theme and Light-Theme Built-in, Fonts, TrayIcon, Clipboard, Lazy-Loading Images.
+## - Native Notifications with Sound, Config and DNS helpers, few LOC, and more...
 ##
 ## Buit-in Dark Mode
 ## =================
