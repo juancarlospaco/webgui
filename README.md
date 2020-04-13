@@ -34,6 +34,8 @@ In Ubuntu (or Ubuntu-based distributions), these packages can be installed as fo
 $ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 ```
 
+- Each push is built with `--panics:on --styleCheck:hint --gc:arc`.
+
 
 ## Documentation
 
