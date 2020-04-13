@@ -42,13 +42,13 @@
 import tables, strutils, macros, json, os
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
-{.passC: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
+{.passc: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
 when defined(linux):
-  {.passC: "-DWEBVIEW_GTK=1 " & staticExec"pkg-config --cflags gtk+-3.0 webkit2gtk-4.0", passL: staticExec"pkg-config --libs gtk+-3.0 webkit2gtk-4.0".}
+  {.passc: "-DWEBVIEW_GTK=1 " & staticExec"pkg-config --cflags gtk+-3.0 webkit2gtk-4.0", passl: staticExec"pkg-config --libs gtk+-3.0 webkit2gtk-4.0".}
 elif defined(windows):
-  {.passC: "-DWEBVIEW_WINAPI=1", passL: "-lole32 -lcomctl32 -loleaut32 -luuid -lgdi32".}
+  {.passc: "-DWEBVIEW_WINAPI=1", passl: "-lole32 -lcomctl32 -loleaut32 -luuid -lgdi32".}
 elif defined(macosx):
-  {.passC: "-DWEBVIEW_COCOA=1 -x objective-c", passL: "-framework Cocoa -framework WebKit".}
+  {.passc: "-DWEBVIEW_COCOA=1 -x objective-c", passl: "-framework Cocoa -framework WebKit".}
 
 type
   ExternalInvokeCb* = proc (w: Webview; arg: string)  ## External CallBack Proc
