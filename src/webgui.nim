@@ -421,6 +421,7 @@ template setCursor*(_: Webview; id: string; url: string): string =
 
 template setShake*(_: Webview; id: string, effect: CSSShake): string =
   ## Shake Effects, use with `app.css()`, `import strutils` to use.
+  ## https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim
   assert id.len > 0, "ID must not be empty string, must have an ID"
   format($effect, id)
 
