@@ -403,6 +403,13 @@ template setBlink*(_: Webview; id: string; iterations = 2.byte; duration = 1.byt
     id & "{animation-iteration-count:" & $iterations & ";animation-duration:" & $duration & "s;" &
     "animation-name:blink;animation-timing-function:cubic-bezier(1.0,0,0,1.0)};")
 
+template setCursor*(_: Webview; id: string; url: string): string =
+  ## Set the mouse Cursor, use with `app.css()`, PNG, SVG, GIF, JPG, BMP, CUR, Data URI.
+  ## * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Basic_User_Interface/Using_URL_values_for_the_cursor_property
+  ## * For Data URI see https://nim-lang.github.io/Nim/uri.html#getDataUri%2Cstring%2Cstring%2Cstring
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  id & "{ cursor: url('" & url & "'), auto !important };"
+
 template textareaScroll*(_: Webview; id: string, scrollIntoView: static[bool] = false, selectAll: static[bool] = false, copyToClipboard: static[bool] = false): string =
   ## **Scroll a textarea to the bottom**, alias for `textarea.scrollTop = textarea.scrollHeight;`.
   ## * `scrollIntoView` if `true` runs `textarea.scrollIntoView();`.
