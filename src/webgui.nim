@@ -366,6 +366,12 @@ template removeAttribute*(_: Webview; id, key: string): string =
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').removeAttribute('" & key & "')"
 
+template setText*(_: Webview; id, text: string): string =
+  ## Sets the Elements `innerHtml`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').textContent = '" & text  & "'"
+
 template addText*(_: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
