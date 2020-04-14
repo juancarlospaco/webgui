@@ -274,10 +274,20 @@ function main() {
     title="duckDns(_: Webview; domains: string; token: string; ipv4 = &quot;&quot;; ipv6 = &quot;&quot;;
         verbose: static[bool] = false; clear: static[bool] = false;
         noParameters: static[bool] = false; ssl: static[bool] = true): string"><wbr />duck<wbr />Dns<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#setAttribute.t%2CWebview%2Cstring%2Cstring%2Cstring"
+    title="setAttribute(_: Webview; id, key, val: string): string"><wbr />set<wbr />Attribute<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#toggleAttribute.t%2CWebview%2Cstring%2Cstring"
+    title="toggleAttribute(_: Webview; id, key: string): string"><wbr />toggle<wbr />Attribute<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#removeAttribute.t%2CWebview%2Cstring%2Cstring"
+    title="removeAttribute(_: Webview; id, key: string): string"><wbr />remove<wbr />Attribute<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#setText.t%2CWebview%2Cstring%2Cstring"
+    title="setText(_: Webview; id, text: string): string"><wbr />set<wbr />Text<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addText.t%2CWebview%2Cstring%2Cstring"
     title="addText(_: Webview; id, text: string; position = beforeEnd): string"><wbr />add<wbr />Text<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addHtml.t%2CWebview%2Cstring%2Cstring"
     title="addHtml(_: Webview; id, html: string; position = beforeEnd): string"><wbr />add<wbr />Html<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#removeHtml.t%2CWebview%2Cstring"
+    title="removeHtml(_: Webview; id: string): string"><wbr />remove<wbr />Html<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#addElement.t%2CWebview%2Cstring%2Cstring"
     title="addElement(_: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#textareaScroll.t%2CWebview%2Cstring%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D%2Cstatic%5Bbool%5D"
@@ -850,6 +860,34 @@ Detect the Language of the user, returns a string like <tt class="docutils liter
 Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting <a class="reference external" href="https://www.duckdns.org/why.jsp">https://www.duckdns.org/why.jsp</a>
 
 </dd>
+<a id="setAttribute.t,Webview,string,string,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#setAttribute.t%2CWebview%2Cstring%2Cstring%2Cstring"><span class="Identifier">setAttribute</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">,</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Sets an attribute value. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute</a>
+
+</dd>
+<a id="toggleAttribute.t,Webview,string,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#toggleAttribute.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">toggleAttribute</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Toggles an attribute value. E.g. use it on a <tt class="docutils literal"><span class="pre">readonly</span></tt> attribute. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute</a>
+
+</dd>
+<a id="removeAttribute.t,Webview,string,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#removeAttribute.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">removeAttribute</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Remove an attribute. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute</a>
+
+</dd>
+<a id="setText.t,Webview,string,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#setText.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">setText</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Sets the Elements <tt class="docutils literal"><span class="pre">innerHtml</span></tt>. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent">https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent</a>
+
+</dd>
 <a id="addText.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#addText.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addText</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
@@ -862,6 +900,13 @@ Appends <strong>Plain-Text</strong> to an Element by <tt class="docutils literal
 <dd>
 
 Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentHTML()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml</a>
+
+</dd>
+<a id="removeHtml.t,Webview,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#removeHtml.t%2CWebview%2Cstring"><span class="Identifier">removeHtml</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Removes an object by <tt class="docutils literal"><span class="pre">id</span></tt>. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove">https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove</a>
 
 </dd>
 <a id="addElement.t,Webview,string,string"></a>
@@ -945,7 +990,7 @@ Use a Font from Google Fonts and set it directly on HTML <tt class="docutils lit
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-13 01:28:50 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-14 08:02:10 UTC</small>
       </div>
     </div>
   </div>
