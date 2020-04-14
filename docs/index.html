@@ -301,7 +301,7 @@ function main() {
   <li><a class="reference" href="#addElement.t%2CWebview%2Cstring%2Cstring"
     title="addElement(_: Webview; id, htmlTag: string; position = beforeEnd): string"><wbr />add<wbr />Element<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#setBlink.t%2CWebview%2Cstring"
-    title="setBlink(_: Webview; id: string; iterations = 2.byte; duration = 1.byte): string"><wbr />set<wbr />Blink<span class="attachedType">Webview</span></a></li>
+    title="setBlink(_: Webview; id: string; iterations = 3.byte; duration = 1.byte): string"><wbr />set<wbr />Blink<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#setCursor.t%2CWebview%2Cstring%2Cstring"
     title="setCursor(_: Webview; id: string; url: string): string"><wbr />set<wbr />Cursor<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#setShake.t%2CWebview%2Cstring%2CCSSShake"
@@ -556,6 +556,7 @@ Create a new Window with given attributes, all arguments are optional.<ul class=
 <li><tt class="docutils literal"><span class="pre">fullscreen</span></tt> if set to <tt class="docutils literal"><span class="pre">true</span></tt> the Window will be forced Fullscreen.</li>
 <li>If <tt class="docutils literal"><span class="pre">--light-theme</span></tt> on <tt class="docutils literal"><span class="pre">commandLineParams()</span></tt> then it will use Light Theme automatically.</li>
 <li>CSS is embedded, if your app is used Offline, it will display Ok.</li>
+<li>For templates that do CSS, remember that CSS must be injected <em>after DOM Ready</em>.</li>
 <li>Is up to the developer to guarantee access to the HTML URL or File of the GUI.</li>
 </ul>
 
@@ -865,7 +866,9 @@ Set Dark Theme or Light Theme on-the-fly, <tt class="docutils literal"><span cla
 <dt><pre><span class="Keyword">template</span> <a href="#imgLazyLoad.t%2CWebview%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring%2Cstring"><span class="Identifier">imgLazyLoad</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">src</span><span class="Other">,</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">width</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">heigth</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">class</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">alt</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-HTML Image LazyLoad. <a class="reference external" href="https://codepen.io/FilipVitas/pen/pQBYQd">https://codepen.io/FilipVitas/pen/pQBYQd</a> (Must have an ID!)
+HTML Image LazyLoad (Must have an ID!).<ul class="simple"><li><a class="reference external" href="https://codepen.io/FilipVitas/pen/pQBYQd">https://codepen.io/FilipVitas/pen/pQBYQd</a></li>
+</ul>
+
 
 </dd>
 <a id="sanitizer.t,Webview,string"></a>
@@ -888,70 +891,90 @@ Detect the Language of the user, returns a string like <tt class="docutils liter
                 <span class="Identifier">noParameters</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">;</span> <span class="Identifier">ssl</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">true</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting <a class="reference external" href="https://www.duckdns.org/why.jsp">https://www.duckdns.org/why.jsp</a>
+Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting<ul class="simple"><li><a class="reference external" href="https://www.duckdns.org/why.jsp">https://www.duckdns.org/why.jsp</a></li>
+</ul>
+
 
 </dd>
 <a id="setAttribute.t,Webview,string,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#setAttribute.t%2CWebview%2Cstring%2Cstring%2Cstring"><span class="Identifier">setAttribute</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">,</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Sets an attribute value. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute</a>
+Sets an attribute value.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute</a></li>
+</ul>
+
 
 </dd>
 <a id="toggleAttribute.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#toggleAttribute.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">toggleAttribute</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Toggles an attribute value. E.g. use it on a <tt class="docutils literal"><span class="pre">readonly</span></tt> attribute. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute</a>
+Toggles an attribute value. E.g. use it on a <tt class="docutils literal"><span class="pre">readonly</span></tt> attribute.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute</a></li>
+</ul>
+
 
 </dd>
 <a id="removeAttribute.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#removeAttribute.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">removeAttribute</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Remove an attribute. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute</a>
+Remove an attribute.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute">https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute</a></li>
+</ul>
+
 
 </dd>
 <a id="setText.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#setText.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">setText</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Sets the Elements <tt class="docutils literal"><span class="pre">innerHtml</span></tt>. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent">https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent</a>
+Sets the Elements <tt class="docutils literal"><span class="pre">innerHtml</span></tt>.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent">https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent</a></li>
+</ul>
+
 
 </dd>
 <a id="addText.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#addText.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addText</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Appends <strong>Plain-Text</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentText()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText</a>
+Appends <strong>Plain-Text</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentText()</span></tt>, JavaScript side.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText</a></li>
+</ul>
+
 
 </dd>
 <a id="addHtml.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#addHtml.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addHtml</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">html</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentHTML()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml</a>
+Appends <strong>HTML</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentHTML()</span></tt>, JavaScript side.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml</a></li>
+</ul>
+
 
 </dd>
 <a id="removeHtml.t,Webview,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#removeHtml.t%2CWebview%2Cstring"><span class="Identifier">removeHtml</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Removes an object by <tt class="docutils literal"><span class="pre">id</span></tt>. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove">https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove</a>
+Removes an object by <tt class="docutils literal"><span class="pre">id</span></tt>.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove">https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove</a></li>
+</ul>
+
 
 </dd>
 <a id="addElement.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#addElement.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">addElement</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">,</span> <span class="Identifier">htmlTag</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">position</span> <span class="Other">=</span> <span class="Identifier">beforeEnd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentElement()</span></tt>, JavaScript side. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement</a>
+Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils literal"><span class="pre">id</span></tt> at <tt class="docutils literal"><span class="pre">position</span></tt>, uses <tt class="docutils literal"><span class="pre">insertAdjacentElement()</span></tt>, JavaScript side.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement">https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement</a></li>
+</ul>
+
 
 </dd>
 <a id="setBlink.t,Webview,string"></a>
-<dt><pre><span class="Keyword">template</span> <a href="#setBlink.t%2CWebview%2Cstring"><span class="Identifier">setBlink</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">iterations</span> <span class="Other">=</span> <span class="DecNumber">2</span><span class="Other">.</span><span class="Identifier">byte</span><span class="Other">;</span> <span class="Identifier">duration</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">.</span><span class="Identifier">byte</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dt><pre><span class="Keyword">template</span> <a href="#setBlink.t%2CWebview%2Cstring"><span class="Identifier">setBlink</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">iterations</span> <span class="Other">=</span> <span class="DecNumber">3</span><span class="Other">.</span><span class="Identifier">byte</span><span class="Other">;</span> <span class="Identifier">duration</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">.</span><span class="Identifier">byte</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-<tt class="docutils literal"><span class="pre">&lt;blink&gt;</span></tt> is back!, use with <tt class="docutils literal"><span class="pre">app.css()</span></tt> <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blink#Example">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blink#Example</a>
+<tt class="docutils literal"><span class="pre">&lt;blink&gt;</span></tt> is back!, use with <tt class="docutils literal"><span class="pre">app.css()</span></tt> <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blink#Example">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blink#Example</a><ul class="simple"><li><a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/blink/example.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/blink/example.nim</a></li>
+</ul>
+
 
 </dd>
 <a id="setCursor.t,Webview,string,string"></a>
@@ -960,6 +983,7 @@ Appends <strong>1 New HTML Element</strong> to an Element by <tt class="docutils
 
 Set the mouse Cursor, use with <tt class="docutils literal"><span class="pre">app.css()</span></tt>, PNG, SVG, GIF, JPG, BMP, CUR, Data URI.<ul class="simple"><li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Basic_User_Interface/Using_URL_values_for_the_cursor_property">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Basic_User_Interface/Using_URL_values_for_the_cursor_property</a></li>
 <li>For Data URI see <a class="reference external" href="https://nim-lang.github.io/Nim/uri.html#getDataUri%2Cstring%2Cstring%2Cstring">https://nim-lang.github.io/Nim/uri.html#getDataUri%2Cstring%2Cstring%2Cstring</a></li>
+<li><a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/cursor/example.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/cursor/example.nim</a></li>
 </ul>
 
 
@@ -968,7 +992,9 @@ Set the mouse Cursor, use with <tt class="docutils literal"><span class="pre">ap
 <dt><pre><span class="Keyword">template</span> <a href="#setShake.t%2CWebview%2Cstring%2CCSSShake"><span class="Identifier">setShake</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">effect</span><span class="Other">:</span> <a href="webgui.html#CSSShake"><span class="Identifier">CSSShake</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Shake Effects, use with <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import strutils</span></tt> to use. <a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim</a>
+Shake Effects, use with <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import strutils</span></tt> to use.<ul class="simple"><li><a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim</a></li>
+</ul>
+
 
 </dd>
 <a id="textareaScroll.t,Webview,string,static[bool],static[bool],static[bool]"></a>
@@ -1025,14 +1051,20 @@ Opacity 25% on 1 element, run some code, Opacity 100% same element back again. 2
 <dt><pre><span class="Keyword">template</span> <a href="#setFont.t%2CWebview%2Cstring"><span class="Identifier">setFont</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">fontName</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Use a Font from Google Fonts, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import uri</span></tt> to use. <a class="reference external" href="https://fonts.google.com">https://fonts.google.com</a>
+Use a Font from Google Fonts, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import uri</span></tt> to use.<ul class="simple"><li><a class="reference external" href="https://fonts.google.com">https://fonts.google.com</a></li>
+<li><a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/font/example.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/font/example.nim</a></li>
+</ul>
+
 
 </dd>
 <a id="setFont.t,Webview,string,string"></a>
 <dt><pre><span class="Keyword">template</span> <a href="#setFont.t%2CWebview%2Cstring%2Cstring"><span class="Identifier">setFont</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <a href="webgui.html#Webview"><span class="Identifier">Webview</span></a><span class="Other">;</span> <span class="Identifier">fontName</span><span class="Other">,</span> <span class="Identifier">element</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
 <dd>
 
-Use a Font from Google Fonts and set it directly on HTML <tt class="docutils literal"><span class="pre">element</span></tt>, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import uri</span></tt> to use. <a class="reference external" href="https://fonts.google.com">https://fonts.google.com</a>
+Use a Font from Google Fonts and set it directly on HTML <tt class="docutils literal"><span class="pre">element</span></tt>, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.css()</span></tt>, <tt class="docutils literal"><span class="pre">import uri</span></tt> to use.<ul class="simple"><li><a class="reference external" href="https://fonts.google.com">https://fonts.google.com</a></li>
+<li><a class="reference external" href="https://github.com/juancarlospaco/webgui/blob/master/examples/font/example.nim">https://github.com/juancarlospaco/webgui/blob/master/examples/font/example.nim</a></li>
+</ul>
+
 
 </dd>
 
@@ -1045,7 +1077,7 @@ Use a Font from Google Fonts and set it directly on HTML <tt class="docutils lit
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-14 10:50:21 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-14 11:32:02 UTC</small>
       </div>
     </div>
   </div>

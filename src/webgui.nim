@@ -333,7 +333,8 @@ template setTheme*(w: Webview; dark: bool) =
   discard w.css(if dark: cssDark else: cssLight)
 
 template imgLazyLoad*(_: Webview; src, id: string, width = "", heigth = "", class = "",  alt = ""): string =
-  ## HTML Image LazyLoad. https://codepen.io/FilipVitas/pen/pQBYQd (Must have an ID!)
+  ## HTML Image LazyLoad (Must have an ID!).
+  ## * https://codepen.io/FilipVitas/pen/pQBYQd
   assert id.len > 0, "ID must not be empty string, must have an ID"
   assert src.len > 0, "src must not be empty string"
   imageLazy.format(src, id, width, heigth, class,  alt)
@@ -348,7 +349,8 @@ template getLang*(_: Webview): string =
 
 template duckDns*(_: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = ""; verbose: static[bool] = false;
   clear: static[bool] = false;  noParameters: static[bool] = false; ssl: static[bool] = true): string =
-  ## Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting https://www.duckdns.org/why.jsp
+  ## Duck DNS, Free Dynamic DNS Service, use your PC or RaspberryPi as $0 Web Hosting
+  ## * https://www.duckdns.org/why.jsp
   assert token.len > 0 and domains.len > 0, "Token and Domains must not be empty string"
   when noParameters:
     assert ',' notin domains, "noParameters only allows 1 single subdomain"
@@ -359,69 +361,71 @@ template duckDns*(_: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = 
 
 template setAttribute*(_: Webview; id, key, val: string): string =
   ## Sets an attribute value.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').setAttribute('" & key & "', '" & val & "')"
 
 template toggleAttribute*(_: Webview; id, key: string): string =
   ## Toggles an attribute value. E.g. use it on a `readonly` attribute.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').toggleAttribute('" & key & "')"
 
 template removeAttribute*(_: Webview; id, key: string): string =
   ## Remove an attribute.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').removeAttribute('" & key & "')"
 
 template setText*(_: Webview; id, text: string): string =
   ## Sets the Elements `innerHtml`.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').textContent = '" & text  & "'"
 
 template addText*(_: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`, JavaScript side.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentText('" & $position & "',`" & text.replace('`', ' ') & "`);"
 
 template addHtml*(_: Webview; id, html: string, position = beforeEnd): string =
   ## Appends **HTML** to an Element by `id` at `position`, uses `insertAdjacentHTML()`, JavaScript side.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html.replace('`', ' ') & "`);"
 
 template removeHtml*(_: Webview; id: string): string =
   ## Removes an object by `id`.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').remove()"
 
 template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): string =
   ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`, JavaScript side.
-  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
+  ## * https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
-template setBlink*(_: Webview; id: string; iterations = 2.byte; duration = 1.byte): string =
+template setBlink*(_: Webview; id: string; iterations = 3.byte; duration = 1.byte): string =
   ## `<blink>` is back!, use with `app.css()` https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blink#Example
+  ## * https://github.com/juancarlospaco/webgui/blob/master/examples/blink/example.nim
   assert id.len > 0, "ID must not be empty string, must have an ID"
-  ("@keyframes blink { from { opacity: 1 } to { opacity: 0 } };\n" &
-    id & "{animation-iteration-count:" & $iterations & ";animation-duration:" & $duration & "s;" &
-    "animation-name:blink;animation-timing-function:cubic-bezier(1.0,0,0,1.0)};")
+  ("@keyframes blink { from { opacity: 1 } to { opacity: 0 } } " &
+    id & " {animation-iteration-count:" & $iterations & ";animation-duration:" & $duration & "s;" &
+    "animation-name:blink;animation-timing-function:cubic-bezier(1.0,0,0,1.0)}")
 
 template setCursor*(_: Webview; id: string; url: string): string =
   ## Set the mouse Cursor, use with `app.css()`, PNG, SVG, GIF, JPG, BMP, CUR, Data URI.
   ## * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Basic_User_Interface/Using_URL_values_for_the_cursor_property
   ## * For Data URI see https://nim-lang.github.io/Nim/uri.html#getDataUri%2Cstring%2Cstring%2Cstring
+  ## * https://github.com/juancarlospaco/webgui/blob/master/examples/cursor/example.nim
   assert id.len > 0, "ID must not be empty string, must have an ID"
   id & "{ cursor: url('" & url & "'), auto !important };"
 
 template setShake*(_: Webview; id: string, effect: CSSShake): string =
   ## Shake Effects, use with `app.css()`, `import strutils` to use.
-  ## https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim
+  ## * https://github.com/juancarlospaco/webgui/blob/master/examples/shake/example.nim
   assert id.len > 0, "ID must not be empty string, must have an ID"
   format($effect, id)
 
@@ -493,13 +497,17 @@ template getConfig*(filename: string; configObject; compileTime: static[bool] = 
   to((when compileTime: static(parseJson(staticRead(filename))) else: parseFile(filename)), configObject)
 
 template setFont*(_: Webview; fontName: string): string =
-  ## Use a Font from Google Fonts, returns `string` for `app.css()`, `import uri` to use. https://fonts.google.com
+  ## Use a Font from Google Fonts, returns `string` for `app.css()`, `import uri` to use.
+  ## * https://fonts.google.com
+  ## * https://github.com/juancarlospaco/webgui/blob/master/examples/font/example.nim
   assert fontName.len > 0, "fontName must not be empty string"
   "@import url('https://fonts.googleapis.com/css?family=" & uri.encodeUrl(fontName, true) & "&display=swap');"
 
 template setFont*(_: Webview; fontName, element: string): string =
   ## Use a Font from Google Fonts and set it directly on HTML `element`,
-  ## returns `string` for `app.css()`, `import uri` to use. https://fonts.google.com
+  ## returns `string` for `app.css()`, `import uri` to use.
+  ## * https://fonts.google.com
+  ## * https://github.com/juancarlospaco/webgui/blob/master/examples/font/example.nim
   assert fontName.len > 0, "fontName must not be empty string"
   "@import url('https://fonts.googleapis.com/css?family=" & uri.encodeUrl(fontName, true) & "&display=swap');\n" & element & "{font-family:'" & fontName & "' !important;text-rendering:optimizeLegibility};"
 
@@ -626,6 +634,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   ## * `fullscreen` if set to `true` the Window will be forced Fullscreen.
   ## * If `--light-theme` on `commandLineParams()` then it will use Light Theme automatically.
   ## * CSS is embedded, if your app is used Offline, it will display Ok.
+  ## * For templates that do CSS, remember that CSS must be injected *after DOM Ready*.
   ## * Is up to the developer to guarantee access to the HTML URL or File of the GUI.
   const url =
     when path.endsWith".html": fileLocalHeader & path
