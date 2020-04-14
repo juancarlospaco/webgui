@@ -348,6 +348,24 @@ template duckDns*(_: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = 
     ((when ssl: "https" else: "http") & "://www.duckdns.org/update?domains=" & domains & "&token=" & token &
       "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
 
+template setAttribute*(_: Webview; id, key, val: string): string =
+  ## Sets an attribute value.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').setAttribute('" & key & "', '" & val & "')"
+
+template toggleAttribute*(_: Webview; id, key: string): string =
+  ## Toggles an attribute value. E.g. use it on a `readonly` attribute.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').toggleAttribute('" & key & "')"
+
+template removeAttribute*(_: Webview; id, key: string): string =
+  ## Remove an attribute.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').removeAttribute('" & key & "')"
+
 template addText*(_: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
