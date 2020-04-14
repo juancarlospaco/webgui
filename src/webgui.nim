@@ -384,6 +384,12 @@ template addHtml*(_: Webview; id, html: string, position = beforeEnd): string =
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html.replace('`', ' ') & "`);"
 
+template removeHtml*(_: Webview; id: string): string =
+  ## Removes an object by `id`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').remove()"
+
 template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): string =
   ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
