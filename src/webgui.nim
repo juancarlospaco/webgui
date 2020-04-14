@@ -396,6 +396,13 @@ template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): str
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentElement('" & $position & "',document.createElement('" & htmlTag & "'));"
 
+template setBlink*(_: Webview; id: string; iterations = 2.byte; duration = 1.byte): string =
+  ## `<blink>` is back!, use with `app.css()` https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blink#Example
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  ("@keyframes blink { from { opacity: 1 } to { opacity: 0 } };\n" &
+    id & "{animation-iteration-count:" & $iterations & ";animation-duration:" & $duration & "s;" &
+    "animation-name:blink;animation-timing-function:cubic-bezier(1.0,0,0,1.0)};")
+
 template textareaScroll*(_: Webview; id: string, scrollIntoView: static[bool] = false, selectAll: static[bool] = false, copyToClipboard: static[bool] = false): string =
   ## **Scroll a textarea to the bottom**, alias for `textarea.scrollTop = textarea.scrollHeight;`.
   ## * `scrollIntoView` if `true` runs `textarea.scrollIntoView();`.
