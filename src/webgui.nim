@@ -348,6 +348,30 @@ template duckDns*(_: Webview; domains: string; token: string ;ipv4 = ""; ipv6 = 
     ((when ssl: "https" else: "http") & "://www.duckdns.org/update?domains=" & domains & "&token=" & token &
       "&verbose=" & $verbose & "&clear=" & $clear & "&ip=" & ipv4 & "&ipv6=" & ipv6)
 
+template setAttribute*(_: Webview; id, key, val: string): string =
+  ## Sets an attribute value.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').setAttribute('" & key & "', '" & val & "')"
+
+template toggleAttribute*(_: Webview; id, key: string): string =
+  ## Toggles an attribute value. E.g. use it on a `readonly` attribute.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/toggleAttribute
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').toggleAttribute('" & key & "')"
+
+template removeAttribute*(_: Webview; id, key: string): string =
+  ## Remove an attribute.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').removeAttribute('" & key & "')"
+
+template setText*(_: Webview; id, text: string): string =
+  ## Sets the Elements `innerHtml`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').textContent = '" & text  & "'"
+
 template addText*(_: Webview; id, text: string, position = beforeEnd): string =
   ## Appends **Plain-Text** to an Element by `id` at `position`, uses `insertAdjacentText()`, JavaScript side.
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentText
@@ -359,6 +383,12 @@ template addHtml*(_: Webview; id, html: string, position = beforeEnd): string =
   ## https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHtml
   assert id.len > 0, "ID must not be empty string, must have an ID"
   "document.querySelector('" & id & "').insertAdjacentHTML('" & $position & "',`" & html.replace('`', ' ') & "`);"
+
+template removeHtml*(_: Webview; id: string): string =
+  ## Removes an object by `id`.
+  ## https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove
+  assert id.len > 0, "ID must not be empty string, must have an ID"
+  "document.querySelector('" & id & "').remove()"
 
 template addElement*(_: Webview; id, htmlTag: string, position = beforeEnd): string =
   ## Appends **1 New HTML Element** to an Element by `id` at `position`, uses `insertAdjacentElement()`, JavaScript side.
