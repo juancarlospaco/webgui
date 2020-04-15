@@ -514,6 +514,65 @@ template setFont*(_: Webview; fontName, element: string): string =
   assert fontName.len > 0, "fontName must not be empty string"
   "@import url('https://fonts.googleapis.com/css?family=" & uri.encodeUrl(fontName, true) & "&display=swap');\n" & element & "{font-family:'" & fontName & "' !important;text-rendering:optimizeLegibility};"
 
+template datePicker*(_: Webview; yearID, monthID, dayID: string; year, month, day: Positive): string =
+  ## Date Picker improvised using `<input>` and `<datalist>` HTML elements, returns `string` for `app.addHtml()`.
+  assert yearID.len > 0 and monthID.len > 0 and dayID.len > 0
+  const temp = static:
+    var gatalist = "<datalist id='dayautocomplete'>\n"
+    for i in 1..31: gatalist.add "  <option value=" & $i & " >\n"
+    gatalist.add "</datalist>"
+    gatalist
+  const temp2 = static:
+    var gatalist = "<datalist id='yearautocomplete'>\n"
+    for i in 1950..2050: gatalist.add "  <option value=" & $i & " >\n"
+    gatalist.add "</datalist>"
+    gatalist
+  """
+  <input type="tel" id='""" & yearID & "' value='" & $year & """' style="display:inline" max=9999 step=1 maxlength=4 minlength=4 size=6 placeholder="YEAR" title="Year" list="yearautocomplete">-
+  <input type="tel" id='""" & monthID & "' value='" & $month & """'style="display:inline" max=12 min=1 step=1 maxlength=2 minlength=1 size=6 placeholder="MONTH" title="Month" list="monthautocomplete">-
+  <input type="tel" id='""" & dayID & "' value='" & $day & """' style="display:inline" max=31 min=1 step=1 maxlength=2 minlength=1 size=6 placeholder="DAY" title="Day" list="dayautocomplete"><br>
+  <datalist id="monthautocomplete">
+    <option value="1"><option value="2"><option value="3"><option value="4">
+    <option value="5"><option value="6"><option value="7"><option value="8">
+    <option value="9"><option value="10"><option value="11"><option value="12">
+  </datalist> """ & temp & temp2
+
+template datetimePicker*(_: Webview; yearID, monthID, dayID, hourID, minuteID, secondID: string; year, month, day: Positive; hour = 0.Natural; minute = 0.Natural): string =
+  ## Date and Time Picker improvised using `<input>` and `<datalist>` HTML elements, returns `string` for `app.addHtml()`.
+  assert yearID.len > 0 and monthID.len > 0 and dayID.len > 0 and hourID.len > 0 and minuteID.len > 0 and secondID.len > 0
+  const temp = static:
+    var gatalist = "<datalist id='dayautocomplete'>\n"
+    for i in 1..31: gatalist.add "  <option value=" & $i & " >\n"
+    gatalist.add "</datalist>"
+    gatalist
+  const temp2 = static:
+    var gatalist = "<datalist id='60autocomplete'>\n"
+    for i in 0..60: gatalist.add "  <option value=" & $i & " >\n"
+    gatalist.add "</datalist>"
+    gatalist
+  const temp3 = static:
+    var gatalist = "<datalist id='yearautocomplete'>\n"
+    for i in 1950..2050: gatalist.add "  <option value=" & $i & " >\n"
+    gatalist.add "</datalist>"
+    gatalist
+  const temp4 = static:
+    var gatalist = "<datalist id='hourautocomplete'>\n"
+    for i in 1..24: gatalist.add "  <option value=" & $i & " >\n"
+    gatalist.add "</datalist>"
+    gatalist
+  """
+  <input type="tel" id='""" & yearID & "' value='" & $year & """' style="display:inline" max=9999 step=1 maxlength=4 minlength=4 size=6 placeholder="YEAR" title="Year" list="yearautocomplete">-
+  <input type="tel" id='""" & monthID & "' value='" & $month & """'style="display:inline" max=12 min=1 step=1 maxlength=2 minlength=1 size=6 placeholder="MONTH" title="Month" list="monthautocomplete">-
+  <input type="tel" id='""" & dayID & "' value='" & $day & """' style="display:inline" max=31 min=1 step=1 maxlength=2 minlength=1 size=6 placeholder="DAY" title="Day" list="dayautocomplete">T
+  <input type="tel" id='""" & hourID & "' value='" & $hour & """' style="display:inline" max=60 min=0 step=1 maxlength=2 minlength=1 size=6 placeholder="HOUR" title="Hour" list="hourautocomplete">:
+  <input type="tel" id='""" & minuteID & "' value='" & $minute & """'  style="display:inline" value=0 max=60 min=31 step=1 maxlength=2 minlength=1 size=6 placeholder="MINUTE" title="Minute" list="60autocomplete">:
+  <input type="tel" id='""" & secondID & """' style="display:inline" value=0 max=1 min=31 step=1 maxlength=2 minlength=1 size=6 placeholder="SECOND" title="Second" list="60autocomplete"><br>
+  <datalist id="monthautocomplete">
+    <option value="1"><option value="2"><option value="3"><option value="4">
+    <option value="5"><option value="6"><option value="7"><option value="8">
+    <option value="9"><option value="10"><option value="11"><option value="12">
+  </datalist> """ & temp & temp2 & temp3 & temp4
+
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
