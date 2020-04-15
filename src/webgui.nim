@@ -7,8 +7,8 @@
 ##                          ## newWebView("Will_be_Compiled_to_JavaScript.nim")
 ##
 ## - **Design with CSS3, mockup with HTML5, Fast as Rust, Simple as Python, No-GC, powered by Nim.**
-## - Dark-Theme and Light-Theme Built-in, Fonts, TrayIcon, Clipboard, Lazy-Loading Images.
-## - Native Notifications with Sound, Config and DNS helpers, few LOC, and more...
+## - Dark-Theme and Light-Theme Built-in, Fonts, TrayIcon, Clipboard, Lazy-Loading Images, Cursors.
+## - Native Notifications with Sound, Config and DNS helpers, Animation Effects, few LOC, and more...
 ##
 ## Buit-in Dark Mode
 ## =================
@@ -33,6 +33,8 @@
 ##
 ## .. image:: https://raw.githubusercontent.com/ThomasTJdev/choosenim_gui/master/private/screenshot1.png
 ##
+## .. image:: https://raw.githubusercontent.com/juancarlospaco/borapp/master/borapp.png
+##
 ## Real-Life Projects
 ## ==================
 ##
@@ -40,6 +42,7 @@
 ## * https://github.com/juancarlospaco/ballena-itcher (**~42 lines of Nim** at the time of writing)
 ## * https://github.com/juancarlospaco/nim-smnar      (**~32 lines of Nim** at the time of writing)
 ## * https://github.com/ThomasTJdev/choosenim_gui     (**~80 lines of Nim** at the time of writing)
+## * https://github.com/juancarlospaco/borapp         (**~50 lines of Nim** at the time of writing)
 
 import tables, strutils, macros, json, os
 
