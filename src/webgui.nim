@@ -95,8 +95,8 @@ type
 const
   dataUriHtmlHeader* = "data:text/html;charset=utf-8,"  ## Data URI for HTML UTF-8 header string
   fileLocalHeader* = "file:///"  ## Use Local File as URL.
-  cssDark = staticRead"dark.css".strip.cstring
-  cssLight = staticRead"light.css".strip.cstring
+  cssDark = staticRead"dark.css".strip.unindent.cstring
+  cssLight = staticRead"light.css".strip.unindent.cstring
   imageLazy = """
     <img class="$5" id="$2" alt="$6" data-src="$1" src="" lazyload="on" onclick="this.src=this.dataset.src" onmouseover="this.src=this.dataset.src" width="$3" heigth="$4"/>
     <script>
