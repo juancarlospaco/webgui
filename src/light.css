@@ -241,7 +241,7 @@ input[type='radio']:checked {
 
 input[type='checkbox']:checked::before,
 input[type='radio']:checked::before {
-  content: '•';
+  content: 'X';
   display: block;
   position: absolute;
   left: 50%;
@@ -250,7 +250,7 @@ input[type='radio']:checked::before {
 }
 
 input[type='checkbox']:checked::before {
-  content: '✔';
+  content: 'X';
   transform: translateY(-50%) translateY(0.5px) translateX(-6px);
 }
 
