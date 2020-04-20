@@ -47,7 +47,7 @@
 ## * https://github.com/juancarlospaco/borapp         (**~50 lines of Nim** at the time of writing)
 ## * https://github.com/ThomasTJdev/nmqttgui
 
-import tables, strutils, macros, json, os, uri
+import tables, strutils, macros, json, os
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
 {.passc: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
@@ -705,9 +705,9 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
     when path.startsWith"http": path
     elif path.endsWith".html" and not path.startsWith"http": fileLocalHeader & path
     elif path.endsWith".js" or path.endsWith".nim":
-      dataUriHtmlHeader & encodeUrl "<!DOCTYPE html><html><head><meta content='width=device-width,initial-scale=1' name=viewport></head><body id=body ><div id=ROOT ><div></body></html>"  # Copied from Karax
-    elif path.len == 0: dataUriHtmlHeader & encodeUrl staticRead"demo.html"
-    else: dataUriHtmlHeader & encodeUrl path.strip
+      dataUriHtmlHeader & "<!DOCTYPE html><html><head><meta content='width=device-width,initial-scale=1' name=viewport></head><body id=body ><div id=ROOT ><div></body></html>"  # Copied from Karax
+    elif path.len == 0: dataUriHtmlHeader & staticRead"demo.html"
+    else: dataUriHtmlHeader & path.strip
   result = webView(title, url, width, height, resizable, debug, callback)
   when skipTaskbar: result.setSkipTaskbar(skipTaskbar)
   when not windowBorders: result.setBorderlessWindow(windowBorders)
