@@ -703,6 +703,7 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
     elif path.endsWith".js" or path.endsWith".nim":
       dataUriHtmlHeader & "<!DOCTYPE html><html><head><meta content='width=device-width,initial-scale=1' name=viewport></head><body id=body ><div id=ROOT ><div></body></html>"  # Copied from Karax
     elif path.len == 0: dataUriHtmlHeader & staticRead"demo.html"
+    elif path.startsWith"http": path
     else: dataUriHtmlHeader & path.strip
   result = webView(title, url, width, height, resizable, debug, callback)
   when skipTaskbar: result.setSkipTaskbar(skipTaskbar)
