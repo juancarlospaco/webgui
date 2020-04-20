@@ -44,7 +44,7 @@
 ## * https://github.com/ThomasTJdev/choosenim_gui     (**~80 lines of Nim** at the time of writing)
 ## * https://github.com/juancarlospaco/borapp         (**~50 lines of Nim** at the time of writing)
 
-import tables, strutils, macros, json, os
+import tables, strutils, macros, json, os, uri
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
 {.passc: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
@@ -701,9 +701,9 @@ proc newWebView*(path: static[string] = ""; title = ""; width: Positive = 640; h
   const url =
     when path.endsWith".html": fileLocalHeader & path
     elif path.endsWith".js" or path.endsWith".nim":
-      dataUriHtmlHeader & "<!DOCTYPE html><html><head><meta content='width=device-width,initial-scale=1' name=viewport></head><body id=body ><div id=ROOT ><div></body></html>"  # Copied from Karax
+      dataUriHtmlHeader & encodeUrl "<!DOCTYPE html><html><head><meta content='width=device-width,initial-scale=1' name=viewport></head><body id=body ><div id=ROOT ><div></body></html>"  # Copied from Karax
     elif path.len == 0: dataUriHtmlHeader & staticRead"demo.html"
-    else: dataUriHtmlHeader & path.strip
+    else: dataUriHtmlHeader & encodeUrl path.strip
   result = webView(title, url, width, height, resizable, debug, callback)
   when skipTaskbar: result.setSkipTaskbar(skipTaskbar)
   when not windowBorders: result.setBorderlessWindow(windowBorders)
