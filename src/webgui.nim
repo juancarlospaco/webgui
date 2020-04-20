@@ -35,6 +35,8 @@
 ##
 ## .. image:: https://raw.githubusercontent.com/juancarlospaco/borapp/master/borapp.png
 ##
+## .. image:: https://raw.githubusercontent.com/ThomasTJdev/nmqttgui/master/private/screenshot1.png
+##
 ## Real-Life Projects
 ## ==================
 ##
@@ -43,6 +45,7 @@
 ## * https://github.com/juancarlospaco/nim-smnar      (**~32 lines of Nim** at the time of writing)
 ## * https://github.com/ThomasTJdev/choosenim_gui     (**~80 lines of Nim** at the time of writing)
 ## * https://github.com/juancarlospaco/borapp         (**~50 lines of Nim** at the time of writing)
+## * https://github.com/ThomasTJdev/nmqttgui
 
 import tables, strutils, macros, json, os
 
