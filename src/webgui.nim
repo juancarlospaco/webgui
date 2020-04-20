@@ -53,7 +53,7 @@ when defined(linux):
 elif defined(windows):
   {.passc: "-DWEBVIEW_WINAPI=1", passl: "-lole32 -lcomctl32 -loleaut32 -luuid -lgdi32".}
 elif defined(macosx):
-  {.passc: "-DWEBVIEW_COCOA=1 -x objective-c", passl: "-framework Cocoa -framework WebKit".}
+  {.passc: "-DOBJC_OLD_DISPATCH_PROTOTYPES=1 -DWEBVIEW_COCOA=1 -x objective-c", passl: "-framework Cocoa -framework WebKit".}
 
 type
   ExternalInvokeCb* = proc (w: Webview; arg: string)  ## External CallBack Proc
