@@ -171,6 +171,9 @@ function main() {
   <li><a class="reference" href="#run%2CWebview%2Cproc%29%2Cproc%29%2Cstatic%5Bbool%5D"
     title="run(w: Webview; quitProc: proc () {.noconv.}; controlCProc: proc () {.noconv.};
     autoClose: static[bool] = true)"><wbr />run<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#getOpt%2Cstatic%5Bstring%5D%2Cstatic%5Bproc%5D%2Cany%2Cstatic%5Bbool%5D"
+    title="getOpt(key: static[string]; parseProc: static[proc]; default: any;
+       required: static[bool] = false): auto"><wbr />get<wbr />Opt<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#bindProc%2CWebview%2Cstring%2Cstring%2C"
     title="bindProc[P, R](w: Webview; scope, name: string; p: (proc (param: P): R))"><wbr />bind<wbr />Proc<span class="attachedType">Webview</span></a></li>
   <li><a class="reference" href="#bindProcNoArg%2CWebview%2Cstring%2Cstring%2Cproc%29"
@@ -513,6 +516,18 @@ Explicitly force dispatch a function, for advanced users only
 <li><tt class="docutils literal"><span class="pre">autoClose</span></tt> set to <tt class="docutils literal"><span class="pre">true</span></tt> to automatically run <tt class="docutils literal"><span class="pre">exit()</span></tt> at exit.</li>
 </ul>
 
+
+</dd>
+<a id="getOpt,static[string],static[proc],any,static[bool]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getOpt%2Cstatic%5Bstring%5D%2Cstatic%5Bproc%5D%2Cany%2Cstatic%5Bbool%5D"><span class="Identifier">getOpt</span></a><span class="Other">(</span><span class="Identifier">key</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">parseProc</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Keyword">proc</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">default</span><span class="Other">:</span> <span class="Identifier">any</span><span class="Other">;</span>
+           <span class="Identifier">required</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">bool</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Fast simple <tt class="docutils literal"><span class="pre">parseOpt</span></tt> alternative, parse anything, returns value directly, copy-free, no variables.<pre class="listing"><span class="Identifier">echo</span> <span class="Identifier">getOpt</span><span class="Punctuation">(</span><span class="StringLit">&quot;foo&quot;</span><span class="Punctuation">,</span> <span class="Identifier">parseInt</span><span class="Punctuation">,</span> <span class="DecNumber">0</span><span class="Punctuation">)</span>                          <span class="Comment">## --foo=42</span>
+<span class="Identifier">echo</span> <span class="Identifier">getOpt</span><span class="Punctuation">(</span><span class="StringLit">&quot;bar&quot;</span><span class="Punctuation">,</span> <span class="Identifier">parseBool</span><span class="Punctuation">,</span> <span class="Identifier">false</span><span class="Punctuation">,</span> <span class="Identifier">required</span> <span class="Operator">=</span> <span class="Identifier">true</span><span class="Punctuation">)</span>    <span class="Comment">## -bar:true</span>
+<span class="Identifier">echo</span> <span class="Identifier">getOpt</span><span class="Punctuation">(</span><span class="StringLit">&quot;baz&quot;</span><span class="Punctuation">,</span> <span class="Identifier">parseHexStr</span><span class="Punctuation">,</span> <span class="StringLit">&quot;fff&quot;</span><span class="Punctuation">,</span> <span class="Identifier">required</span> <span class="Operator">=</span> <span class="Identifier">false</span><span class="Punctuation">)</span> <span class="Comment">## --baz:bebe</span>
+<span class="Identifier">echo</span> <span class="Identifier">getOpt</span><span class="Punctuation">(</span><span class="StringLit">&quot;bax&quot;</span><span class="Punctuation">,</span> <span class="Identifier">readFile</span><span class="Punctuation">,</span> <span class="StringLit">&quot;&quot;</span><span class="Punctuation">,</span> <span class="Identifier">required</span> <span class="Operator">=</span> <span class="Identifier">false</span><span class="Punctuation">)</span>       <span class="Comment">## +bax:file.ext</span>
+<span class="Identifier">echo</span> <span class="Identifier">getOpt</span><span class="Punctuation">(</span><span class="StringLit">&quot;bay&quot;</span><span class="Punctuation">,</span> <span class="Identifier">json</span><span class="Operator">.</span><span class="Identifier">parseFile</span><span class="Punctuation">,</span> <span class="Operator">%*</span><span class="Punctuation">{</span><span class="StringLit">&quot;key&quot;</span><span class="Punctuation">:</span> <span class="StringLit">&quot;value&quot;</span><span class="Punctuation">}</span><span class="Punctuation">)</span>   <span class="Comment">## --bay:data.json</span></pre>
 
 </dd>
 <a id="bindProc,Webview,string,string,"></a>
@@ -1101,7 +1116,7 @@ Date and Time Picker improvised using <tt class="docutils literal"><span class="
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-20 19:09:10 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-21 04:25:13 UTC</small>
       </div>
     </div>
   </div>

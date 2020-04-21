@@ -576,6 +576,21 @@ template datetimePicker*(_: Webview; yearID, monthID, dayID, hourID, minuteID, s
     <option value="9"><option value="10"><option value="11"><option value="12">
   </datalist> """ & temp & temp2 & temp3 & temp4
 
+proc getOpt*(key: static[string]; parseProc: static[proc]; default: any; required: static[bool] = false): auto {.inline.} =
+  ## Fast simple `parseOpt` alternative, parse anything, returns value directly, copy-free, no variables.
+  ##
+  ## .. code-block:: nim
+  ##   echo getOpt("foo", parseInt, 0)                          ## --foo=42
+  ##   echo getOpt("bar", parseBool, false, required = true)    ## -bar:true
+  ##   echo getOpt("baz", parseHexStr, "fff", required = false) ## --baz:bebe
+  ##   echo getOpt("bax", readFile, "", required = false)       ## +bax:file.ext
+  ##   echo getOpt("bay", json.parseFile, %*{"key": "value"})   ## --bay:data.json
+  assert key.len > 0, "Key must not be empty string"
+  for x in commandLineParams():
+    if x.find(key) != -1: return parseProc(split(x, {'=', ':'}, 1)[1])
+  when required: quit static("ERROR: Required command line param not found: " & key)
+  else: return default
+
 proc bindProc*[P, R](w: Webview; scope, name: string; p: (proc(param: P): R)) {.used.} =
   ## Do NOT use directly, see `bindProcs` macro.
   assert name.len > 0, "Name must not be empty string"
