@@ -1499,7 +1499,7 @@ WEBVIEW_API void webview_set_iconify(struct webview *w, int iconify) {
 }
 
 WEBVIEW_API void webview_launch_external_URL(struct webview *w, const char *uri) {
-  ShellExecute(0, 0, uri, 0, 0 , SW_SHOW );
+  ShellExecuteW(0, 0, uri, 0, 0 , SW_SHOW );
 }
 
 WEBVIEW_API void webview_set_color(struct webview *w, uint8_t r, uint8_t g,

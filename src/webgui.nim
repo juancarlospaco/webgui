@@ -54,7 +54,7 @@ const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & 
 when defined(linux):
   {.passc: "-DWEBVIEW_GTK=1 " & staticExec"pkg-config --cflags gtk+-3.0 webkit2gtk-4.0", passl: staticExec"pkg-config --libs gtk+-3.0 webkit2gtk-4.0".}
 elif defined(windows):
-  {.passc: "-DWEBVIEW_WINAPI=1", passl: "-lole32 -lcomctl32 -loleaut32 -luuid -lgdi32".}
+  {.passc: "-DWEBVIEW_WINAPI=1", passl: "-lole32 -lcomctl32 -lcomdlg32 -loleaut32 -luuid -lgdi32".}
 elif defined(macosx):
   {.passc: "-DOBJC_OLD_DISPATCH_PROTOTYPES=1 -DWEBVIEW_COCOA=1 -x objective-c", passl: "-framework Cocoa -framework WebKit".}
 
