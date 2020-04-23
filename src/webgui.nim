@@ -577,7 +577,7 @@ template datetimePicker*(_: Webview; yearID, monthID, dayID, hourID, minuteID, s
   </datalist> """ & temp & temp2 & temp3 & temp4
 
 proc getOpt*(key: static[string]; parseProc: proc; default: any; required: static[bool] = false;
-    shortOpts: static[bool] = false, dash = '-', seps = {':', '='}): auto {.inline.} =
+    shortOpts: static[bool] = false, prefix = '-', seps = {':', '='}): auto {.inline.} =
   ## **Fast** simple `parseOpt` alternative, parse anything, returns value directly, copy-free.
   ##
   ## * `key` is the Key to parse from `commandLineParams`.
@@ -585,7 +585,7 @@ proc getOpt*(key: static[string]; parseProc: proc; default: any; required: stati
   ## * `default` is 1 default value to return if `key` is not found, if `required=true` is ignored.
   ## * `required` if `true` then `key` is required and mandatory.
   ## * `shortOpts` if `true` then `-key=value` short format is allowed too (Slower!).
-  ## * `dash` is 1 `char` for prefix for key, `dash='+'` then `++key=value` is parsed.
+  ## * `prefix` is 1 `char` for prefix for key, `prefix='+'` then `++key=value` is parsed.
   ## * `seps` is 1 `set[char]` for separator of `key` and value, `seps={'@'}` then `--key@value` is parsed.
   ##
   ## .. code-block:: nim
@@ -594,13 +594,13 @@ proc getOpt*(key: static[string]; parseProc: proc; default: any; required: stati
   ##   echo getOpt("baz", parseHexStr, "f0f0", required = false) ## --baz:bebe
   ##   echo getOpt("bax", readFile, "default", required = false) ## --bax:file.ext
   ##   echo getOpt("bay", json.parseFile, %*{"key": "value"})    ## --bay:data.json
-  ##   echo getOpt("owo", parseUInt, 9, shortOpts=true, dash='+', seps={'@'}) ## +owo@42
+  ##   echo getOpt("owo", parseUInt, 9, shortOpts=true, prefix='+', seps={'@'}) ## +owo@42
   assert key.len > 0, "Key must not be empty string"
   for x in commandLineParams():
-    if x[0] == dash and x[1] == dash and x[static(key.len + 2)] in seps:
+    if x[0] == prefix and x[1] == prefix and x[static(key.len + 2)] in seps:
       if x[static(2..key.len + 1)] == key: return parseProc(x[static(key.len + 3..^1)])
     when shortOpts:
-      if x[0] == dash and x[static(key.len + 1)] in seps:
+      if x[0] == prefix and x[static(key.len + 1)] in seps:
         if x[static(1..key.len)] == key: return parseProc(x[static(key.len + 2..^1)])
   when required: quit static("ERROR: Required command line param not found: " & key)
   else: return default
