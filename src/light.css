@@ -527,6 +527,17 @@ summary::-webkit-details-marker {
   color: var(--text-main);
 }
 
+@keyframes fadetails {
+  0%   {opacity: 0}
+  100% {opacity: 1}
+}
+
+details[open] summary ~ * {
+  animation-duration: 1s;
+  animation-name: fadetails;
+  animation-timing-function: cubic-bezier(1.0,0,0,1.0)
+}
+
 footer {
   border-top: 1px solid var(--background);
   padding-top: 10px;
