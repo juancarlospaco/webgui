@@ -68,6 +68,12 @@ $ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 [![Choosenim GUI](https://raw.githubusercontent.com/ThomasTJdev/choosenim_gui/master/private/screenshot1.png)](https://github.com/ThomasTJdev/choosenim_gui)
 
 
+![](https://raw.githubusercontent.com/juancarlospaco/borapp/master/borapp.png)
+
+
+![](https://raw.githubusercontent.com/ThomasTJdev/nmqttgui/master/private/screenshot1.png)
+
+
 # Stars
 
 ![](https://starchart.cc/juancarlospaco/webgui.svg "Star WebGUI on GitHub!")
