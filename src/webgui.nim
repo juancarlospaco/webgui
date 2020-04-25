@@ -47,7 +47,7 @@
 ## * https://github.com/juancarlospaco/borapp         (**~50 lines of Nim** at the time of writing)
 ## * https://github.com/ThomasTJdev/nmqttgui
 
-import tables, strutils, macros, json, os, base64
+import tables, strutils, macros, json, os
 
 const headerC = currentSourcePath().substr(0, high(currentSourcePath()) - 10) & "webview.h"
 {.passc: "-DWEBVIEW_STATIC -DWEBVIEW_IMPLEMENTATION -I" & headerC.}
@@ -311,12 +311,10 @@ template dialogOpenDir*(w: Webview; title = ""): string =
   ## Opens a dialog that requests a Directory from the user.
   w.dialog(dtOpen, 1.cint, title, "")
 
-template dataUriHtmlHeader*(s: string): string = 
-  ## Data URI for HTML UTF-8 header string
-  when defined(osx) == false:
-    "data:text/html;charset=utf-8," & s
-  else:
-    "data:text/html;charset=utf-8;base64," & base64.encode s
+template dataUriHtmlHeader*(s: string): string =
+  ## Data URI for HTML UTF-8 header string. For Mac uses Base64, `import base64` to use.
+  when defined(osx): "data:text/html;charset=utf-8;base64," & base64.encode(s)
+  else: "data:text/html;charset=utf-8," & s
 
 func run*(w: Webview) {.inline.} =
   ## `run` starts the main UI loop until the user closes the window or `exit()` is called.
