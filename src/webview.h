@@ -1711,6 +1711,7 @@ WEBVIEW_API void webview_print_log(const char *s) { OutputDebugString(s); }
 #define WKNavigationActionPolicyDownload 2
 #define WKNavigationResponsePolicyAllow 1
 #define WKUserScriptInjectionTimeAtDocumentStart 0
+#define WKUserScriptInjectionTimeAtDocumentEnd 1
 #define NSApplicationActivationPolicyRegular 0
 
 static id get_nsstring(const char *c_str) {
@@ -2123,9 +2124,19 @@ WEBVIEW_API int webview_loop(struct webview *w, int blocking) {
 }
 
 WEBVIEW_API int webview_eval(struct webview *w, const char *js) {
-  objc_msgSend(w->priv.webview,
-               sel_registerName("evaluateJavaScript:completionHandler:"),
-               get_nsstring(js), NULL);
+  id userScript = objc_msgSend(
+      (id)objc_getClass("WKUserScript"), sel_registerName("alloc"));
+  objc_msgSend(
+      userScript,
+      sel_registerName("initWithSource:injectionTime:forMainFrameOnly:"),
+      get_nsstring(js),
+      WKUserScriptInjectionTimeAtDocumentEnd, 0);  
+      // should Inject the script after the document finishes loading, but before other subresources finish loading.
+      // this also ensure webview give full html structure(html>head+body) in case content only has body inner part.
+  id config = objc_msgSend(w->priv.webview, sel_registerName("valueForKey:"), get_nsstring("configuration"));
+  id userContentController = objc_msgSend(config, sel_registerName("valueForKey:"), get_nsstring("userContentController"));
+  objc_msgSend(userContentController, sel_registerName("addUserScript:"),
+               userScript);
 
   return 0;
 }
