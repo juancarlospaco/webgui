@@ -111,3 +111,7 @@ Windows is more annoying about URL format, check your URL is correct,
 try with raw string literal.
 
 Please check that your URL is correct before reporting bugs.
+
+- Whats the oldest compatibility?.
+
+If you need to target Windows, then your software needs to support Internet Explorer 11.
