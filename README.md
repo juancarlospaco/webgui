@@ -94,3 +94,20 @@ let app = newWebView()
 app.run()
 app.exit()
 ```
+
+
+# FAQ
+
+- Does it works on Hackintosh or Cracked Windows?.
+
+It may or may not work on *Cracked* operating systems,
+because the core OS libraries are modified on those.
+
+Please try your code on legit operating system before reporting bugs.
+
+- On Windows it says it can not find the URL?.
+
+Windows is more annoying about URL format, check your URL is correct,
+try with raw string literal.
+
+Please check that your URL is correct before reporting bugs.
