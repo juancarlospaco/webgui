@@ -51,6 +51,11 @@ $ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 ![Light mode](https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/lightui.png)
 
 
+## Apple Mac OS
+
+![](https://raw.githubusercontent.com/juancarlospaco/webgui/master/docs/webgui-mac.png "Apple Mac OS Vanilla")
+
+
 ## Real Life Apps
 
 [![Ballena Itcher GUI](https://raw.githubusercontent.com/juancarlospaco/ballena-itcher/master/0.png)](https://github.com/juancarlospaco/ballena-itcher)
