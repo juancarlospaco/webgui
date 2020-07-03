@@ -599,8 +599,9 @@ proc getOpt*(key: static[string]; parseProc: proc; default: any; required: stati
   ##   echo getOpt("bax", readFile, "default", required = false) ## --bax:file.ext
   ##   echo getOpt("bay", json.parseFile, %*{"key": "value"})    ## --bay:data.json
   ##   echo getOpt("owo", parseUInt, 9, shortOpts=true, prefix='+', seps={'@'}) ## +owo@42
-  assert key.len > 0, "Key must not be empty string"
-  for x in commandLineParams():
+  assert key.len > 0 and prefix != ' ' and ' ' notin seps, "Key must not be empty string"
+  for i in 1..paramCount():
+    let x = paramStr(i)
     if x[0] == prefix and x[1] == prefix and x[static(key.len + 2)] in seps:
       if x[static(2..key.len + 1)] == key: return parseProc(x[static(key.len + 3..^1)])
     when shortOpts:
