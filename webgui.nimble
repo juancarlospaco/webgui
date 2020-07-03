@@ -5,7 +5,7 @@ license       = "MIT"
 srcDir        = "src"
 skipDirs      = @["examples", "docs"]
 
-requires "nim >= 1.2.0"
+requires "nim >= 1.2.4"
 
 
 import distros

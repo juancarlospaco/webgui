@@ -492,7 +492,7 @@ template jsWithOpacity*(w: Webview; id: string; body: untyped) =
   finally:
     w.js("document.querySelector('" & id & "').style.opacity = 1;document.querySelector('#" & id & "').style.cursor = 'default';")
 
-func currentHtmlPath*(filename: static[string] = "index.html"): string {.inline.} =
+func currentHtmlPath*(filename: static[string] = "index.html"): string {.inline, deprecated.} =
   ## Alias for `currentSourcePath().splitPath.head / "index.html"` for URL of `index.html`
   result = currentSourcePath().splitPath.head / filename
 
