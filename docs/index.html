@@ -47,21 +47,12 @@ function main() {
 
   toggleSwitch.addEventListener('change', switchTheme, false);
 
+  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.setAttribute('data-theme', "dark");
-    toggleSwitch.checked = true;
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    document.documentElement.setAttribute('data-theme', "light");
-    toggleSwitch.checked = false;
-  } else {
-    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-    if (currentTheme) {
-      document.documentElement.setAttribute('data-theme', currentTheme);
-
-      if (currentTheme === 'dark') {
-        toggleSwitch.checked = true;
-      }
+    if (currentTheme === 'dark') {
+      toggleSwitch.checked = true;
     }
   }
 }
@@ -83,6 +74,9 @@ function main() {
   </div>
   <div id="global-links">
     <ul class="simple">
+    <li>
+      <a href="theindex.html">Index</a>
+    </li>
     </ul>
   </div>
   <div id="searchInputDiv">
@@ -332,6 +326,9 @@ function main() {
     title="datetimePicker(_: Webview;
                yearID, monthID, dayID, hourID, minuteID, secondID: string;
                year, month, day: Positive; hour = 0.Natural; minute = 0.Natural): string"><wbr />datetime<wbr />Picker<span class="attachedType">Webview</span></a></li>
+  <li><a class="reference" href="#animatedGauge.t%2Crange%5B%5D%2Cstring%2Cstring%2Cstring%2Cstring"
+    title="animatedGauge(value: range[-90 .. 90]; width = 255.byte; height = 255.byte;
+              needleColor = &quot;red&quot;; gaugeColor = &quot;grey&quot;; id = &quot;&quot;; class = &quot;&quot;): string"><wbr />animated<wbr />Gauge<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -792,8 +789,12 @@ Explicitly Terminate, close, exit, quit.
 
 </dd>
 <a id="currentHtmlPath,static[string]"></a>
-<dt><pre><span class="Keyword">func</span> <a href="#currentHtmlPath%2Cstatic%5Bstring%5D"><span class="Identifier">currentHtmlPath</span></a><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="StringLit">&quot;index.html&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">func</span> <a href="#currentHtmlPath%2Cstatic%5Bstring%5D"><span class="Identifier">currentHtmlPath</span></a><span class="Other">(</span><span class="Identifier">filename</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="StringLit">&quot;index.html&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">inline</span><span class="Other">,</span>
+    <span class="Identifier">deprecated</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
+  <div class="deprecation-message">
+    <b>Deprecated</b> 
+  </div>
 
 Alias for <tt class="docutils literal"><span class="pre">currentSourcePath().splitPath.head / &quot;index.html&quot;</span></tt> for URL of <tt class="docutils literal"><span class="pre">index.html</span></tt>
 
@@ -1117,6 +1118,14 @@ Date Picker improvised using <tt class="docutils literal"><span class="pre">&lt;
 Date and Time Picker improvised using <tt class="docutils literal"><span class="pre">&lt;input&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;datalist&gt;</span></tt> HTML elements, returns <tt class="docutils literal"><span class="pre">string</span></tt> for <tt class="docutils literal"><span class="pre">app.addHtml()</span></tt>.
 
 </dd>
+<a id="animatedGauge.t,range[],string,string,string,string"></a>
+<dt><pre><span class="Keyword">template</span> <a href="#animatedGauge.t%2Crange%5B%5D%2Cstring%2Cstring%2Cstring%2Cstring"><span class="Identifier">animatedGauge</span></a><span class="Other">(</span><span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="Operator">-</span><span class="DecNumber">90</span> <span class="Operator">..</span> <span class="DecNumber">90</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">width</span> <span class="Other">=</span> <span class="DecNumber">255</span><span class="Other">.</span><span class="Identifier">byte</span><span class="Other">;</span> <span class="Identifier">height</span> <span class="Other">=</span> <span class="DecNumber">255</span><span class="Other">.</span><span class="Identifier">byte</span><span class="Other">;</span>
+                      <span class="Identifier">needleColor</span> <span class="Other">=</span> <span class="StringLit">&quot;red&quot;</span><span class="Other">;</span> <span class="Identifier">gaugeColor</span> <span class="Other">=</span> <span class="StringLit">&quot;grey&quot;</span><span class="Other">;</span> <span class="Identifier">id</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">;</span> <span class="Identifier">class</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Animated Gauge, Speedmeter-like, value is Degrees, animates on load and then shows value.
+
+</dd>
 
 </dl></div>
 
@@ -1127,7 +1136,7 @@ Date and Time Picker improvised using <tt class="docutils literal"><span class="
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-04-25 13:46:28 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-07-13 13:19:33 UTC</small>
       </div>
     </div>
   </div>
