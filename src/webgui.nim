@@ -580,6 +580,23 @@ template datetimePicker*(_: Webview; yearID, monthID, dayID, hourID, minuteID, s
     <option value="9"><option value="10"><option value="11"><option value="12">
   </datalist> """ & temp & temp2 & temp3 & temp4
 
+template animatedGauge*(value: range[-90..90]; width = 255.byte; height = 255.byte; needleColor = "red"; gaugeColor = "grey"; id = ""; class = ""): string =
+  ## Animated Gauge, Speedmeter-like, value is Degrees, animates on load and then shows value.
+  ("<div id='" & id & "' class='" & class & "' style='display:inline-block;position:relative;'>" &
+   "<span class='gauge' style='width:" & $width & "px;height:" & $height & "px;border:25px solid " & gaugeColor & ";border-radius:99%;border-right:20px solid transparent;border-bottom:20px solid transparent;-webkit-transform:rotate(45deg);display:inline-block'></span>" &
+   "<span class='needle' style='background:" & needleColor & ";height:" & $((height div 2) + 9) & "px;left:" & $((width div 2) + 15) & "px;top:" & $(height div 8) & "px;transform:rotate(" & $value & "deg);width:9px;border-top-left-radius:99%;border-top-right-radius:99%;display:inline-block;position:absolute;-webkit-animation:animatedGaugeLoading 5s;transform-origin:bottom'></span>" &
+   """</div>
+    <style>
+      @-webkit-keyframes animatedGaugeLoading {
+        0%   { transform: rotate(  0deg); }
+        10%  { transform: rotate(-90deg); }
+        20%  { transform: rotate( 45deg); }
+        50%  { transform: rotate( 75deg); }
+        100% { transform: rotate(  0deg); }
+      }
+    </style>
+  """)
+
 proc getOpt*(key: static[string]; parseProc: proc; default: any; required: static[bool] = false;
     shortOpts: static[bool] = false, prefix = '-', seps = {':', '='}): auto {.inline.} =
   ## **Fast** simple `parseOpt` alternative, parse anything, returns value directly, copy-free.
