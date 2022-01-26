@@ -4,7 +4,6 @@
 
 ![](https://img.shields.io/github/languages/top/juancarlospaco/webgui?style=for-the-badge)
 ![](https://img.shields.io/github/stars/juancarlospaco/webgui?style=for-the-badge "Star webgui on GitHub!")
-![](https://img.shields.io/maintenance/yes/2020?style=for-the-badge "2020")
 ![](https://img.shields.io/github/languages/code-size/juancarlospaco/webgui?style=for-the-badge)
 ![](https://img.shields.io/github/issues-raw/juancarlospaco/webgui?style=for-the-badge "Bugs")
 ![](https://img.shields.io/github/issues-pr-raw/juancarlospaco/webgui?style=for-the-badge "PRs")
