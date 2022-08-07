@@ -138,11 +138,11 @@ struct webview_dispatch_arg {
   "3C%2Fbody%3E%0A%3C%2Fhtml%3E"
 
 #define CSS_INJECT_FUNCTION                                                    \
-  "(function(e){var "                                                          \
+  "(function(e){window.onload = function(){var "                                                          \
   "t=document.createElement('style'),d=document.head||document."               \
   "getElementsByTagName('head')[0];t.setAttribute('type','text/"               \
   "css'),t.styleSheet?t.styleSheet.cssText=e:t.appendChild(document."          \
-  "createTextNode(e)),d.appendChild(t)})"
+  "createTextNode(e)),d.appendChild(t)}})"
 
 static const char *webview_check_url(const char *url) {
   if (url == NULL || strlen(url) == 0) {
