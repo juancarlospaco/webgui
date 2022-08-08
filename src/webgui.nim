@@ -111,7 +111,7 @@ const
     if (typeof $2 === 'undefined') {
       $2 = {};
     }
-    $2.$1 = (arg) => {
+    $2.$1 = function (arg) {
       window.external.invoke(
         JSON.stringify(
           {scope: "$2", name: "$1", args: JSON.stringify(arg)}
@@ -123,7 +123,7 @@ const
     if (typeof $2 === 'undefined') {
       $2 = {};
     }
-    $2.$1 = (arg) => {
+    $2.$1 = function (arg) {
       window.external.invoke(
         JSON.stringify(
           {scope: "$2", name: "$1", args: JSON.stringify(arg)}
@@ -135,7 +135,7 @@ const
     if (typeof $2 === 'undefined') {
       $2 = {};
     }
-    $2.$1 = () => {
+    $2.$1 = function () {
       window.external.invoke(
         JSON.stringify(
           {scope: "$2", name: "$1", args: ""}
