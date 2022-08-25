@@ -13,8 +13,6 @@
 
 ## Install
 
-Install webgui using the nimble tool.
-
 ```bash
 $ nimble install webgui
 ```
