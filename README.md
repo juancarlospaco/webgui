@@ -78,11 +78,6 @@ $ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 ![](https://raw.githubusercontent.com/ThomasTJdev/nmqttgui/master/private/screenshot1.png)
 
 
-# Stars
-
-![](https://starchart.cc/juancarlospaco/webgui.svg "Star WebGUI on GitHub!")
-
-
 ## Uninstall
 
 ```bash
@@ -119,3 +114,8 @@ Please check that your URL is correct before reporting bugs.
 - Whats the oldest compatibility?.
 
 If you need to target Windows, then your software needs to support Internet Explorer 11.
+
+
+# Stars
+
+![](https://starchart.cc/juancarlospaco/webgui.svg "Star WebGUI on GitHub!")
