@@ -227,3 +227,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 # Stars
 
 ![](https://starchart.cc/juancarlospaco/webgui.svg "Star WebGUI on GitHub!")
+:star: [@juancarlospaco](https://github.com/juancarlospaco '2022-08-25')	
