@@ -4,43 +4,13 @@ on: [push]
 
 jobs:
   build:
-
+    if: |
+      !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
-
-    - name: Set Global Environment Variables
-      uses: allenevans/set-env@v1.0.0
-      with:
-        CHOOSENIM_CHOOSE_VERSION: "1.2.0"
-        CHOOSENIM_NO_ANALYTICS: 1
-
-    - name: Cache choosenim
-      id: cache-choosenim
-      uses: actions/cache@v1
-      with:
-        path: ~/.choosenim
-        key: ${{ runner.os }}-choosenim-$CHOOSENIM_CHOOSE_VERSION
-
-    - name: Cache nimble
-      id: cache-nimble
-      uses: actions/cache@v1
-      with:
-        path: ~/.nimble
-        key: ${{ runner.os }}-nimble-$CHOOSENIM_CHOOSE_VERSION
-
-    - name: Install Nim via Choosenim
-      if: steps.cache-choosenim.outputs.cache-hit != 'true' || steps.cache-nimble.outputs.cache-hit != 'true'
-      run: |
-        curl https://nim-lang.org/choosenim/init.sh -sSf > init.sh
-        sh init.sh -y
-
-    - name: Nimble Refresh
-      run: |
-        export PATH=$HOME/.nimble/bin:$PATH
-        nimble -y refresh
+    - uses: jiro4989/setup-nim-action@v1
 
     - name: Install dependencies
       run: |
@@ -48,11 +18,7 @@ jobs:
         sudo apt-get -y install webkit2gtk-4.0
 
     - name: Compile DEBUG Mode
-      run: |
-        export PATH=$HOME/.nimble/bin:$PATH
-        nim c -d:ssl --panics:on --styleCheck:hint --gc:arc src/webgui.nim
+      run: nim c -d:ssl --panics:on --styleCheck:hint --gc:arc src/webgui.nim
 
     - name: Compile RELEASE Mode
-      run: |
-        export PATH=$HOME/.nimble/bin:$PATH
-        nim c -d:release -d:danger -d:ssl --panics:on --styleCheck:hint --gc:arc src/webgui.nim
+      run: nim c -d:release -d:danger -d:ssl --panics:on --styleCheck:hint --gc:arc src/webgui.nim
