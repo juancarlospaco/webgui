@@ -8,7 +8,7 @@
 ![](https://img.shields.io/github/issues-raw/juancarlospaco/webgui?style=for-the-badge "Bugs")
 ![](https://img.shields.io/github/issues-pr-raw/juancarlospaco/webgui?style=for-the-badge "PRs")
 ![](https://img.shields.io/github/last-commit/juancarlospaco/webgui?style=for-the-badge "Commits")
-![Build](https://github.com/juancarlospaco/webgui/workflows/Build/badge.svg?branch=master)
+![](https://github.com/juancarlospaco/webgui/workflows/Build/badge.svg?branch=master)
 
 
 ## Install
