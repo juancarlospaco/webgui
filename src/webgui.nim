@@ -188,6 +188,9 @@ proc dialogOpenDir*(aTitle: cstring, aDefaultPath: cstring): cstring {.importc: 
   ## * ``aDefaultPath`` is a Default Folder Path.
   ## Similar to the other file dialog but with more extra options.
 
+proc colorChooser*(aTitle: cstring, aDefaultHexRGB: cstring; aDefaultRGB: array[3, uint8]): cstring {.importc: "tinyfd_colorChooser".}
+  ## `echo colorChooser("Color Picker".cstring, "#FF0000".cstring, [128.uint8 , 128.uint8, 255.uint8])`
+
 func init(w: Webview): cint {.importc: "webview_init", header: headerC.}
 func loop(w: Webview; blocking: cint): cint {.importc: "webview_loop", header: headerC.}
 func js*(w: Webview; javascript: cstring): cint {.importc: "webview_eval", header: headerC, discardable.} ## Evaluate a JavaScript cstring, runs the javascript string on the window
