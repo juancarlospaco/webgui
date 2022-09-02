@@ -34,7 +34,6 @@ $ sudo apt-get install gtk+-3.0 webkit2gtk-4.0 build-essential
 ## Documentation
 
 - https://juancarlospaco.github.io/webgui
-- Each push is built with `--panics:on --styleCheck:hint --gc:arc`.
 
 
 ## Buit-in Dark Mode
@@ -227,4 +226,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 # Stars
 
 ![](https://starchart.cc/juancarlospaco/webgui.svg "Star WebGUI on GitHub!")
-:star: [@juancarlospaco](https://github.com/juancarlospaco '2022-08-25')	
+:star: [@juancarlospaco](https://github.com/juancarlospaco '2022-08-25')
