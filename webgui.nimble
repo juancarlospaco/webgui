@@ -1,11 +1,11 @@
-version     = "0.9.0"
+version     = "0.9.9"
 author      = "Juan Carlos"
 description = "Web Technologies based Crossplatform GUI, modified wrapper for modified webview.h"
 license     = "MIT"
 srcDir      = "src"
 skipDirs    = @["examples", "docs"]
 
-requires "nim >= 1.4.0"
+requires "nim >= 1.6.0"
 
 
 import distros
