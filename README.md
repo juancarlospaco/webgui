@@ -229,3 +229,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@juancarlospaco](https://github.com/juancarlospaco '2022-08-25')
 :star: [@egeoz](https://github.com/egeoz '2022-09-05')	
 :star: [@kklam47](https://github.com/kklam47 '2022-09-15')	
+:star: [@sinocxg](https://github.com/sinocxg '2022-09-20')	
