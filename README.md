@@ -235,3 +235,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@jgdevop](https://github.com/jgdevop '2022-11-25')	
 :star: [@linwaytin](https://github.com/linwaytin '2022-11-25')	
 :star: [@0x454d505459](https://github.com/0x454d505459 '2022-11-26')	
+:star: [@Sindou-dedv](https://github.com/Sindou-dedv '2022-11-26')	
