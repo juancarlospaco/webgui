@@ -241,3 +241,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@fadzikri](https://github.com/fadzikri '2022-12-09')	
 :star: [@Nyarmith](https://github.com/Nyarmith '2022-12-09')	
 :star: [@themorya](https://github.com/themorya '2022-12-09')	
+:star: [@drighty](https://github.com/drighty '2022-12-13')	
