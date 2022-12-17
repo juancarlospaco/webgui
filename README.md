@@ -244,3 +244,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@drighty](https://github.com/drighty '2022-12-13')	
 :star: [@yaroslav-gwit](https://github.com/yaroslav-gwit '2022-12-16')	
 :star: [@ArikRahman](https://github.com/ArikRahman '2022-12-17')	
+:star: [@tondrejk](https://github.com/tondrejk '2022-12-17')	
