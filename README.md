@@ -252,3 +252,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@konsumer](https://github.com/konsumer '2022-12-29')	
 :star: [@Kaput-EMEX](https://github.com/Kaput-EMEX '2023-01-01')	
 :star: [@whitebm2024](https://github.com/whitebm2024 '2023-01-15')	
+:star: [@georgelemon](https://github.com/georgelemon '2023-01-24')	
