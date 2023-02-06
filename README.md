@@ -254,3 +254,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@whitebm2024](https://github.com/whitebm2024 '2023-01-15')	
 :star: [@georgelemon](https://github.com/georgelemon '2023-01-24')	
 :star: [@exitcas](https://github.com/exitcas '2023-01-26')	
+:star: [@gpicron](https://github.com/gpicron '2023-02-06')	
