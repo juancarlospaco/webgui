@@ -42,7 +42,7 @@ extern "C" {
 #include <JavaScriptCore/JavaScript.h>
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
-
+#define WEBVIEW_DATA_URL_PREFIX "data:text/html;charset=utf-8,"
 struct webview_priv {
   GtkWidget *window;
   GtkWidget *scroller;
@@ -65,7 +65,7 @@ struct webview_priv {
 
 #include <stdio.h>
 #include <wchar.h>
-
+#define WEBVIEW_DATA_URL_PREFIX "data:text/html;charset=utf-8,"
 struct webview_priv {
   HWND hwnd;
   IOleObject **browser;
@@ -78,7 +78,7 @@ struct webview_priv {
 #include <objc/objc-runtime.h>
 #include <CoreGraphics/CoreGraphics.h>
 #include <limits.h>
-
+#define WEBVIEW_DATA_URL_PREFIX "data:text/html;charset=utf-8;base64,"
 struct webview_priv {
   id pool;
   id window;
@@ -1112,7 +1112,6 @@ error:
   return -1;
 }
 
-#define WEBVIEW_DATA_URL_PREFIX "data:text/html,"
 static int DisplayHTMLPage(struct webview *w) {
   IWebBrowser2 *webBrowser2;
   VARIANT myURL;
