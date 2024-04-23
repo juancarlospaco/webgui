@@ -289,3 +289,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@wjl12](https://github.com/wjl12 '2024-04-05')	
 :star: [@FI-Mihej](https://github.com/FI-Mihej '2024-04-14')	
 :star: [@gteroy](https://github.com/gteroy '2024-04-17')	
+:star: [@Sznymo](https://github.com/Sznymo '2024-04-23')	
