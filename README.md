@@ -292,3 +292,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@Sznymo](https://github.com/Sznymo '2024-04-23')	
 :star: [@neroist](https://github.com/neroist '2024-04-23')	
 :star: [@inv2004](https://github.com/inv2004 '2024-04-24')	
+:star: [@lucasnuic](https://github.com/lucasnuic '2024-05-03')	
