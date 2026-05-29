@@ -312,3 +312,4 @@ WM54DHVZQIQDVTHMPOH6FEZ4U2AU3OBPGAFTHSCYWMFE7ETKCUUOYAW24Q
 :star: [@Drovosek01](https://github.com/Drovosek01 '2026-03-07')	
 :star: [@perez987](https://github.com/perez987 '2026-03-07')	
 :star: [@tinarskii](https://github.com/tinarskii '2026-04-06')	
+:star: [@dkapt](https://github.com/dkapt '2026-05-29')	
